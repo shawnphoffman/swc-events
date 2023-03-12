@@ -1,0 +1,20 @@
+/* // export const Button = styled.div`
+// 	color: ${p => (p.copied ? 'var(--green)' : 'var(--linkAlt)')};
+// 	font-size: 26px;
+// 	margin-top: 4px;
+// 	transition: all 0.5s;
+// 	cursor: pointer;
+
+// 	&:hover {
+// 		color: ${p => (p.copied ? 'var(--green)' : 'var(--linkHover)')};
+// 	}
+// ` */
+
+.button {
+	/* color: ${p => (p.copied ? 'var(--green)' : 'var(--linkAlt)')}; */
+	color: var(--linkAlt);
+	font-size: 26px;
+	margin-top: 4px;
+	transition: all 0.5s;
+	cursor: pointer;
+}
