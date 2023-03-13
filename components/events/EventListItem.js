@@ -2,13 +2,13 @@ import React, { memo, useCallback, useMemo, useState } from 'react'
 // import { useUser } from 'reactfire'
 import { styled } from 'linaria/react'
 
-// import DeleteEventIcon from '../../components/auth/DeleteEventIcon'
-// import EditEventIcon from '../../components/auth/EditEventIcon'
+// import DeleteEventIcon from 'components/auth/DeleteEventIcon'
+// import EditEventIcon from 'components/auth/EditEventIcon'
 import { dayColor, dayName, formatTime } from 'utils/dataUtils'
 
-// import DownloadIcon from './DownloadIcon'
+import DownloadIcon from './DownloadIcon'
 import EventLinkIcon from './EventLinkIcon'
-// import FavoriteIcon from './FavoriteIcon'
+import FavoriteIcon from './FavoriteIcon'
 
 const PrivacyIcon = styled.div`
 	font-size: 20px;
@@ -175,10 +175,11 @@ const EventListItem = ({ event, forceOpen = false, onEdit }) => {
 			<ActionWrapper>
 				{/* Favorite */}
 				{/* {!isPrivateUserEvent && <FavoriteIcon event={event} />} */}
+				<FavoriteIcon event={event} />
 				{expanded && (
 					<>
 						{/* Download */}
-						{/* <DownloadIcon event={event} /> */}
+						<DownloadIcon event={event} />
 						{/* Open URL */}
 						{!isPrivateUserEvent && !isPublicUserEvent && <EventLinkIcon event={event} />}
 						{/* Delete */}

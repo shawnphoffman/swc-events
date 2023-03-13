@@ -1,9 +1,7 @@
 import { memo, useCallback, useMemo } from 'react'
 import { styled } from '@linaria/react'
 
-// import * as Panelbear from '@panelbear/panelbear-js'
 import { useFavoritesContext } from 'context/FavoritesContext'
-// import Event from 'utils/events'
 
 const IconButton = styled.div`
 	color: var(--heart);

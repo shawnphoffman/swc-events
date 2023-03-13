@@ -1,37 +1,31 @@
 import { memo } from 'react'
-import { useSigninCheck } from 'reactfire'
+
+import Link from 'next/link'
 
 import { NavIcon } from 'components/styles'
-import Routes, { preloadRouteComponent } from 'config/routes'
+import Routes from 'config/routes'
+import { useUser } from 'hooks/useUser'
 
-export const AuthNavIcon = memo(() => {
-	const { status, data: signInCheckResult } = useSigninCheck()
+const AuthNavIcon = () => {
+	const { isAuthed } = useUser()
 
-	if (status === 'loading') return null
-
-	if (signInCheckResult.signedIn) {
+	if (isAuthed) {
 		return (
-			<>
-				<NavIcon
-					to={Routes.User.path}
-					title={Routes.User.title}
-					key="nav-user"
-					onMouseEnter={() => preloadRouteComponent(Routes.Login.component)}
-				>
+			<Link href={Routes.User.path} title={Routes.User.title}>
+				<NavIcon>
 					<i className={`fa-regular ${Routes.User.icon}`}></i>
 				</NavIcon>
-			</>
+			</Link>
 		)
 	}
 
 	return (
-		<NavIcon
-			to={Routes.Login.path}
-			title={Routes.Login.title}
-			key="nav-login"
-			onMouseEnter={() => preloadRouteComponent(Routes.Login.component)}
-		>
-			<i className={`fa-solid ${Routes.Login.icon}`}></i>
-		</NavIcon>
+		<Link href={Routes.Login.path} title={Routes.Login.title}>
+			<NavIcon>
+				<i className={`fa-solid ${Routes.Login.icon}`}></i>
+			</NavIcon>
+		</Link>
 	)
-})
+}
+
+export default memo(AuthNavIcon)

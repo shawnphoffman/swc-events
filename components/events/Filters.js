@@ -5,7 +5,7 @@ import { styled } from 'linaria/react'
 // import Routes from 'config/routes'
 import { EventAction, useEventContext } from 'context/EventContext'
 
-import { cleanVenueName, colorMap } from '../../utils/dataUtils'
+import { cleanVenueName, colorMap } from 'utils/dataUtils'
 
 // const PrintLink = styled(NavLink)`
 // 	text-decoration: none;

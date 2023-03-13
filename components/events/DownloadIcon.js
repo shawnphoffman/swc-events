@@ -1,9 +1,6 @@
-import { memo, useCallback, useMemo } from 'react'
-import ICalendarLink from 'react-icalendar-link'
+import { memo, useMemo } from 'react'
+import ICalendarLink from 'utils/icalendar-link'
 import { styled } from '@linaria/react'
-// import * as Panelbear from '@panelbear/panelbear-js'
-
-// import Event from 'utils/events'
 
 export const Button = styled(ICalendarLink)`
 	color: var(--download);
@@ -17,10 +14,6 @@ export const Button = styled(ICalendarLink)`
 `
 
 const DownloadIcon = ({ event }) => {
-	const logDownload = useCallback(() => {
-		// Panelbear.track(Event.EventDownload)
-	}, [])
-
 	const icsEvent = useMemo(() => {
 		if (!event) return {}
 		return {
@@ -38,11 +31,9 @@ const DownloadIcon = ({ event }) => {
 	const icsFilename = `event-${event.id}.ics`
 
 	return (
-		<div onClickCapture={logDownload} title="Download Event">
-			<Button filename={icsFilename} event={icsEvent}>
-				<i className="fa-light fa-calendar-arrow-down"></i>
-			</Button>
-		</div>
+		<Button filename={icsFilename} event={icsEvent} title="Download Event">
+			<i className="fa-light fa-calendar-arrow-down"></i>
+		</Button>
 	)
 }
 

@@ -1,6 +1,5 @@
-import React, { createContext, memo, useCallback, useContext, useEffect, useMemo } from 'react'
-import { useDatabase, useDatabaseObjectData, useSigninCheck, useUser } from 'reactfire'
-import { equalTo, orderByValue, query, ref, set } from 'firebase/database'
+import { createContext, memo, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
@@ -19,62 +18,67 @@ const FavoritesProvider = ({ children }) => {
 
 	// ============================================================
 
-	// Firebase
-	const { status: signinStatus, data: signInCheckResult } = useSigninCheck()
-	const { data: user } = useUser()
-	const database = useDatabase()
+	// Supabase
+	const supabaseClient = useSupabaseClient()
+	const user = useUser()
+
+	// // Firebase
+	// const { status: signinStatus, data: signInCheckResult } = useSigninCheck()
+	// const { data: user } = useUser()
+	// const database = useDatabase()
 
 	// ============================================================
 
 	// User Favorites Query
-	const userFavQ = useMemo(() => {
-		const userFavRef = ref(database, `user-favorites/${user?.uid}`)
-		const userFavQuery = query(userFavRef, orderByValue())
-		return query(userFavQuery, equalTo('true'))
-	}, [database, user])
+	// const userFavQ = useMemo(() => {
+	// 	const userFavRef = ref(database, `user-favorites/${user?.uid}`)
+	// 	const userFavQuery = query(userFavRef, orderByValue())
+	// 	return query(userFavQuery, equalTo('true'))
+	// }, [database, user])
 
 	// User Favorites Resp
-	const userFavResp = useDatabaseObjectData(userFavQ, {})
+	// const userFavResp = useDatabaseObjectData(userFavQ, {})
 
 	// User Favorite
-	const userFaves = useMemo(() => {
-		if (userFavResp?.status !== 'success' || !userFavResp?.data) return []
-		return Object.keys(userFavResp?.data) || []
-	}, [userFavResp?.data, userFavResp?.status])
+	// const userFaves = useMemo(() => {
+	// 	if (userFavResp?.status !== 'success' || !userFavResp?.data) return []
+	// 	return Object.keys(userFavResp?.data) || []
+	// }, [userFavResp?.data, userFavResp?.status])
 
 	// ============================================================
 
 	// Add/Remove User Favorite
 	const toggleFavorite = useCallback(
 		(id, newState) => {
-			if (signinStatus === 'success' && signInCheckResult?.signedIn) {
-				const userFavRef = ref(database, `user-favorites/${user?.uid}/${id}`)
-				set(userFavRef, newState ? 'true' : null)
-				console.log('UPDATING FIREBASE WITH FAVORITE')
+			// if (signinStatus === 'success' && signInCheckResult?.signedIn) {
+			// 	const userFavRef = ref(database, `user-favorites/${user?.uid}/${id}`)
+			// 	set(userFavRef, newState ? 'true' : null)
+			// 	console.log('UPDATING FIREBASE WITH FAVORITE')
+			// } else {
+			const existing = JSON.parse(localStorage.getItem(favoritesStorageKey) || '[]')
+			if (newState) {
+				console.log('ADDING NEW FAVORITE TO STORAGE')
+				setFavorites([...existing, id])
 			} else {
-				const existing = JSON.parse(localStorage.getItem(favoritesStorageKey) || '[]')
-				if (newState) {
-					console.log('ADDING NEW FAVORITE TO STORAGE')
-					setFavorites([...existing, id])
-				} else {
-					console.log('REMOVING FAVORITE FROM STORAGE')
-					setFavorites(existing.filter(x => x !== id))
-				}
+				console.log('REMOVING FAVORITE FROM STORAGE')
+				setFavorites(existing.filter(x => x !== id))
 			}
+			// }
 		},
-		[database, setFavorites, signInCheckResult?.signedIn, signinStatus, user?.uid]
+		// [database, setFavorites, signInCheckResult?.signedIn, signinStatus, user?.uid]
+		[setFavorites]
 	)
 
 	// ============================================================
 
 	// Authenticated Persistence
-	useEffect(() => {
-		if (signinStatus === 'success' && signInCheckResult?.signedIn && userFavResp.status === 'success') {
-			// console.log('USER FAVES CHANGED', userFaves)
-			console.log('FIREBASE CHANGED. UPDATING STORAGE')
-			setFavorites(userFaves)
-		}
-	}, [setFavorites, signInCheckResult?.signedIn, signinStatus, userFavResp.status, userFaves])
+	// useEffect(() => {
+	// 	if (signinStatus === 'success' && signInCheckResult?.signedIn && userFavResp.status === 'success') {
+	// 		// console.log('USER FAVES CHANGED', userFaves)
+	// 		console.log('FIREBASE CHANGED. UPDATING STORAGE')
+	// 		setFavorites(userFaves)
+	// 	}
+	// }, [setFavorites, signInCheckResult?.signedIn, signinStatus, userFavResp.status, userFaves])
 
 	// ============================================================
 

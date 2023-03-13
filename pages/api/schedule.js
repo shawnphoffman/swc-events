@@ -1,4 +1,4 @@
-import { processApiData } from '../../utils/dataUtils'
+import { processApiData } from 'utils/dataUtils'
 
 const url = process.env.NEXT_PUBLIC_SCHEDULE_ENDPOINT
 
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 	// } catch (e) {
 	// 	console.log(e)
 
-	// 	import('../../data/schedule.json').then(j => console.log(j))
+	// 	import('data/schedule.json').then(j => console.log(j))
 
 	// 	const { events, venues } = processApiData(json)
 	// 	res.status(200).json({

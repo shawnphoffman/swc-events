@@ -1,46 +1,27 @@
-import { useState, useEffect } from 'react'
-import { supabase } from 'utils/supabaseClient'
-import Auth from 'components/supabase/Auth'
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Account from 'components/supabase/Account'
+import { Auth } from '@supabase/auth-ui-react'
+import { ThemeSupa } from '@supabase/auth-ui-shared'
 
 export default function AuthIndex() {
-	const [isLoading, setIsLoading] = useState(true)
-	const [session, setSession] = useState(null)
+	const supabaseClient = useSupabaseClient()
+	const user = useUser()
 
-	useEffect(() => {
-		let mounted = true
-
-		async function getInitialSession() {
-			const {
-				data: { session },
-			} = await supabase.auth.getSession()
-
-			// only update the react state if the component is still mounted
-			if (mounted) {
-				if (session) {
-					setSession(session)
-				}
-
-				setIsLoading(false)
-			}
-		}
-
-		getInitialSession()
-
-		const { subscription } = supabase.auth.onAuthStateChange((_event, session) => {
-			setSession(session)
-		})
-
-		return () => {
-			mounted = false
-
-			subscription?.unsubscribe()
-		}
-	}, [])
+	if (!user)
+		return (
+			<Auth
+				redirectTo="http://localhost:3000/"
+				appearance={{ theme: ThemeSupa }}
+				supabaseClient={supabaseClient}
+				magicLink
+				view="magic_link"
+				showLinks={false}
+			/>
+		)
 
 	return (
 		<div className="container" style={{ padding: '50px 0 100px 0' }}>
-			{!session ? <Auth /> : <Account key={session.user.id} session={session} />}
+			<Account key={user.id} />
 		</div>
 	)
 }

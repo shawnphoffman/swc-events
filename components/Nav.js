@@ -2,7 +2,7 @@ import { memo } from 'react'
 import { styled } from 'linaria/react'
 import Link from 'next/link'
 
-// import { AuthNavIcon } from 'components/auth/AuthNavIcon'
+import AuthNavIcon from 'components/auth/AuthNavIcon'
 import { NavIcon } from 'components/styles'
 import { NavRoutes } from 'config/routesNew'
 
@@ -25,14 +25,13 @@ const NavBar = () => {
 	return (
 		<Nav id="nav">
 			{NavRoutes.map(r => (
-				// <NavIcon to={r.path} title={r.title} key={r.title} onMouseEnter={() => preloadRouteComponent(r.component)}>
 				<Link href={r.path} title={r.title} key={r.title}>
 					<NavIcon>
 						<i className={`fa-solid ${r.icon}`}></i>
 					</NavIcon>
 				</Link>
 			))}
-			{/* <AuthNavIcon /> */}
+			<AuthNavIcon />
 		</Nav>
 	)
 }

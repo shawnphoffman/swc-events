@@ -1,6 +1,6 @@
 import React, { createContext, memo, useContext, useEffect, useReducer } from 'react'
 
-// import { processApiData } from '../../utils/dataUtils'
+// import { processApiData } from 'utils/dataUtils'
 
 const disabledVenueStorageKey = 'SWC.DisabledVenues.3'
 
@@ -95,7 +95,7 @@ const EventProvider = ({ children }) => {
 		// 	})
 		// 	.catch(e => {
 		// 		// Panelbear.track(Event.FetchFailure)
-		// 		import('../../data/schedule.json').then(rawEvents => {
+		// 		import('data/schedule.json').then(rawEvents => {
 		// 			const { events, venues } = processApiData(rawEvents)
 		// 			dispatch({ type: EventAction.SET_EVENTS, name: events, venues: venues, disabled: disabledVenues })
 		// 		})

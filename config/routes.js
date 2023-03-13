@@ -70,7 +70,7 @@ const Routes = {
 		title: 'Print Favorites',
 	},
 	Login: {
-		path: '/login',
+		path: '/auth',
 		component: Login,
 		icon: 'fa-user',
 		title: 'Login',
@@ -80,7 +80,7 @@ const Routes = {
 		title: 'Logout',
 	},
 	User: {
-		path: '/login',
+		path: '/auth',
 		component: Login,
 		icon: 'fa-user-bounty-hunter',
 		title: 'User Info',

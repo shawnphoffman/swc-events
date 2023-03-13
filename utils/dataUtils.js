@@ -241,12 +241,12 @@ const colorList = [
 ]
 export const colorMap = {
 	'Celebration Stage': colorList[0],
-	'Collectors Stage': colorList[1],
-	'Fan Stage': colorList[2],
-	'Galaxy Stage': colorList[3],
-	'ICC Capital Suite 16': colorList[4],
-	'Twin Suns Stage': colorList[5],
-	'University Stage': colorList[6],
+	'Collectors Stage': colorList[2],
+	'Fan Stage': colorList[4],
+	'Galaxy Stage': colorList[6],
+	'ICC Capital Suite 16': colorList[8],
+	'Twin Suns Stage': colorList[10],
+	'University Stage': colorList[12],
 	// '209A': colorList[0],
 	// 'Celebration LIVE': colorList[1],
 	// 'Celebration Stage': colorList[2],
@@ -273,14 +273,13 @@ export const cleanVenueName = v => {
 export const dayName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 export const dayColor = {
-	[dayName[0]]: 'var(--outline)',
-	[dayName[1]]: 'var(--outline)',
+	[dayName[0]]: 'var(--day3)',
+	[dayName[1]]: 'var(--day4)',
 	[dayName[2]]: 'var(--outline)',
 	[dayName[3]]: 'var(--outline)',
-	[dayName[4]]: 'var(--day1)',
-	[dayName[5]]: 'var(--day2)',
-	[dayName[6]]: 'var(--day3)',
-	[dayName[0]]: 'var(--day4)',
+	[dayName[4]]: 'var(--outline)',
+	[dayName[5]]: 'var(--day1)',
+	[dayName[6]]: 'var(--day2)',
 }
 
 export const formatTime = time =>
