@@ -18,7 +18,7 @@ const InlineSpinner = styled.div`
 	right: 16px;
 `
 
-const Loading = memo(({ inline }) => {
+const Loading = ({ inline }) => {
 	if (inline) {
 		return (
 			<InlineSpinner>
@@ -33,6 +33,6 @@ const Loading = memo(({ inline }) => {
 			</Spinner>
 		</Wrapper>
 	)
-})
+}
 
-export default Loading
+export default memo(Loading)

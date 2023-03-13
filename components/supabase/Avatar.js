@@ -52,6 +52,7 @@ export default function Avatar({ url, size, onUpload }) {
 	return (
 		<div>
 			{avatarUrl ? (
+				// eslint-disable-next-line @next/next/no-img-element
 				<img src={avatarUrl} alt="Avatar" className="avatar image" style={{ height: size, width: size }} />
 			) : (
 				<div className="avatar no-image" style={{ height: size, width: size }} />

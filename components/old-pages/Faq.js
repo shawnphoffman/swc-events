@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { memo } from 'react'
 import { styled } from 'linaria/react'
 
@@ -14,7 +15,7 @@ const Link = styled.a`
 		color: var(--linkHover);
 	}
 `
-const LinkItem = memo(({ href, children }) => {
+const LinkItem = ({ href, children }) => {
 	return (
 		<ListItem>
 			<Link href={href} target="_blank" rel="noreferrer">
@@ -22,7 +23,7 @@ const LinkItem = memo(({ href, children }) => {
 			</Link>
 		</ListItem>
 	)
-})
+}
 
 const Faq = () => {
 	return (

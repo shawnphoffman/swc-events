@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { memo, useMemo } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useDatabase, useDatabaseObjectData, useSigninCheck, useUser } from 'reactfire'

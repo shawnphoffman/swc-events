@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { memo, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { styled } from 'linaria/react'
