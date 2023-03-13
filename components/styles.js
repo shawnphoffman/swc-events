@@ -72,7 +72,7 @@ export const InputWrapper = styled.div`
 
 	&:focus-within {
 		border-color: var(--linkActive);
-		box-shadow: 0 0 0 2px var(--inputBg);
+		// box-shadow: 0 0 0 2px var(--inputBg);
 		opacity: 1;
 	}
 `

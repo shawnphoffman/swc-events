@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import AuthNavIcon from 'components/auth/AuthNavIcon'
 import { NavIcon } from 'components/styles'
-import { NavRoutes } from 'config/routesNew'
+import { NavRoutes } from 'config/routes'
 
 const Nav = styled.div`
 	margin: 16px 8px;
