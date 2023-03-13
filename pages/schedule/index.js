@@ -25,7 +25,7 @@ const Schedule = ({ data }) => {
 
 	// console.log({ data });
 	return (
-		<div>
+		<>
 			<Filters />
 			<Agenda />
 			{/* <h1>SCHEDULE</h1>
@@ -38,7 +38,7 @@ const Schedule = ({ data }) => {
 					<pre>{JSON.stringify(data, null, 2)}</pre>
 				</code>
 			</div> */}
-		</div>
+		</>
 	)
 }
 
