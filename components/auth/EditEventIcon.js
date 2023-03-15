@@ -25,7 +25,7 @@ const EditEventIcon = ({ event, onEdit }) => {
 
 	return (
 		<Button title="Edit User Event" onClick={handleClick}>
-			<i className="fa-light fa-pen-to-square"></i>
+			<i className="fa-sharp fa-regular fa-pen-to-square"></i>
 		</Button>
 	)
 }

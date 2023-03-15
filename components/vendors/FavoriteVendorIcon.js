@@ -40,14 +40,14 @@ const FavoriteVendorIcon = ({ vendor }) => {
 	if (isFavorite) {
 		return (
 			<IconButton key={`${vendor.id}.bookmark-solid`} onClick={handleRemove} title="Remove Bookmark">
-				<i className="fa-solid fa-bookmark"></i>
+				<i className="fa-sharp fa-solid fa-bookmark"></i>
 			</IconButton>
 		)
 	}
 
 	return (
 		<IconButton key={`${vendor.id}-bookmark`} onClick={handleAdd} title="Add Bookmark">
-			<i className="fa-light fa-bookmark"></i>
+			<i className="fa-sharp fa-regular fa-bookmark"></i>
 		</IconButton>
 	)
 }

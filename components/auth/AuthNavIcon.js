@@ -19,7 +19,7 @@ const AuthNavIcon = () => {
 		return (
 			<Link href={Routes.User.path} title={Routes.User.title}>
 				<NavIcon key="user">
-					<i className={`fa-regular ${Routes.User.icon}`}></i>
+					<i className={`fa-sharp fa-regular ${Routes.User.icon}`}></i>
 				</NavIcon>
 			</Link>
 		)
@@ -28,7 +28,7 @@ const AuthNavIcon = () => {
 	return (
 		<Link href={Routes.Login.path} title={Routes.Login.title}>
 			<NavIcon key="boba">
-				<i className={`fa-solid ${Routes.Login.icon}`}></i>
+				<i className={`fa-sharp fa-solid ${Routes.Login.icon}`}></i>
 			</NavIcon>
 		</Link>
 	)

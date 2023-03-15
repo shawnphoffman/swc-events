@@ -131,7 +131,7 @@ const VendorList = () => {
 					<Input onChange={handleChange} type="text" placeholder="Search vendors..." />
 				</InputWrapper>
 				<Filter onClick={toggleBookmarksOnly} active={bookmarksOnly}>
-					<i className="fa-solid fa-bookmark" />
+					<i className="fa-sharp fa-solid fa-bookmark" />
 				</Filter>
 			</Controls>
 			<ScrollBox>

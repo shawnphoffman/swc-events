@@ -70,7 +70,7 @@ const Venue = memo(({ enabled, name }) => {
 	return (
 		<VenueWrapper enabled={enabled}>
 			<Indicator name={cleanName} enabled={enabled} key={`i-${name}-${enabled}`}>
-				<i className={`fa-solid ${enabled ? 'fa-square' : 'fa-square-dashed'}`}></i>
+				<i className={`fa-sharp fa-solid ${enabled ? 'fa-square' : 'fa-square-dashed'}`}></i>
 			</Indicator>
 			<VenueName enabled={enabled}>{cleanName.trim()}</VenueName>
 		</VenueWrapper>
@@ -98,7 +98,7 @@ const Filters = memo(() => {
 			<div onClick={handleClick('Public Events')}>
 				<VenueWrapper enabled={!state.disabledVenues.includes('Public Events')}>
 					<Indicator enabled={!state.disabledVenues.includes('Public Events')}>
-						<i className="fa-solid fa-users" />
+						<i className="fa-sharp fa-solid fa-users" />
 					</Indicator>
 					<VenueName enabled={!state.disabledVenues.includes('Public Events')}>Public Events</VenueName>
 				</VenueWrapper>
@@ -106,7 +106,7 @@ const Filters = memo(() => {
 			<div onClick={handleAllOn}>
 				<VenueWrapper enabled>
 					<Indicator enabled>
-						<i className="fa-solid fa-check" />
+						<i className="fa-sharp fa-solid fa-check" />
 					</Indicator>
 					<VenueName enabled>All On</VenueName>
 				</VenueWrapper>
@@ -114,7 +114,7 @@ const Filters = memo(() => {
 			<div onClick={handleAllOff}>
 				<VenueWrapper enabled>
 					<Indicator enabled>
-						<i className="fa-solid fa-close" />
+						<i className="fa-sharp fa-solid fa-close" />
 					</Indicator>
 					<VenueName enabled>All Off</VenueName>
 				</VenueWrapper>
@@ -122,7 +122,7 @@ const Filters = memo(() => {
 			{/* <PrintLink to={Routes.PrintSchedule.path}>
 				<VenueWrapper enabled>
 					<Indicator enabled>
-						<i className="fa-solid fa-print" />
+						<i className="fa-sharp fa-solid fa-print" />
 					</Indicator>
 					<VenueName enabled>Print</VenueName>
 				</VenueWrapper>

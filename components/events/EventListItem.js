@@ -161,7 +161,7 @@ const EventListItem = ({ event, forceOpen = false, onEdit }) => {
 						<Description>{event.description}</Description>
 						{event.url && (
 							<EventLink href={event.url} target="_blank" rel="noreferrer">
-								View details on the official site <i className="fa-solid fa-up-right-from-square"></i>
+								View details on the official site <i className="fa-sharp fa-solid fa-up-right-from-square"></i>
 							</EventLink>
 						)}
 					</>
@@ -189,9 +189,9 @@ const EventListItem = ({ event, forceOpen = false, onEdit }) => {
 						{/* {isMyUserEvent && (
 							<PrivacyIcon private={event.private}>
 								{event.private ? (
-									<i className="fa-solid fa-eye-slash" title="Private Event" />
+									<i className="fa-sharp fa-solid fa-eye-slash" title="Private Event" />
 								) : (
-									<i className="fa-solid fa-eye" title="Public Event" />
+									<i className="fa-sharp fa-solid fa-eye" title="Public Event" />
 								)}
 							</PrivacyIcon>
 						)} */}

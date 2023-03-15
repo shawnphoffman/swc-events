@@ -63,7 +63,11 @@ const DeleteEventIcon = ({ event }) => {
 			title={confirm ? 'Are you sure?' : 'Delete User Event'}
 			onClick={handleClick}
 		>
-			{confirm ? <i className="fa-light fa-trash-can-check fa-beat-fade"></i> : <i className="fa-light fa-trash-can"></i>}
+			{confirm ? (
+				<i className="fa-sharp fa-regular fa-trash-can-check fa-beat-fade"></i>
+			) : (
+				<i className="fa-sharp fa-regular fa-trash-can"></i>
+			)}
 		</Button>
 	)
 }

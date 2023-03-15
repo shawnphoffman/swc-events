@@ -157,7 +157,7 @@ const VendorListItem = ({ vendor, forceOpen }) => {
 							)}
 							{vendor.url && (
 								<EventLink href={vendor.url} target="_blank" rel="noreferrer">
-									Visit store URL <UrlIcon className="fa-solid fa-up-right-from-square"></UrlIcon>
+									Visit store URL <UrlIcon className="fa-sharp fa-solid fa-up-right-from-square"></UrlIcon>
 								</EventLink>
 							)}
 						</Details>
@@ -168,7 +168,7 @@ const VendorListItem = ({ vendor, forceOpen }) => {
 				<FavoriteVendorIcon vendor={vendor} />
 				{canExpand && (
 					<ExpandIcon>
-						<i className="fa-solid fa-arrows-from-line"></i>
+						<i className="fa-sharp fa-solid fa-arrows-from-line"></i>
 					</ExpandIcon>
 				)}
 			</ActionWrapper>

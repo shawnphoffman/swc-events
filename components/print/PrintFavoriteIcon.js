@@ -18,7 +18,7 @@ const FavoriteIcon = ({ event }) => {
 	if (isFavorite) {
 		return (
 			<IconButton key={`${event.id}.heart-solid`}>
-				<i className="fa-solid fa-heart"></i>
+				<i className="fa-sharp fa-solid fa-heart"></i>
 			</IconButton>
 		)
 	}

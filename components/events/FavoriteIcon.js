@@ -42,14 +42,14 @@ const FavoriteIcon = ({ event }) => {
 	if (isFavorite) {
 		return (
 			<IconButton key={`${event.id}.heart-solid`} onClick={handleRemove} title="Remove Favorite">
-				<i className="fa-solid fa-heart"></i>
+				<i className="fa-sharp fa-solid fa-heart"></i>
 			</IconButton>
 		)
 	}
 
 	return (
 		<IconButton key={`${event.id}-heart`} onClick={handleAdd} title="Add Favorite">
-			<i className="fa-light fa-heart"></i>
+			<i className="fa-sharp fa-regular fa-heart"></i>
 		</IconButton>
 	)
 }

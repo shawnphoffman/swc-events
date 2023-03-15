@@ -3,7 +3,6 @@ import { memo } from 'react'
 import { styled } from 'linaria/react'
 
 import { List, ListItem, NonScrollWrapper, PageTitle, Section } from 'components/styles'
-import Event from 'utils/events'
 
 const SectionTitle = styled.h3`
 	margin-bottom: 16px;
@@ -19,7 +18,7 @@ const LinkItem = ({ href, children }) => {
 	return (
 		<ListItem>
 			<Link href={href} target="_blank" rel="noreferrer">
-				{children} <i className="fa-solid fa-up-right-from-square"></i>
+				{children} <i className="fa-sharp fa-solid fa-up-right-from-square"></i>
 			</Link>
 		</ListItem>
 	)

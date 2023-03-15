@@ -1,7 +1,8 @@
 const Routes = {
 	Home: {
 		path: '/schedule',
-		icon: 'fa-calendar-days',
+		icon: 'fa-calendar-lines',
+		// icon: 'fa-calendar-days',
 		title: 'Home',
 	},
 	FAQ: {
@@ -62,12 +63,13 @@ const Routes = {
 	},
 	Vendors: {
 		path: '/vendors',
-		icon: 'fa-store',
+		icon: 'fa-cash-register',
+		// icon: 'fa-store',
 		title: 'Vendors',
 	},
 	Tattoos: {
 		path: '/tattoos',
-		icon: 'fa-paintbrush',
+		icon: 'fa-paintbrush-fine',
 		title: 'Tattoos',
 	},
 	Map: {
@@ -82,7 +84,7 @@ export const NavRoutes = [
 	Routes.Search,
 	Routes.Favorites,
 	Routes.Vendors,
-	// Routes.Tattoos,
+	Routes.Tattoos,
 	// Routes.Map,
 	// ...(process.env.NODE_ENV === 'development' ? [Routes.Tattoos] : []),
 	Routes.FAQ,

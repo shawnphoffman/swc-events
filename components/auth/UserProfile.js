@@ -65,7 +65,7 @@ const UserProfile = ({ user }) => {
 		<Wrapper>
 			{provider === 'phone' ? (
 				<>
-					<PhoneIcon className="fa-solid fa-mobile-screen-button fa-beat" />
+					<PhoneIcon className="fa-sharp fa-solid fa-mobile-screen-button fa-beat" />
 					<PhoneNumber>{user.providerData[0].phoneNumber}</PhoneNumber>
 				</>
 			) : (

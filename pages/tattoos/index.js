@@ -1,10 +1,12 @@
 import { memo } from 'react'
+import VendorProvider from 'context/VendorContext'
+import TattooList from 'components/vendors/TattooList'
 
 const Page = () => {
 	return (
-		<div>
-			<h1>Tattoos</h1>
-		</div>
+		<VendorProvider>
+			<TattooList />
+		</VendorProvider>
 	)
 }
 

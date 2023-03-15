@@ -25,6 +25,10 @@ const ScrollBox = styled.div`
 		background: var(--transparent);
 	}
 `
+const SectionTitle = styled.h3`
+	margin-bottom: 16px;
+	margin-top: 0px;
+`
 
 const options = {
 	includeScore: true,
@@ -65,8 +69,18 @@ const VendorList = () => {
 		startTransition(() => setSearch(value))
 	}, [])
 
-	if (!state || state?.allTattoos.length === 0) {
+	// if (!state || state?.allTattoos.length === 0) {
+	if (!state) {
 		return <Loading />
+	}
+
+	if (state?.allTattoos.length === 0) {
+		return (
+			<Container>
+				<PageTitle>Search Artists</PageTitle>
+				<SectionTitle>No tattoo artists listed (yet)</SectionTitle>
+			</Container>
+		)
 	}
 
 	return (

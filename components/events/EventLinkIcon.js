@@ -46,7 +46,11 @@ const EventLinkIcon = ({ event }) => {
 
 	return (
 		<Button copied={copied} key={`link-${event.id}-${copied}`} onClickCapture={logCopy} title="Copy Link to Event">
-			{copied ? <i className="fa-light fa-clipboard-check fa-beat-fade"></i> : <i className="fa-light fa-clipboard"></i>}
+			{copied ? (
+				<i className="fa-sharp fa-regular fa-clipboard-check fa-beat-fade"></i>
+			) : (
+				<i className="fa-sharp fa-regular fa-clipboard"></i>
+			)}
 		</Button>
 	)
 }

@@ -32,7 +32,7 @@ const DownloadIcon = ({ event }) => {
 
 	return (
 		<Button filename={icsFilename} event={icsEvent} title="Download Event">
-			<i className="fa-light fa-calendar-arrow-down"></i>
+			<i className="fa-sharp fa-regular fa-calendar-arrow-down"></i>
 		</Button>
 	)
 }

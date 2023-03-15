@@ -56,7 +56,11 @@ const CopyUrlIcon = () => {
 
 	return (
 		<Button copied={copied} key={`link-${uid}-${copied}`} onClickCapture={logCopy} title="Copy Link to Share">
-			{copied ? <i className="fa-light fa-clipboard-check fa-beat-fade"></i> : <i className="fa-light fa-clipboard"></i>}
+			{copied ? (
+				<i className="fa-sharp fa-regular fa-clipboard-check fa-beat-fade"></i>
+			) : (
+				<i className="fa-sharp fa-regular fa-clipboard"></i>
+			)}
 		</Button>
 	)
 }

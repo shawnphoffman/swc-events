@@ -27,7 +27,7 @@ const NavBar = () => {
 			{NavRoutes.map(r => (
 				<Link href={r.path} title={r.title} key={r.title}>
 					<NavIcon>
-						<i className={`fa-solid ${r.icon}`}></i>
+						<i className={`fa-sharp fa-solid ${r.icon}`}></i>
 					</NavIcon>
 				</Link>
 			))}

@@ -83,7 +83,7 @@ const Login = () => {
 				{process.env.NODE_ENV === 'development' && (
 					<Button onClick={handlePhone}>
 						Login with Phone&nbsp;
-						<i className="fa-solid fa-mobile-screen-button"></i>
+						<i className="fa-sharp fa-solid fa-mobile-screen-button"></i>
 					</Button>
 				)}
 				<div id="recaptcha-container"></div>
