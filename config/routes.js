@@ -85,7 +85,7 @@ export const NavRoutes = [
 	// Routes.Tattoos,
 	// Routes.Map,
 	// ...(process.env.NODE_ENV === 'development' ? [Routes.Tattoos] : []),
-	// Routes.FAQ,
+	Routes.FAQ,
 ]
 
 export default Routes
