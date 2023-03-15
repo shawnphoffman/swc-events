@@ -20,7 +20,7 @@ export const Button = styled.div`
 const EventLinkIcon = ({ event }) => {
 	const [copied, setCopied] = useState(false)
 
-	const url = useMemo(() => `${window.location.origin}/#${generatePath(Routes.EventDetails.path, { id: event.id })}`, [event.id])
+	const url = useMemo(() => `${window.location.origin}${generatePath(Routes.EventDetails.path, { id: event.id })}`, [event.id])
 
 	const logCopy = useCallback(
 		e => {

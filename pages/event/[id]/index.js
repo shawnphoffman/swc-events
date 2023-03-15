@@ -1,15 +1,44 @@
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
+import { useParams } from 'react-router-dom'
+import { styled } from 'linaria/react'
 import { useRouter } from 'next/router'
 
-const Page = () => {
+import EventListItem from 'components/events/EventListItem'
+import Loading from 'components/Loading'
+import { PageTitle } from 'components/styles'
+import { useEventContext } from 'context/EventContext'
+
+const Container = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	overflow-x: hidden;
+	background: var(--bg);
+	border-radius: 8px;
+	flex-direction: column;
+	align-items: center;
+`
+
+const EventDetails = () => {
+	const [state] = useEventContext()
 	const router = useRouter()
 	const { id } = router.query
 
+	const isLoading = useMemo(() => {
+		return !state || !state.allEvents || state.allEvents === []
+	}, [state])
+
+	const event = useMemo(() => {
+		if (isLoading) return null
+		return state.allEvents.find(e => e.id === id)
+	}, [id, isLoading, state.allEvents])
+
 	return (
-		<div>
-			<h1>Fave: {id}</h1>
-		</div>
+		<Container>
+			<PageTitle>Event Details</PageTitle>
+			{isLoading ? <Loading /> : event ? <EventListItem event={event} key={event.id} forceOpen /> : <div>Invalid Event</div>}
+		</Container>
 	)
 }
 
-export default memo(Page)
+export default memo(EventDetails)
