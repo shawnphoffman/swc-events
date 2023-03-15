@@ -1,6 +1,7 @@
 import { memo } from 'react'
 import { styled } from 'linaria/react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import AuthNavIcon from 'components/auth/AuthNavIcon'
 import { NavIcon } from 'components/styles'
@@ -22,11 +23,12 @@ const Nav = styled.div`
 `
 
 const NavBar = () => {
+	const router = useRouter()
 	return (
 		<Nav id="nav">
 			{NavRoutes.map(r => (
 				<Link href={r.path} title={r.title} key={r.title}>
-					<NavIcon>
+					<NavIcon className={router.asPath === r.path ? 'active' : ''}>
 						<i className={`fa-sharp fa-solid ${r.icon}`}></i>
 					</NavIcon>
 				</Link>
