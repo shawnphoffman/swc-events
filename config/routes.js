@@ -25,7 +25,7 @@ const Routes = {
 		title: 'Print Favorites',
 	},
 	Login: {
-		path: '/login',
+		path: '/auth',
 		icon: 'fa-user',
 		title: 'Login',
 	},
@@ -34,7 +34,7 @@ const Routes = {
 		title: 'Logout',
 	},
 	User: {
-		path: '/login',
+		path: '/auth',
 		icon: 'fa-user-bounty-hunter',
 		title: 'User Info',
 	},
@@ -81,7 +81,7 @@ export const NavRoutes = [
 	Routes.Home,
 	Routes.Search,
 	Routes.Favorites,
-	// Routes.Vendors,
+	Routes.Vendors,
 	// Routes.Tattoos,
 	// Routes.Map,
 	// ...(process.env.NODE_ENV === 'development' ? [Routes.Tattoos] : []),

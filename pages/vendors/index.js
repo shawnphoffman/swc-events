@@ -1,10 +1,15 @@
 import { memo } from 'react'
+import VendorProvider from 'context/VendorContext'
+import FavoriteVendorsProvider from 'context/FavoriteVendorsContext'
+import VendorList from 'components/vendors/VendorList'
 
 const Page = () => {
 	return (
-		<div>
-			<h1>Vendors</h1>
-		</div>
+		<VendorProvider>
+			<FavoriteVendorsProvider>
+				<VendorList />
+			</FavoriteVendorsProvider>
+		</VendorProvider>
 	)
 }
 

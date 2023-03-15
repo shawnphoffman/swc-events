@@ -1,9 +1,7 @@
 import { memo, useCallback, useMemo } from 'react'
 import { styled } from '@linaria/react'
 
-// import * as Panelbear from '@panelbear/panelbear-js'
 import { useFavoriteVendorsContext } from 'context/FavoriteVendorsContext'
-// import Event from 'utils/events'
 
 const IconButton = styled.div`
 	color: var(--linkActive);
@@ -22,7 +20,6 @@ const FavoriteVendorIcon = ({ vendor }) => {
 		e => {
 			e.stopPropagation()
 			toggleFavorite(vendor.id, true)
-			// Panelbear.track(Event.AddFavorite)
 		},
 		[toggleFavorite, vendor]
 	)
@@ -31,7 +28,6 @@ const FavoriteVendorIcon = ({ vendor }) => {
 		e => {
 			e.stopPropagation()
 			toggleFavorite(vendor.id, false)
-			// Panelbear.track(Event.RemoveFavorite)
 		},
 		[vendor, toggleFavorite]
 	)

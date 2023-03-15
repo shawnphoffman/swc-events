@@ -1,18 +1,24 @@
-import { memo } from 'react'
+import { memo, useEffect } from 'react'
 
 import Link from 'next/link'
 
 import { NavIcon } from 'components/styles'
 import Routes from 'config/routes'
-import { useUser } from 'hooks/useUser'
+import { useAuth } from 'hooks/useAuth'
 
 const AuthNavIcon = () => {
-	const { isAuthed } = useUser()
+	const { isAuthed } = useAuth()
+
+	useEffect(() => {
+		console.log({
+			isAuthed,
+		})
+	}, [isAuthed])
 
 	if (isAuthed) {
 		return (
 			<Link href={Routes.User.path} title={Routes.User.title}>
-				<NavIcon>
+				<NavIcon key="user">
 					<i className={`fa-regular ${Routes.User.icon}`}></i>
 				</NavIcon>
 			</Link>
@@ -21,7 +27,7 @@ const AuthNavIcon = () => {
 
 	return (
 		<Link href={Routes.Login.path} title={Routes.Login.title}>
-			<NavIcon>
+			<NavIcon key="boba">
 				<i className={`fa-solid ${Routes.Login.icon}`}></i>
 			</NavIcon>
 		</Link>

@@ -1,11 +1,9 @@
+import { useAuth } from 'hooks/useAuth'
 import { memo, useCallback, useEffect, useState } from 'react'
-import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
-// import { Auth } from '@supabase/auth-ui-react'
-// import { ThemeSupa } from '@supabase/auth-ui-shared'
 
-const Page = () => {
-	const supabaseClient = useSupabaseClient()
-	const user = useUser()
+const MyFavorites = () => {
+	const { client, user } = useAuth()
+
 	const [loading, setLoading] = useState(true)
 	const [favorites, setFavorites] = useState([])
 	const [text, setText] = useState('')
@@ -14,7 +12,7 @@ const Page = () => {
 		try {
 			setLoading(true)
 
-			let { data, status, error } = await supabaseClient.from('favorites').select()
+			let { data, status, error } = await client.from('favorites').select()
 
 			console.log({
 				data,
@@ -38,7 +36,7 @@ const Page = () => {
 		} finally {
 			setLoading(false)
 		}
-	}, [supabaseClient])
+	}, [client])
 
 	const handleCreateChange = useCallback(e => {
 		const value = e.target.value
@@ -48,7 +46,7 @@ const Page = () => {
 	const handleCreate = useCallback(async () => {
 		console.log(`Creating`)
 		try {
-			let { status, error } = await supabaseClient.from('favorites').insert({
+			let { status, error } = await client.from('favorites').insert({
 				event_id: text,
 				user_id: user?.id,
 			})
@@ -58,27 +56,27 @@ const Page = () => {
 		} catch (e) {
 			console.error(e)
 		}
-	}, [loadData, supabaseClient, text, user?.id])
+	}, [loadData, client, text, user?.id])
 
 	const handleDelete = useCallback(
 		async id => {
 			console.log(`Deleting ID: ${id}`)
 			try {
-				let { status, error } = await supabaseClient.from('favorites').delete().eq('id', id)
+				let { status, error } = await client.from('favorites').delete().eq('id', id)
 				console.log('delete', { status, error })
 				loadData()
 			} catch (e) {
 				console.error(e)
 			}
 		},
-		[loadData, supabaseClient]
+		[loadData, client]
 	)
 
 	const handleUpdate = useCallback(
 		async (id, event_id) => {
 			console.log(`Update ID: ${id}`)
 			try {
-				let { status, error } = await supabaseClient
+				let { status, error } = await client
 					.from('favorites')
 					.update({ created_at: new Date(), event_id: `${event_id}z` })
 					.eq('id', id)
@@ -88,37 +86,19 @@ const Page = () => {
 				console.error(e)
 			}
 		},
-		[loadData, supabaseClient]
+		[loadData, client]
 	)
 
 	useEffect(() => {
-		console.log('init', user)
-		// Only run query once user is logged in.
-		// if (user)
-		loadData()
-	}, [loadData, supabaseClient, user])
-
-	// if (!user)
-	// 	return (
-	// 		<Auth
-	// 			redirectTo="http://localhost:3000/"
-	// 			appearance={{ theme: ThemeSupa }}
-	// 			supabaseClient={supabaseClient}
-	// 			magicLink
-	// 			view="magic_link"
-	// 			showLinks={false}
-	// 			// providers={[]}
-	// 			// providers={['google', 'github']}
-	// 			// socialLayout="horizontal"
-	// 		/>
-	// 	)
+		if (user) {
+			console.log('init', user)
+			loadData()
+		}
+	}, [loadData, user])
 
 	return (
-		<div>
+		<div className="page">
 			<h1>My Favorites</h1>
-			{/* {loading ? (
-				<div>Loading...</div>
-			) : ( */}
 			<ul>
 				{favorites?.map(event => (
 					<li key={event.id}>
@@ -132,7 +112,6 @@ const Page = () => {
 					</li>
 				))}
 			</ul>
-			{/* )} */}
 			<hr />
 			<h2>Create Favorite</h2>
 			<input type="text" onChange={handleCreateChange} value={text} />
@@ -141,4 +120,4 @@ const Page = () => {
 	)
 }
 
-export default memo(Page)
+export default memo(MyFavorites)

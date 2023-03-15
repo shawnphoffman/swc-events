@@ -78,7 +78,7 @@ const Booth = styled.div`
 	padding: 8px;
 	font-size: 18px;
 	font-weight: bold;
-	flex: 0 1 60px;
+	flex: 0 1 67px;
 	white-space: pre;
 	align-items: center;
 `

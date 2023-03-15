@@ -196,9 +196,14 @@ export const processApiVendors = data => {
 	}
 
 	data.space_orders.forEach(s => {
+		const company = decodeEntities(s.company).trim()
+		if (company.toLowerCase().includes('testington')) {
+			return
+		}
+
 		const vendor = {
 			id: s.id,
-			company: decodeEntities(s.company).trim(),
+			company: company,
 			description: decodeEntities(s.description).trim(),
 			booth: processBooth(s.booth),
 			exclusives: s.exclusives,

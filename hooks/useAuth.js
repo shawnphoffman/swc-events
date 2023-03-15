@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 
-export const useUser = () => {
+export const useAuth = () => {
 	// Supabase
-	const supabaseClient = useSupabaseClient()
+	const client = useSupabaseClient()
+	const user = useUser()
 
 	const [isLoading, setIsLoading] = useState(true)
 	const [session, setSession] = useState(null)
@@ -13,7 +14,7 @@ export const useUser = () => {
 		async function getInitialSession() {
 			const {
 				data: { session },
-			} = await supabaseClient.auth.getSession()
+			} = await client.auth.getSession()
 			// only update the react state if the component is still mounted
 			if (mounted) {
 				if (session) {
@@ -23,21 +24,26 @@ export const useUser = () => {
 			}
 		}
 		getInitialSession()
-		const { subscription } = supabaseClient.auth.onAuthStateChange((_event, session) => {
+		const { subscription } = client.auth.onAuthStateChange((_event, session) => {
 			setSession(session)
 		})
 		return () => {
 			mounted = false
 			subscription?.unsubscribe()
 		}
-	}, [supabaseClient.auth])
+	}, [client.auth])
 
 	useEffect(() => {
-		console.log('session', session)
+		console.log('useAuth.session', session)
 	}, [session])
 
+	useEffect(() => {
+		console.log('useAuth.user', user)
+	}, [user])
+
 	return {
-		// user,
+		client,
+		user,
 		session,
 		isAuthed: !!session,
 	}

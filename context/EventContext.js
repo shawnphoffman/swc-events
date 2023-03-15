@@ -2,7 +2,7 @@ import React, { createContext, memo, useContext, useEffect, useReducer } from 'r
 
 // import { processApiData } from 'utils/dataUtils'
 
-const disabledVenueStorageKey = 'SWC.DisabledVenues.3'
+const disabledVenueStorageKey = 'SWC.DisabledVenues.2023'
 
 const EventContext = createContext()
 

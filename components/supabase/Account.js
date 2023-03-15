@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import Avatar from './Avatar'
 
-export default function Account({}) {
+export default function Account() {
 	const [loading, setLoading] = useState(true)
 	const [username, setUsername] = useState(null)
 	const [website, setWebsite] = useState(null)

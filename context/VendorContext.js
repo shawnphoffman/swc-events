@@ -36,20 +36,29 @@ const VendorProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, initialReducerState)
 
 	useEffect(() => {
-		fetch(process.env.REACT_APP_VENDOR_ENDPOINT)
+		fetch('/api/vendors')
 			.then(res => res.json())
 			.then(data => {
-				const { vendors, tattooArtists } = processApiVendors(data)
+				const { vendors, tattooArtists } = data
 				dispatch({ type: VendorAction.SET_VENDORS, vendors, tattooArtists })
 			})
-			.catch(e => {
-				// Panelbear.track(Vendor.FetchFailure)
-				import('../data/vendors.json').then(rawVendors => {
-					const { vendors, tattooArtists } = processApiVendors(rawVendors)
-					dispatch({ type: VendorAction.SET_VENDORS, vendors, tattooArtists })
-				})
-			})
 	}, [])
+
+	// useEffect(() => {
+	// 	fetch(process.env.REACT_APP_VENDOR_ENDPOINT)
+	// 		.then(res => res.json())
+	// 		.then(data => {
+	// 			const { vendors, tattooArtists } = processApiVendors(data)
+	// 			dispatch({ type: VendorAction.SET_VENDORS, vendors, tattooArtists })
+	// 		})
+	// 		.catch(e => {
+	// 			// Panelbear.track(Vendor.FetchFailure)
+	// 			import('../data/vendors.json').then(rawVendors => {
+	// 				const { vendors, tattooArtists } = processApiVendors(rawVendors)
+	// 				dispatch({ type: VendorAction.SET_VENDORS, vendors, tattooArtists })
+	// 			})
+	// 		})
+	// }, [])
 
 	return <VendorContext.Provider value={[state, dispatch]}>{children}</VendorContext.Provider>
 }

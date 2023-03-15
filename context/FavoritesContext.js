@@ -3,7 +3,7 @@ import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 
 import useLocalStorage from 'hooks/useLocalStorage'
 
-const favoritesStorageKey = 'SWC.Favorites'
+const favoritesStorageKey = 'SWC.Favorites.2023'
 
 const initialState = {
 	favorites: [],
