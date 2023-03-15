@@ -12,6 +12,15 @@ const nextConfig = {
 		})
 		return config
 	},
+	async redirects() {
+		return [
+			{
+				source: '/',
+				destination: '/schedule',
+				permanent: false,
+			},
+		]
+	},
 }
 
 module.exports = withLinaria(nextConfig)

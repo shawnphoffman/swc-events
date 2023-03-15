@@ -22,7 +22,8 @@ export default function AuthIndex() {
 					supabaseClient={supabaseClient}
 					magicLink
 					view="magic_link"
-					showLinks={false}
+					// showLinks={false}
+					showLinks
 				/>
 			</Wrapper>
 		)
