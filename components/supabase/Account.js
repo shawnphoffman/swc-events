@@ -2,12 +2,15 @@ import { useState, useEffect } from 'react'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { styled } from 'linaria/react'
 
-import Avatar from './Avatar'
+// import Avatar from './Avatar'
 import Button from 'components/Button'
-import { Input, InputWrapper } from 'components/styles'
+import { Input, InputWrapper, PageTitle } from 'components/styles'
 
 const Wrapper = styled.div``
-const Label = styled.div``
+const Label = styled.div`
+	font-weight: bold;
+	margin: 16px 0px 8px 0px;
+`
 const InputContainer = styled.div``
 
 export default function Account() {
@@ -22,7 +25,6 @@ export default function Account() {
 		async function getProfile() {
 			try {
 				setLoading(true)
-				// const user = await getCurrentUser()
 
 				let { data, error, status } = await supabaseClient
 					.from('profiles')
@@ -51,7 +53,6 @@ export default function Account() {
 	async function updateProfile({ username, website, avatar_url }) {
 		try {
 			setLoading(true)
-			const user = await getCurrentUser()
 
 			const updates = {
 				id: user.id,
@@ -75,15 +76,17 @@ export default function Account() {
 
 	return (
 		<Wrapper>
+			<PageTitle>User Info</PageTitle>
+
 			{/* Add to the body */}
-			<Avatar
+			{/* <Avatar
 				url={avatar_url}
 				size={150}
 				onUpload={url => {
 					setAvatarUrl(url)
 					updateProfile({ username, website, avatar_url: url })
 				}}
-			/>
+			/> */}
 			<InputContainer>
 				<Label htmlFor="email">Email</Label>
 				<InputWrapper>
