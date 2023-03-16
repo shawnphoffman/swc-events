@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { memo, useMemo } from 'react'
-import { useParams } from 'react-router-dom'
+import { useRouter } from 'next/router'
 import { styled } from 'linaria/react'
 
 import EventListItem from 'components/events/EventListItem'
@@ -28,17 +28,21 @@ const ScrollBox = styled.div`
 
 const VenueDetails = () => {
 	const [state] = useEventContext()
-	const { venue } = useParams()
+	const router = useRouter()
+
+	console.log('rrrr', router.query)
+
+	const { name } = router.query
 
 	const isLoading = useMemo(() => {
 		return !state || !state.allEvents || state.allEvents === []
 	}, [state])
 
 	const events = useMemo(() => {
-		if (isLoading) return null
-		const lowerVenue = venue.toLowerCase()
+		if (isLoading || !name) return null
+		const lowerVenue = name.toLowerCase()
 		return state.allEvents.filter(e => e.venue.trim().toLowerCase() === lowerVenue)
-	}, [venue, isLoading, state.allEvents])
+	}, [name, isLoading, state.allEvents])
 
 	const hasEvents = useMemo(() => {
 		return events && events.length > 0
@@ -46,7 +50,7 @@ const VenueDetails = () => {
 
 	return (
 		<Container>
-			<PageTitle>Events in "{venue}"</PageTitle>
+			<PageTitle>Events in "{name}"</PageTitle>
 			<ScrollBox>
 				{isLoading ? <Loading /> : hasEvents ? events.map(e => <EventListItem event={e} key={e.id} forceOpen />) : <Loading />}
 			</ScrollBox>

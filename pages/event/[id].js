@@ -1,5 +1,4 @@
 import { memo, useMemo } from 'react'
-import { useParams } from 'react-router-dom'
 import { styled } from 'linaria/react'
 import { useRouter } from 'next/router'
 
@@ -29,7 +28,7 @@ const EventDetails = () => {
 	}, [state])
 
 	const event = useMemo(() => {
-		if (isLoading) return null
+		if (isLoading) return
 		return state.allEvents.find(e => e.id === id)
 	}, [id, isLoading, state.allEvents])
 
