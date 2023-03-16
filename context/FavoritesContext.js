@@ -22,6 +22,9 @@ const FavoritesProvider = ({ children }) => {
 	const { client, user, isAuthed } = useAuth()
 	const [loading, setLoading] = useState(true)
 	const [userFavorites, setUserFavorites] = useState([])
+	const userFavoriteIds = useMemo(() => {
+		return userFavorites?.map(f => f.event_id)
+	}, [userFavorites])
 
 	//
 	const fetchUserFavorites = useCallback(async () => {
@@ -94,31 +97,6 @@ const FavoritesProvider = ({ children }) => {
 
 	// ============================================================
 
-	// // Firebase
-	// const { status: signinStatus, data: signInCheckResult } = useSigninCheck()
-	// const { data: user } = useUser()
-	// const database = useDatabase()
-
-	// ============================================================
-
-	// User Favorites Query
-	// const userFavQ = useMemo(() => {
-	// 	const userFavRef = ref(database, `user-favorites/${user?.uid}`)
-	// 	const userFavQuery = query(userFavRef, orderByValue())
-	// 	return query(userFavQuery, equalTo('true'))
-	// }, [database, user])
-
-	// User Favorites Resp
-	// const userFavResp = useDatabaseObjectData(userFavQ, {})
-
-	// User Favorite
-	// const userFaves = useMemo(() => {
-	// 	if (userFavResp?.status !== 'success' || !userFavResp?.data) return []
-	// 	return Object.keys(userFavResp?.data) || []
-	// }, [userFavResp?.data, userFavResp?.status])
-
-	// ============================================================
-
 	// Add/Remove User Favorite
 	const toggleFavorite = useCallback(
 		(id, newState) => {
@@ -156,20 +134,12 @@ const FavoritesProvider = ({ children }) => {
 			// setFavorites(userFaves)
 		}
 	}, [isAuthed])
-	// useEffect(() => {
-	// 	if (signinStatus === 'success' && signInCheckResult?.signedIn && userFavResp.status === 'success') {
-	// 		// console.log('USER FAVES CHANGED', userFaves)
-	// 		console.log('FIREBASE CHANGED. UPDATING STORAGE')
-	// 		setFavorites(userFaves)
-	// 	}
-	// }, [setFavorites, signInCheckResult?.signedIn, signinStatus, userFavResp.status, userFaves])
 
 	// ============================================================
 
 	// console.log({ userFaves, user })
 
 	const value = useMemo(() => {
-		const userFavoriteIds = userFavorites?.map(f => f.event_id)
 		return {
 			favorites: isAuthed ? userFavoriteIds : favorites,
 			toggleFavorite,

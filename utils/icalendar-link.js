@@ -98,9 +98,8 @@ export function buildUrl(event, useDataURL = false, rawContent = '') {
 
 export function downloadBlob(blob, filename) {
 	const linkEl = document.createElement('a')
-	linkEl.href = window.URL.createObjectURL(blob).replace('blob:http', 'webcal')
+	linkEl.href = window.URL.createObjectURL(blob) //.replace('blob:http', 'webcal')
 	linkEl.setAttribute('download', filename)
-
 	document.body.appendChild(linkEl)
 	linkEl.click()
 	document.body.removeChild(linkEl)
