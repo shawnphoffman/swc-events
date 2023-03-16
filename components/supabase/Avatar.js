@@ -1,5 +1,39 @@
 import { useEffect, useState } from 'react'
+import { styled } from 'linaria/react'
+
 import { supabase } from 'utils/supabaseClient'
+
+const AvatarWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`
+
+const UploadButton = styled.label`
+	color: var(--inputBg);
+	background: var(--linkActive);
+	border: 2px solid var(--inputBorder);
+	font-weight: 700;
+	border-radius: 8px;
+	text-align: center;
+	display: inline-block;
+
+	&:hover {
+		color: var(--inputBg);
+		background: var(--linkHover);
+	}
+	text-decoration: none;
+	cursor: pointer;
+
+	margin: 8px;
+	font-size: 20px;
+	padding: 8px 16px;
+	min-width: 175px;
+
+	&:disabled {
+		background: green !important;
+	}
+`
 
 export default function Avatar({ url, size, onUpload }) {
 	const [avatarUrl, setAvatarUrl] = useState(null)
@@ -50,17 +84,18 @@ export default function Avatar({ url, size, onUpload }) {
 	}
 
 	return (
-		<div>
+		<AvatarWrapper>
 			{avatarUrl ? (
 				// eslint-disable-next-line @next/next/no-img-element
 				<img src={avatarUrl} alt="Avatar" className="avatar image" style={{ height: size, width: size }} />
 			) : (
 				<div className="avatar no-image" style={{ height: size, width: size }} />
 			)}
-			<div style={{ width: size }}>
-				<label className="button primary block" htmlFor="single">
+			{/* <div style={{ width: size }}> */}
+			<div>
+				<UploadButton className="button primary block" htmlFor="single">
 					{uploading ? 'Uploading ...' : 'Upload'}
-				</label>
+				</UploadButton>
 				<input
 					style={{
 						visibility: 'hidden',
@@ -73,6 +108,6 @@ export default function Avatar({ url, size, onUpload }) {
 					disabled={uploading}
 				/>
 			</div>
-		</div>
+		</AvatarWrapper>
 	)
 }

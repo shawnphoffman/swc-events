@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react'
+import { memo, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
@@ -9,12 +9,13 @@ import { useAuth } from 'hooks/useAuth'
 
 const AuthNavIcon = () => {
 	const { isAuthed } = useAuth()
+	const [mounted, setMounted] = useState(false)
 
 	useEffect(() => {
-		console.log({
-			isAuthed,
-		})
-	}, [isAuthed])
+		setMounted(true)
+	}, [])
+
+	if (!mounted) return null
 
 	if (isAuthed) {
 		return (

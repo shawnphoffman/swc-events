@@ -1,6 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+import { styled } from 'linaria/react'
+
 import Avatar from './Avatar'
+import Button from 'components/Button'
+import { Input, InputWrapper } from 'components/styles'
+
+const Wrapper = styled.div``
+const Label = styled.div``
+const InputContainer = styled.div``
 
 export default function Account() {
 	const [loading, setLoading] = useState(true)
@@ -66,7 +74,7 @@ export default function Account() {
 	}
 
 	return (
-		<div className="form-widget">
+		<Wrapper>
 			{/* Add to the body */}
 			<Avatar
 				url={avatar_url}
@@ -76,30 +84,32 @@ export default function Account() {
 					updateProfile({ username, website, avatar_url: url })
 				}}
 			/>
-			<div>
-				<label htmlFor="email">Email</label>
-				<input id="email" type="text" value={user.email} disabled />
-			</div>
-			<div>
-				<label htmlFor="username">Name</label>
-				<input id="username" type="text" value={username || ''} onChange={e => setUsername(e.target.value)} />
-			</div>
-			<div>
-				<label htmlFor="website">Website</label>
-				<input id="website" type="website" value={website || ''} onChange={e => setWebsite(e.target.value)} />
-			</div>
+			<InputContainer>
+				<Label htmlFor="email">Email</Label>
+				<InputWrapper>
+					<Input id="email" type="text" value={user.email} disabled />
+				</InputWrapper>
+			</InputContainer>
 
-			<div>
-				<button className="button primary block" onClick={() => updateProfile({ username, website, avatar_url })} disabled={loading}>
-					{loading ? 'Loading ...' : 'Update'}
-				</button>
-			</div>
+			<InputContainer>
+				<Label htmlFor="username">Name</Label>
+				<InputWrapper>
+					<Input id="username" type="text" value={username || ''} onChange={e => setUsername(e.target.value)} />
+				</InputWrapper>
+			</InputContainer>
 
-			<div>
-				<button className="button block" onClick={() => supabaseClient.auth.signOut()}>
-					Sign Out
-				</button>
-			</div>
-		</div>
+			<InputContainer>
+				<Label htmlFor="website">Website</Label>
+				<InputWrapper>
+					<Input id="website" type="website" value={website || ''} onChange={e => setWebsite(e.target.value)} />
+				</InputWrapper>
+			</InputContainer>
+
+			<Button onClick={() => updateProfile({ username, website, avatar_url })} disabled={loading}>
+				{loading ? 'Loading ...' : 'Update'}
+			</Button>
+
+			<Button onClick={() => supabaseClient.auth.signOut()}>Sign Out</Button>
+		</Wrapper>
 	)
 }
