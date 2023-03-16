@@ -70,7 +70,7 @@ function MyApp({ Component, pageProps }) {
 	const [windowHeight, setWindowHeight] = useState()
 
 	useEffect(() => {
-		console.log('window', window.innerHeight)
+		// console.log('window', window.innerHeight)
 		setWindowHeight(window.innerHeight)
 	}, [])
 
