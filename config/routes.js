@@ -57,7 +57,7 @@ const Routes = {
 		title: 'User Favorites',
 	},
 	PrintSchedule: {
-		path: '/print',
+		path: '/schedule/print',
 		icon: 'fa-print',
 		title: 'Print',
 	},

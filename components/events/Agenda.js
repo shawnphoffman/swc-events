@@ -3,6 +3,7 @@ import { memo, Suspense, useMemo } from 'react'
 // import { ref } from 'firebase/database'
 import { styled } from 'linaria/react'
 
+import Loading from 'components/Loading'
 import EventListItem from './EventListItem'
 import { useEventContext } from 'context/EventContext'
 
@@ -68,9 +69,9 @@ const Agenda = () => {
 		// }, [customEventsRep.data, customEventsRep?.status, state])
 	}, [state])
 
-	// if (!state || !allEvents) {
-	// 	return <Loading />
-	// }
+	if (!state || !allEvents) {
+		return <Loading />
+	}
 
 	// console.log('Agenda.render', {
 	// 	state,
