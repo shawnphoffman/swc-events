@@ -9,6 +9,7 @@ import { PageTitle } from 'components/styles'
 import Routes from 'config/routes'
 import { useEventContext } from 'context/EventContext'
 import { useFavoritesContext } from 'context/FavoritesContext'
+import { useAuth } from 'hooks/useAuth'
 
 const Divider = styled.hr`
 	width: 100%;
@@ -46,6 +47,7 @@ const NextLink = styled.div`
 	color: var(--linkAlt);
 	font-weight: bold;
 	text-decoration: none;
+	display: inline-block;
 
 	&:hover {
 		color: var(--linkHover);
@@ -55,19 +57,17 @@ const NextLink = styled.div`
 const Favorites = () => {
 	const [state] = useEventContext()
 	const { favorites: ids } = useFavoritesContext()
-	// const { status, data: signInCheckResult } = useSigninCheck()
-	// const database = useDatabase()
-	// const { data: user } = useUser()
+	const { client, user, isAuthed } = useAuth()
 
 	const hasFavorites = useMemo(() => {
 		return !!ids.length
 	}, [ids])
 
 	const showLoginPrompt = useMemo(() => {
-		return false
+		return !isAuthed
 		// return status === 'success' && !signInCheckResult?.signedIn
 		// }, [status, signInCheckResult])
-	}, [])
+	}, [isAuthed])
 
 	// ============================================================
 
