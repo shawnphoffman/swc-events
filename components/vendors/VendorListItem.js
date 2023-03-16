@@ -1,5 +1,7 @@
 import React, { memo, useCallback, useMemo, useState } from 'react'
 import { styled } from 'linaria/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 import FavoriteVendorIcon from './FavoriteVendorIcon'
 
@@ -168,7 +170,7 @@ const VendorListItem = ({ vendor, forceOpen }) => {
 				<FavoriteVendorIcon vendor={vendor} />
 				{canExpand && (
 					<ExpandIcon>
-						<i className="fa-sharp fa-solid fa-arrows-from-line"></i>
+						<FontAwesomeIcon icon={icon({ name: 'arrows-from-line', family: 'sharp', style: 'solid' })} />
 					</ExpandIcon>
 				)}
 			</ActionWrapper>

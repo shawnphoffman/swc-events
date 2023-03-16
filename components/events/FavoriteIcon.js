@@ -1,5 +1,7 @@
 import { memo, useCallback, useMemo } from 'react'
 import { styled } from '@linaria/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 import { useFavoritesContext } from 'context/FavoritesContext'
 
@@ -20,7 +22,6 @@ const FavoriteIcon = ({ event }) => {
 		e => {
 			e.stopPropagation()
 			toggleFavorite(event.id, true)
-			// Panelbear.track(Event.AddFavorite)
 		},
 		[toggleFavorite, event]
 	)
@@ -29,27 +30,25 @@ const FavoriteIcon = ({ event }) => {
 		e => {
 			e.stopPropagation()
 			toggleFavorite(event.id, false)
-			// Panelbear.track(Event.RemoveFavorite)
 		},
 		[event, toggleFavorite]
 	)
 
 	const isFavorite = useMemo(() => {
-		// console.log({ favorites, id: event.id })
 		return favorites.includes(event.id)
 	}, [event.id, favorites])
 
 	if (isFavorite) {
 		return (
 			<IconButton key={`${event.id}.heart-solid`} onClick={handleRemove} title="Remove Favorite">
-				<i className="fa-sharp fa-solid fa-heart"></i>
+				<FontAwesomeIcon icon={icon({ name: 'heart', family: 'sharp', style: 'solid' })} />
 			</IconButton>
 		)
 	}
 
 	return (
 		<IconButton key={`${event.id}-heart`} onClick={handleAdd} title="Add Favorite">
-			<i className="fa-sharp fa-regular fa-heart"></i>
+			<FontAwesomeIcon icon={icon({ name: 'heart', family: 'sharp', style: 'regular' })} />
 		</IconButton>
 	)
 }

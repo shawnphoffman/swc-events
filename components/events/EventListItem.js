@@ -1,6 +1,8 @@
 import React, { memo, useCallback, useMemo, useState } from 'react'
 // import { useUser } from 'reactfire'
 import { styled } from 'linaria/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 // import DeleteEventIcon from 'components/auth/DeleteEventIcon'
 // import EditEventIcon from 'components/auth/EditEventIcon'
@@ -161,7 +163,8 @@ const EventListItem = ({ event, forceOpen = false, onEdit }) => {
 						<Description>{event.description}</Description>
 						{event.url && (
 							<EventLink href={event.url} target="_blank" rel="noreferrer">
-								View details on the official site <i className="fa-sharp fa-solid fa-up-right-from-square"></i>
+								View details on the official site{' '}
+								<FontAwesomeIcon icon={icon({ name: 'up-right-from-square', family: 'sharp', style: 'solid' })} />
 							</EventLink>
 						)}
 					</>

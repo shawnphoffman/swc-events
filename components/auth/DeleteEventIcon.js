@@ -1,10 +1,9 @@
 import { memo, useCallback, useEffect, useState } from 'react'
-import { useDatabase, useUser } from 'reactfire'
 import { styled } from '@linaria/react'
-// import * as Panelbear from '@panelbear/panelbear-js'
-import { ref, set } from 'firebase/database'
-
-// import Event from 'utils/events'
+// import { useDatabase, useUser } from 'reactfire'
+// import { ref, set } from 'firebase/database'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 export const Button = styled.div`
 	color: ${p => (p.confirm ? 'red' : 'var(--linkAlt)')};
@@ -19,27 +18,26 @@ export const Button = styled.div`
 `
 
 const DeleteEventIcon = ({ event }) => {
-	const database = useDatabase()
-	const { data: user } = useUser()
+	// const database = useDatabase()
+	// const { data: user } = useUser()
 	const [confirm, setConfirm] = useState(false)
 
 	// Delete User Event
 	const deleteUserEvent = useCallback(
 		id => {
-			const deleteEventRef = ref(database, `user-events/${user?.uid}/${id}`)
-			set(deleteEventRef, null)
-			const deleteCustomEventRef = ref(database, `custom-events/${user?.uid}/${id}`)
-			set(deleteCustomEventRef, null)
+			// const deleteEventRef = ref(database, `user-events/${user?.uid}/${id}`)
+			// set(deleteEventRef, null)
+			// const deleteCustomEventRef = ref(database, `custom-events/${user?.uid}/${id}`)
+			// set(deleteCustomEventRef, null)
 		},
-		[database, user?.uid]
+		// [database, user?.uid]
+		[]
 	)
 
 	const handleClick = useCallback(() => {
 		if (confirm) {
 			deleteUserEvent(event.id)
-			// Panelbear.track(Event.DeleteCustomEventConfirm)
 		} else {
-			// Panelbear.track(Event.DeleteCustomEvent)
 			setConfirm(true)
 		}
 	}, [confirm, deleteUserEvent, event.id])
@@ -64,9 +62,9 @@ const DeleteEventIcon = ({ event }) => {
 			onClick={handleClick}
 		>
 			{confirm ? (
-				<i className="fa-sharp fa-regular fa-trash-can-check fa-beat-fade"></i>
+				<FontAwesomeIcon icon={icon({ name: 'trash-can-check', family: 'sharp', style: 'regular' })} beatFade />
 			) : (
-				<i className="fa-sharp fa-regular fa-trash-can"></i>
+				<FontAwesomeIcon icon={icon({ name: 'trash-can', family: 'sharp', style: 'regular' })} />
 			)}
 		</Button>
 	)

@@ -1,5 +1,7 @@
 import { memo, useMemo } from 'react'
 import { styled } from '@linaria/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 import { useFavoritesContext } from 'context/FavoritesContext'
 
@@ -18,7 +20,7 @@ const FavoriteIcon = ({ event }) => {
 	if (isFavorite) {
 		return (
 			<IconButton key={`${event.id}.heart-solid`}>
-				<i className="fa-sharp fa-solid fa-heart"></i>
+				<FontAwesomeIcon icon={icon({ name: 'heart', family: 'sharp', style: 'solid' })} />
 			</IconButton>
 		)
 	}

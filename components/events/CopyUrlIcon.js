@@ -1,12 +1,12 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
-import { generatePath } from 'react-router-dom'
-import { useSigninCheck, useUser } from 'reactfire'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { styled } from '@linaria/react'
-// import * as Panelbear from '@panelbear/panelbear-js'
 import copy from 'copy-to-clipboard'
 
-import Routes from 'config/routes'
-// import Event from 'utils/events'
+import { useAuth } from 'hooks/useAuth'
+
+// import Routes from 'config/routes'
 
 export const Button = styled.div`
 	color: ${p => (p.copied ? 'var(--green)' : 'var(--linkAlt)')};
@@ -21,21 +21,17 @@ export const Button = styled.div`
 
 const CopyUrlIcon = () => {
 	const [copied, setCopied] = useState(false)
-	const { status, data: signInCheckResult } = useSigninCheck()
-	const { data: user } = useUser()
+	const { user, isAuthed } = useAuth()
 
-	// console.log('ICON', { status, signInCheckResult, user })
+	const uid = useMemo(() => user?.id, [user])
 
-	const uid = useMemo(() => (user ? user.uid : null), [user])
-
-	const url = useMemo(() => (!uid ? null : `${window.location.origin}/#${generatePath(Routes.FavoritesList.path, { uid })}`), [uid])
+	const url = useMemo(() => `/favorites/${uid}`, [uid])
 
 	const logCopy = useCallback(
 		e => {
 			e.stopPropagation()
 			copy(url)
 			setCopied(true)
-			// Panelbear.track(Event.FavoritesLinkCopied)
 		},
 		[url]
 	)
@@ -50,16 +46,17 @@ const CopyUrlIcon = () => {
 		return () => t
 	}, [copied])
 
-	if (status !== 'success' || !signInCheckResult?.signedIn || !uid) {
+	// if (status !== 'success' || !signInCheckResult?.signedIn || !uid) {
+	if (!isAuthed || !uid) {
 		return null
 	}
 
 	return (
 		<Button copied={copied} key={`link-${uid}-${copied}`} onClickCapture={logCopy} title="Copy Link to Share">
 			{copied ? (
-				<i className="fa-sharp fa-regular fa-clipboard-check fa-beat-fade"></i>
+				<FontAwesomeIcon icon={icon({ name: 'clipboard-check', family: 'sharp', style: 'regular' })} beatFade />
 			) : (
-				<i className="fa-sharp fa-regular fa-clipboard"></i>
+				<FontAwesomeIcon icon={icon({ name: 'clipboard', family: 'sharp', style: 'regular' })} />
 			)}
 		</Button>
 	)

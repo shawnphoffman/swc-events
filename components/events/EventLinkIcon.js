@@ -1,9 +1,8 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
-import { generatePath } from 'react-router-dom'
 import { styled } from '@linaria/react'
 import copy from 'copy-to-clipboard'
-
-import Routes from 'config/routes'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 export const Button = styled.div`
 	color: ${p => (p.copied ? 'var(--green)' : 'var(--linkAlt)')};
@@ -20,14 +19,13 @@ export const Button = styled.div`
 const EventLinkIcon = ({ event }) => {
 	const [copied, setCopied] = useState(false)
 
-	const url = useMemo(() => `${window.location.origin}${generatePath(Routes.EventDetails.path, { id: event.id })}`, [event.id])
+	const url = useMemo(() => `/event/${event.id}`, [event.id])
 
 	const logCopy = useCallback(
 		e => {
 			e.stopPropagation()
 			copy(url)
 			setCopied(true)
-			// Panelbear.track(Event.EventLinkCopied)
 		},
 		[url]
 	)
@@ -47,9 +45,9 @@ const EventLinkIcon = ({ event }) => {
 	return (
 		<Button copied={copied} key={`link-${event.id}-${copied}`} onClickCapture={logCopy} title="Copy Link to Event">
 			{copied ? (
-				<i className="fa-sharp fa-regular fa-clipboard-check fa-beat-fade"></i>
+				<FontAwesomeIcon icon={icon({ name: 'clipboard-check', family: 'sharp', style: 'regular' })} beatFade />
 			) : (
-				<i className="fa-sharp fa-regular fa-clipboard"></i>
+				<FontAwesomeIcon icon={icon({ name: 'clipboard', family: 'sharp', style: 'regular' })} />
 			)}
 		</Button>
 	)

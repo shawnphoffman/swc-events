@@ -1,8 +1,7 @@
 import { memo, useCallback } from 'react'
 import { styled } from '@linaria/react'
-// import * as Panelbear from '@panelbear/panelbear-js'
-
-// import Event from 'utils/events'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 export const Button = styled.div`
 	color: var(--linkAlt);
@@ -25,7 +24,7 @@ const EditEventIcon = ({ event, onEdit }) => {
 
 	return (
 		<Button title="Edit User Event" onClick={handleClick}>
-			<i className="fa-sharp fa-regular fa-pen-to-square"></i>
+			<FontAwesomeIcon icon={icon({ name: 'pen-to-square', family: 'sharp', style: 'regular' })} />
 		</Button>
 	)
 }

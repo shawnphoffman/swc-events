@@ -1,6 +1,8 @@
 import { memo, useMemo } from 'react'
 import ICalendarLink from 'utils/icalendar-link'
 import { styled } from '@linaria/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 export const Button = styled(ICalendarLink)`
 	color: var(--download);
@@ -32,7 +34,7 @@ const DownloadIcon = ({ event }) => {
 
 	return (
 		<Button filename={icsFilename} event={icsEvent} title="Download Event">
-			<i className="fa-sharp fa-regular fa-calendar-arrow-down"></i>
+			<FontAwesomeIcon icon={icon({ name: 'calendar-arrow-down', family: 'sharp', style: 'regular' })} />
 		</Button>
 	)
 }

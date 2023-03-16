@@ -1,5 +1,7 @@
 import { memo, useCallback, useMemo } from 'react'
 import { styled } from '@linaria/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 import { useFavoriteVendorsContext } from 'context/FavoriteVendorsContext'
 
@@ -40,14 +42,14 @@ const FavoriteVendorIcon = ({ vendor }) => {
 	if (isFavorite) {
 		return (
 			<IconButton key={`${vendor.id}.bookmark-solid`} onClick={handleRemove} title="Remove Bookmark">
-				<i className="fa-sharp fa-solid fa-bookmark"></i>
+				<FontAwesomeIcon icon={icon({ name: 'bookmark', family: 'sharp', style: 'solid' })} />
 			</IconButton>
 		)
 	}
 
 	return (
 		<IconButton key={`${vendor.id}-bookmark`} onClick={handleAdd} title="Add Bookmark">
-			<i className="fa-sharp fa-regular fa-bookmark"></i>
+			<FontAwesomeIcon icon={icon({ name: 'bookmark', family: 'sharp', style: 'regular' })} />
 		</IconButton>
 	)
 }

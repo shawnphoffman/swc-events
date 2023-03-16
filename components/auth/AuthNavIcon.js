@@ -1,6 +1,7 @@
 import { memo, useEffect } from 'react'
-
 import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 import { NavIcon } from 'components/styles'
 import Routes from 'config/routes'
@@ -18,8 +19,8 @@ const AuthNavIcon = () => {
 	if (isAuthed) {
 		return (
 			<Link href={Routes.User.path} title={Routes.User.title}>
-				<NavIcon key="user">
-					<i className={`fa-sharp fa-regular ${Routes.User.icon}`}></i>
+				<NavIcon>
+					<FontAwesomeIcon icon={icon({ name: 'user-bounty-hunter', family: 'sharp', style: 'regular' })} />
 				</NavIcon>
 			</Link>
 		)
@@ -27,8 +28,8 @@ const AuthNavIcon = () => {
 
 	return (
 		<Link href={Routes.Login.path} title={Routes.Login.title}>
-			<NavIcon key="boba">
-				<i className={`fa-sharp fa-solid ${Routes.Login.icon}`}></i>
+			<NavIcon>
+				<FontAwesomeIcon icon={icon({ name: 'user', family: 'sharp', style: 'regular' })} />
 			</NavIcon>
 		</Link>
 	)

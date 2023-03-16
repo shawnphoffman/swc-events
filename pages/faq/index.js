@@ -1,6 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import { memo } from 'react'
 import { styled } from 'linaria/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 import { List, ListItem, NonScrollWrapper, PageTitle, Section } from 'components/styles'
 
@@ -18,7 +20,7 @@ const LinkItem = ({ href, children }) => {
 	return (
 		<ListItem>
 			<Link href={href} target="_blank" rel="noreferrer">
-				{children} <i className="fa-sharp fa-solid fa-up-right-from-square"></i>
+				{children} <FontAwesomeIcon icon={icon({ name: 'up-right-from-square', family: 'sharp', style: 'solid' })} />
 			</Link>
 		</ListItem>
 	)
@@ -85,7 +87,7 @@ const Faq = () => {
 				<List>
 					<LinkItem href="https://github.com/shawnphoffman/celebration-calendar">Project Source Code</LinkItem>
 					<LinkItem href="https://twitter.com/iceplanethoff">
-						<i className="fa-brands fa-twitter"></i> Follow me on Twitter
+						<FontAwesomeIcon icon={brands('twitter')} /> Follow me on Twitter
 					</LinkItem>
 				</List>
 			</Section>

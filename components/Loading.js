@@ -1,5 +1,7 @@
 import { memo } from 'react'
 import { styled } from 'linaria/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { brands } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 const Wrapper = styled.div`
 	display: flex;
@@ -22,14 +24,14 @@ const Loading = ({ inline }) => {
 	if (inline) {
 		return (
 			<InlineSpinner>
-				<i className="fa-brands fa-galactic-republic fa-beat"></i>
+				<FontAwesomeIcon icon={brands('galactic-republic')} beat />
 			</InlineSpinner>
 		)
 	}
 	return (
 		<Wrapper>
 			<Spinner>
-				<i className="fa-brands fa-galactic-republic fa-beat"></i>
+				<FontAwesomeIcon icon={brands('galactic-republic')} beat />
 			</Spinner>
 		</Wrapper>
 	)

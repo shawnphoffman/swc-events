@@ -1,123 +1,187 @@
-import { useAuth } from 'hooks/useAuth'
-import { memo, useCallback, useEffect, useState } from 'react'
+/* eslint-disable react/no-unescaped-entities */
+import { memo, useMemo } from 'react'
+import Link from 'next/link'
+import { styled } from 'linaria/react'
 
-const MyFavorites = () => {
-	const { client, user } = useAuth()
+import CopyUrlIcon from 'components/events/CopyUrlIcon'
+import EventListItem from 'components/events/EventListItem'
+import { PageTitle } from 'components/styles'
+import Routes from 'config/routes'
+import { useEventContext } from 'context/EventContext'
+import { useFavoritesContext } from 'context/FavoritesContext'
 
-	const [loading, setLoading] = useState(true)
-	const [favorites, setFavorites] = useState([])
-	const [text, setText] = useState('')
+const Divider = styled.hr`
+	width: 100%;
+	border-color: var(--text);
+`
+const NoFavorites = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex: 0;
+	margin-top: 16px;
+	font-weight: bold;
+`
+const Container = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	overflow-x: hidden;
+	background: var(--bg);
+	border-radius: 8px;
+	flex-direction: column;
+	align-items: center;
+`
+const ScrollBox = styled.div`
+	width: 100%;
+	overflow-y: scroll;
+	::-webkit-scrollbar-corner {
+		background: var(--transparent);
+	}
+`
+const LoginPrompt = styled.div`
+	margin-bottom: 8px;
+`
+const NextLink = styled.div`
+	color: var(--linkAlt);
+	font-weight: bold;
+	text-decoration: none;
 
-	const loadData = useCallback(async () => {
-		try {
-			setLoading(true)
+	&:hover {
+		color: var(--linkHover);
+	}
+`
 
-			let { data, status, error } = await client.from('favorites').select()
+const Favorites = () => {
+	const [state] = useEventContext()
+	const { favorites: ids } = useFavoritesContext()
+	// const { status, data: signInCheckResult } = useSigninCheck()
+	// const database = useDatabase()
+	// const { data: user } = useUser()
 
-			console.log({
-				data,
-				status,
-				error,
-			})
+	const hasFavorites = useMemo(() => {
+		return !!ids.length
+	}, [ids])
 
-			if (error && status !== 406) {
-				throw error
-			}
-
-			if (data) {
-				setFavorites(data)
-				// 	setUsername(data.username)
-				// 	setWebsite(data.website)
-				// 	setAvatarUrl(data.avatar_url)
-			}
-		} catch (error) {
-			console.log(error)
-			alert(error.message)
-		} finally {
-			setLoading(false)
-		}
-	}, [client])
-
-	const handleCreateChange = useCallback(e => {
-		const value = e.target.value
-		setText(value)
+	const showLoginPrompt = useMemo(() => {
+		return false
+		// return status === 'success' && !signInCheckResult?.signedIn
+		// }, [status, signInCheckResult])
 	}, [])
 
-	const handleCreate = useCallback(async () => {
-		console.log(`Creating`)
-		try {
-			let { status, error } = await client.from('favorites').insert({
-				event_id: text,
-				user_id: user?.id,
-			})
-			console.log('insert', { status, error })
-			setText('')
-			loadData()
-		} catch (e) {
-			console.error(e)
-		}
-	}, [loadData, client, text, user?.id])
+	// ============================================================
 
-	const handleDelete = useCallback(
-		async id => {
-			console.log(`Deleting ID: ${id}`)
-			try {
-				let { status, error } = await client.from('favorites').delete().eq('id', id)
-				console.log('delete', { status, error })
-				loadData()
-			} catch (e) {
-				console.error(e)
-			}
-		},
-		[loadData, client]
-	)
+	// User Events Ref
+	// const userEventsRef = useMemo(() => {
+	// 	if (!user) return ref(database, `wow`)
+	// 	return ref(database, `user-events/${user?.uid}`)
+	// }, [database, user])
 
-	const handleUpdate = useCallback(
-		async (id, event_id) => {
-			console.log(`Update ID: ${id}`)
-			try {
-				let { status, error } = await client
-					.from('favorites')
-					.update({ created_at: new Date(), event_id: `${event_id}z` })
-					.eq('id', id)
-				console.log('delete', { status, error })
-				loadData()
-			} catch (e) {
-				console.error(e)
-			}
-		},
-		[loadData, client]
-	)
+	// User Events Resp
+	// const userEventsRep = useDatabaseObjectData(userEventsRef, {})
 
-	useEffect(() => {
-		if (user) {
-			console.log('init', user)
-			loadData()
-		}
-	}, [loadData, user])
+	// User Events
+	const userEvents = useMemo(() => {
+		// 	if (userEventsRep?.status !== 'success' || !userEventsRep?.data) return []
+		// if (!userEventsRep?.data) {
+		return []
+		// 	} else {
+		// 		return Object.values(userEventsRep.data).sort((a, b) => {
+		// 			const aStart = new Date(a.startDate)
+		// 			const bStart = new Date(b.startDate)
+		// 			const aEnd = new Date(a.endDate)
+		// 			const bEnd = new Date(b.endDate)
+		// 			if (aStart > bStart) return 1
+		// 			if (aStart < bStart) return -1
+		// 			if (aEnd > bEnd) return 1
+		// 			if (aEnd < bEnd) return -1
+		// 			if (a.summary > b.summary) return 1
+		// 			if (a.summary < b.summary) return -1
+		// 			return 0
+		// 		})
+		// 	}
+		// }, [userEventsRep?.data, userEventsRep?.status])
+	}, [])
+
+	// ============================================================
+
+	// Custom Events Ref
+	// const customEventsRef = useMemo(() => {
+	// 	return ref(database, `custom-events`)
+	// }, [database])
+
+	// Custom Events Resp
+	// const customEventsRep = useDatabaseObjectData(customEventsRef, {})
+
+	// All Events
+	const customEvents = useMemo(() => {
+		// 	if (!state || !state.allEvents) return []
+		// 	if (customEventsRep?.status !== 'success' || !customEventsRep?.data) {
+		return []
+		// 	} else {
+		// 		return Object.keys(customEventsRep.data).reduce((memo, curr) => {
+		// 			memo = [...memo, ...Object.values(customEventsRep.data[curr])]
+		// 			return memo
+		// 		}, [])
+		// 	}
+		// }, [customEventsRep.data, customEventsRep?.status, state])
+	}, [])
+	// ============================================================
+
+	const favorites = useMemo(() => {
+		if (!state?.allEvents) return []
+
+		const savedFavorites = state.allEvents.filter(e => {
+			return ids.includes(e.id)
+		})
+
+		const savedCustomEvents = customEvents.filter(e => {
+			return ids.includes(e.id)
+		})
+
+		const rawFavorites = [...savedFavorites, ...userEvents, ...savedCustomEvents]
+
+		return rawFavorites.sort((a, b) => {
+			const aStart = new Date(a.startDate)
+			const bStart = new Date(b.startDate)
+			const aEnd = new Date(a.endDate)
+			const bEnd = new Date(b.endDate)
+			if (aStart > bStart) return 1
+			if (aStart < bStart) return -1
+			if (aEnd > bEnd) return 1
+			if (aEnd < bEnd) return -1
+			if (a.summary > b.summary) return 1
+			if (a.summary < b.summary) return -1
+			return 0
+		})
+	}, [customEvents, ids, state.allEvents, userEvents])
 
 	return (
-		<div className="page">
-			<h1>My Favorites</h1>
-			<ul>
-				{favorites?.map(event => (
-					<li key={event.id}>
-						<div>{event.id}</div>
-						<div>{event.event_id}</div>
-						<div>{event.user_id}</div>
-						<div>{event.created_at}</div>
-						<button onClick={() => handleDelete(event.id)}>Delete</button>
-						<button onClick={() => handleUpdate(event.id, event.event_id)}>Update</button>
-						<hr />
-					</li>
+		<Container>
+			<PageTitle>
+				Your Favorited Events <CopyUrlIcon />
+			</PageTitle>
+			{showLoginPrompt && (
+				<>
+					<LoginPrompt>
+						If you{' '}
+						<NextLink>
+							<Link href={Routes.Login.path}>log in</Link>
+						</NextLink>
+						, we'll save your favorites across your devices!
+					</LoginPrompt>
+				</>
+			)}
+			<ScrollBox>
+				{!hasFavorites && !userEvents && <NoFavorites>No favorites to display...</NoFavorites>}
+				{/* {userEvents && userEvents.map(event => <EventListItem event={event} key={event.id} forceOpen />)} */}
+				{hasFavorites && userEvents && <Divider />}
+				{favorites.map(event => (
+					<EventListItem event={event} key={event.id} forceOpen />
 				))}
-			</ul>
-			<hr />
-			<h2>Create Favorite</h2>
-			<input type="text" onChange={handleCreateChange} value={text} />
-			<button onClick={handleCreate}>Create</button>
-		</div>
+			</ScrollBox>
+		</Container>
 	)
 }
 
-export default memo(MyFavorites)
+export default memo(Favorites)

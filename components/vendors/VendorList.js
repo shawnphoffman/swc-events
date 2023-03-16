@@ -1,6 +1,8 @@
 import { memo, Suspense, useCallback, useEffect, useMemo, useState, useTransition } from 'react'
 import Fuse from 'fuse.js'
 import { styled } from 'linaria/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 import Loading from 'components/Loading'
 import { Input, InputWrapper, PageTitle } from 'components/styles'
@@ -131,7 +133,7 @@ const VendorList = () => {
 					<Input onChange={handleChange} type="text" placeholder="Search vendors..." />
 				</InputWrapper>
 				<Filter onClick={toggleBookmarksOnly} active={bookmarksOnly}>
-					<i className="fa-sharp fa-solid fa-bookmark" />
+					<FontAwesomeIcon icon={icon({ name: 'bookmark', family: 'sharp', style: 'solid' })} />
 				</Filter>
 			</Controls>
 			<ScrollBox>
