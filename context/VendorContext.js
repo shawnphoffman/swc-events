@@ -1,9 +1,5 @@
 import React, { createContext, memo, useContext, useEffect, useReducer } from 'react'
 
-// import * as Panelbear from '@panelbear/panelbear-js'
-// import Vendor from 'utils/events'
-import { processApiVendors } from 'utils/dataUtils'
-
 const VendorContext = createContext()
 
 export const VendorAction = {
@@ -43,22 +39,6 @@ const VendorProvider = ({ children }) => {
 				dispatch({ type: VendorAction.SET_VENDORS, vendors, tattooArtists })
 			})
 	}, [])
-
-	// useEffect(() => {
-	// 	fetch(process.env.REACT_APP_VENDOR_ENDPOINT)
-	// 		.then(res => res.json())
-	// 		.then(data => {
-	// 			const { vendors, tattooArtists } = processApiVendors(data)
-	// 			dispatch({ type: VendorAction.SET_VENDORS, vendors, tattooArtists })
-	// 		})
-	// 		.catch(e => {
-	// 			// Panelbear.track(Vendor.FetchFailure)
-	// 			import('../data/vendors.json').then(rawVendors => {
-	// 				const { vendors, tattooArtists } = processApiVendors(rawVendors)
-	// 				dispatch({ type: VendorAction.SET_VENDORS, vendors, tattooArtists })
-	// 			})
-	// 		})
-	// }, [])
 
 	return <VendorContext.Provider value={[state, dispatch]}>{children}</VendorContext.Provider>
 }
