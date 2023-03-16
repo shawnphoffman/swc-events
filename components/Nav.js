@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useState, useEffect } from 'react'
 import { styled } from 'linaria/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -23,6 +23,16 @@ const Nav = styled.div`
 	}
 `
 
+const TempIcon = ({ children }) => {
+	const [mounted, setMounted] = useState(false)
+
+	useEffect(() => {
+		setMounted(true)
+	}, [])
+
+	return mounted ? children : null
+}
+
 const NavBar = () => {
 	const router = useRouter()
 	return (
@@ -30,7 +40,9 @@ const NavBar = () => {
 			{NavRoutes.map(r => (
 				<Link href={r.path} title={r.title} key={r.title}>
 					<NavIcon className={router.asPath === r.path ? 'active' : ''}>
-						<FontAwesomeIcon icon={`fa-sharp fa-solid ${r.icon}`} />
+						<TempIcon>
+							<FontAwesomeIcon icon={`fa-sharp fa-solid ${r.icon}`} />
+						</TempIcon>
 					</NavIcon>
 				</Link>
 			))}

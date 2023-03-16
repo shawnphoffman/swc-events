@@ -22,10 +22,11 @@ export const Button = styled.div`
 const CopyUrlIcon = () => {
 	const [copied, setCopied] = useState(false)
 	const { user, isAuthed } = useAuth()
+	const [baseUrl, setBaseUrl] = useState('')
 
 	const uid = useMemo(() => user?.id, [user])
 
-	const url = useMemo(() => `/favorites/${uid}`, [uid])
+	const url = useMemo(() => `${baseUrl}/favorites/${uid}`, [uid, baseUrl])
 
 	const logCopy = useCallback(
 		e => {
@@ -37,6 +38,10 @@ const CopyUrlIcon = () => {
 	)
 
 	useEffect(() => {
+		setBaseUrl(window.location.origin)
+	}, [])
+
+	useEffect(() => {
 		let t = () => {}
 		if (copied) {
 			t = setTimeout(() => {
@@ -46,7 +51,6 @@ const CopyUrlIcon = () => {
 		return () => t
 	}, [copied])
 
-	// if (status !== 'success' || !signInCheckResult?.signedIn || !uid) {
 	if (!isAuthed || !uid) {
 		return null
 	}
