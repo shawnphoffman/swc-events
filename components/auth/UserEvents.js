@@ -7,6 +7,7 @@ import Button from 'components/Button'
 import EventListItem from 'components/events/EventListItem'
 import { useAuth } from 'hooks/useAuth'
 import { PageTitle } from 'components/styles'
+import { useUserEventContext } from 'context/UserEventContext'
 
 const cleanDataRelative = rawDate => {
 	const cleaned = rawDate.replace(' ', 'T')
@@ -199,124 +200,7 @@ const UserEventForm = () => {
 	const [imageUrl, setImageUrl] = useState('')
 	const [isPrivate, setIsPrivate] = useState(true)
 
-	const [userEvents, setUserEvents] = useState([])
-
-	// ============================================================
-
-	// User Events
-	// const userEvents = useMemo(() => {
-	// 	// if (userEventsRep?.status !== 'success' || !userEventsRep?.data || customEventsRep?.status !== 'success' || !customEventsRep?.data)
-	// 	// 	return null
-	// 	// if (!userEventsRep?.data && !customEventsRep?.data) {
-	// 	// 	return null
-	// 	// } else {
-	// 	// const customEvents = Object.keys(customEventsRep.data).reduce((memo, curr) => {
-
-	// 	// 	return memo
-	// 	// }, [])
-	// 	// const temp = [...Object.values(userEventsRep.data), ...Object.values(customEventsRep.data)]
-	// 	const temp = []
-
-	// 	// console.log({
-	// 	// 	user: userEventsRep.data,
-	// 	// 	custom: customEventsRep.data,
-	// 	// })
-
-	// 	return temp.sort((a, b) => {
-	// 		const aStart = new Date(a.startDate)
-	// 		const bStart = new Date(b.startDate)
-	// 		const aEnd = new Date(a.endDate)
-	// 		const bEnd = new Date(b.endDate)
-
-	// 		if (aStart > bStart) return 1
-
-	// 		if (aStart < bStart) return -1
-
-	// 		if (aEnd > bEnd) return 1
-
-	// 		if (aEnd < bEnd) return -1
-
-	// 		if (a.summary > b.summary) return 1
-
-	// 		if (a.summary < b.summary) return -1
-
-	// 		return 0
-	// 	})
-	// 	// }
-	// 	// }, [customEventsRep.data, customEventsRep?.status, userEventsRep.data, userEventsRep?.status])
-	// }, [])
-
-	const insertRecord = useCallback(
-		async event => {
-			const { data, error } = await client.from('userEvents').insert(
-				[
-					{
-						id: event.id,
-						summary: event.summary,
-						description: event.description,
-						venue: event.venue,
-						timezoneStartAt: event.timezoneStartAt,
-						startDate: event.startDate,
-						endDate: event.endDate,
-						startAt: event.startAt,
-						endAt: event.endAt,
-						color: event.color,
-						url: event.url,
-						address: event.address,
-						imageUrl: event.imageUrl,
-						type: event.type,
-						private: event.private,
-						creator_id: event.creator,
-					},
-				],
-				{ upsert: true }
-			)
-			console.log({ data, error })
-		},
-		[client]
-	)
-
-	const updateRecord = useCallback(
-		async event => {
-			console.log('UPDATING')
-			const { data, error } = await client
-				.from('userEvents')
-				.update({
-					summary: event.summary,
-					description: event.description,
-					venue: event.venue,
-					timezoneStartAt: event.timezoneStartAt,
-					startDate: event.startDate,
-					endDate: event.endDate,
-					startAt: event.startAt,
-					endAt: event.endAt,
-					color: event.color,
-					url: event.url,
-					address: event.address,
-					imageUrl: event.imageUrl,
-					type: event.type,
-					private: event.private,
-					creator_id: event.creator,
-				})
-				.eq('id', event.id)
-			console.log('update', { data, error, event })
-		},
-		[client]
-	)
-
-	// Add User Event
-	const addUserEvent = useCallback(
-		async event => {
-			if (!event.id) {
-				event.id = uuidv4()
-				await insertRecord(event)
-			} else {
-				await updateRecord(event)
-			}
-			await fetchUserEvents()
-		},
-		[fetchUserEvents, insertRecord, updateRecord]
-	)
+	const { userEvents, addUserEvent } = useUserEventContext()
 
 	// ============================================================
 
@@ -334,6 +218,16 @@ const UserEventForm = () => {
 		setIsPrivate(true)
 		setError('')
 	}, [])
+
+	useEffect(() => {
+		if (!isPrivate) {
+			setVenue('Public Events')
+		} else {
+			setVenue('My Events')
+		}
+	}, [isPrivate])
+
+	// ============================================================
 
 	//
 	const handleTitleChange = useCallback(e => {
@@ -383,11 +277,6 @@ const UserEventForm = () => {
 	//
 	const handleUrlChange = useCallback(e => {
 		const value = e.target.value
-
-		// if (!isValidHttpUrl(value)) {
-		// 	setError('Invalid event URL')
-		// 	return
-		// }
 		setError(null)
 		setUrl(value)
 	}, [])
@@ -399,11 +288,6 @@ const UserEventForm = () => {
 	//
 	const handleImageUrlChange = useCallback(e => {
 		const value = e.target.value
-
-		// if (!isValidHttpUrl(value)) {
-		// 	setError('Invalid image URL')
-		// 	return
-		// }
 		setError(null)
 		setImageUrl(value)
 	}, [])
@@ -413,13 +297,7 @@ const UserEventForm = () => {
 		setIsPrivate(value)
 	}, [])
 
-	useEffect(() => {
-		if (!isPrivate) {
-			setVenue('Public Events')
-		} else {
-			setVenue('My Events')
-		}
-	}, [isPrivate])
+	// ============================================================
 
 	//
 	const handleSubmit = useCallback(() => {
@@ -480,8 +358,6 @@ const UserEventForm = () => {
 			creator: user?.id,
 		}
 
-		console.log({ newEvent })
-
 		addUserEvent(newEvent)
 		handleReset()
 	}, [addUserEvent, address, description, endTime, error, handleReset, id, imageUrl, isPrivate, startTime, title, url, user?.id, venue])
@@ -499,48 +375,9 @@ const UserEventForm = () => {
 		setIsPrivate(event.private)
 	}, [])
 
-	const fetchUserEvents = useCallback(async () => {
-		if (!isAuthed || !user?.id || !client) {
-			return
-		}
-		console.log('FETCHING')
-		try {
-			let { data, error } = await client.from('userEvents').select().eq('creator_id', user?.id)
-			if (error) {
-				console.error(error)
-			}
-			if (data) {
-				const temp = Object.values(data).sort((a, b) => {
-					const aStart = new Date(a.startDate)
-					const bStart = new Date(b.startDate)
-					const aEnd = new Date(a.endDate)
-					const bEnd = new Date(b.endDate)
-					if (aStart > bStart) return 1
-					if (aStart < bStart) return -1
-					if (aEnd > bEnd) return 1
-					if (aEnd < bEnd) return -1
-					if (a.summary > b.summary) return 1
-					if (a.summary < b.summary) return -1
-					return 0
-				})
-				setUserEvents(temp)
-			}
-		} catch (e) {
-			console.log(e)
-		}
-	}, [client, isAuthed, user?.id])
-
-	useEffect(() => {
-		fetchUserEvents()
-	}, [fetchUserEvents])
-
-	useEffect(() => {
-		const intervalId = setInterval(() => {
-			console.log('POLL')
-			fetchUserEvents()
-		}, 5000)
-		return () => clearInterval(intervalId)
-	}, [fetchUserEvents])
+	// useEffect(() => {
+	// 	fetchUserEvents()
+	// }, [fetchUserEvents])
 
 	return (
 		<Wrapper>

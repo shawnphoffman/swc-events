@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 import { useAuth } from 'hooks/useAuth'
+import { useUserEventContext } from 'context/UserEventContext'
 
 export const Button = styled.div`
 	color: ${p => (p.confirm ? 'red' : 'var(--linkAlt)')};
@@ -19,20 +20,7 @@ export const Button = styled.div`
 
 const DeleteEventIcon = ({ event }) => {
 	const [confirm, setConfirm] = useState(false)
-	const { client, user, isAuthed } = useAuth()
-
-	// Delete User Event
-	const deleteUserEvent = useCallback(
-		// TODO Update the user events context????
-		async id => {
-			let { status, error } = await client.from('userEvents').delete().match({
-				id: id,
-				creator_id: user?.id,
-			})
-			alert("Event deleted. Refresh the page or navigate. I'll fix this as soon as I can")
-		},
-		[client, user?.id]
-	)
+	const { deleteUserEvent } = useUserEventContext()
 
 	const handleClick = useCallback(() => {
 		if (confirm) {

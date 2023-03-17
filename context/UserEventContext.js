@@ -1,4 +1,5 @@
 import { createContext, memo, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 import { useAuth } from 'hooks/useAuth'
 
@@ -142,6 +143,7 @@ const UserEventProvider = ({ children }) => {
 				creator_id: user?.id,
 			})
 			console.log('DELETE USER EVENT', { status, error, id })
+			await fetchUserEvents()
 		},
 		[client, user?.id]
 	)
@@ -162,3 +164,51 @@ const UserEventProvider = ({ children }) => {
 export const useUserEventContext = () => useContext(UserEventContext)
 
 export default memo(UserEventProvider)
+
+/*
+
+
+	// User Events
+	// const userEvents = useMemo(() => {
+	// 	// if (userEventsRep?.status !== 'success' || !userEventsRep?.data || customEventsRep?.status !== 'success' || !customEventsRep?.data)
+	// 	// 	return null
+	// 	// if (!userEventsRep?.data && !customEventsRep?.data) {
+	// 	// 	return null
+	// 	// } else {
+	// 	// const customEvents = Object.keys(customEventsRep.data).reduce((memo, curr) => {
+
+	// 	// 	return memo
+	// 	// }, [])
+	// 	// const temp = [...Object.values(userEventsRep.data), ...Object.values(customEventsRep.data)]
+	// 	const temp = []
+
+	// 	// console.log({
+	// 	// 	user: userEventsRep.data,
+	// 	// 	custom: customEventsRep.data,
+	// 	// })
+
+	// 	return temp.sort((a, b) => {
+	// 		const aStart = new Date(a.startDate)
+	// 		const bStart = new Date(b.startDate)
+	// 		const aEnd = new Date(a.endDate)
+	// 		const bEnd = new Date(b.endDate)
+
+	// 		if (aStart > bStart) return 1
+
+	// 		if (aStart < bStart) return -1
+
+	// 		if (aEnd > bEnd) return 1
+
+	// 		if (aEnd < bEnd) return -1
+
+	// 		if (a.summary > b.summary) return 1
+
+	// 		if (a.summary < b.summary) return -1
+
+	// 		return 0
+	// 	})
+	// 	// }
+	// 	// }, [customEventsRep.data, customEventsRep?.status, userEventsRep.data, userEventsRep?.status])
+	// }, [])
+
+	*/
