@@ -1,13 +1,8 @@
 import { DateTime } from 'luxon'
 
-const convertDate = rawDate => {
-	return new Date(rawDate.replace(' ', 'T')).toISOString()
-}
-
 const cleanDataRelative = rawDate => {
 	const cleaned = rawDate.replace(' ', 'T')
 	const temp = DateTime.fromFormat(`${cleaned}`, "yyyy-MM-dd'T'HH:mm:ss").toISO()
-	console.log(temp)
 	return temp
 }
 
