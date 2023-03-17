@@ -118,3 +118,7 @@ export const ScrollBox = styled.div`
 		background: var(--transparent);
 	}
 `
+export const Divider = styled.hr`
+	width: 100%;
+	border-color: var(--text);
+`

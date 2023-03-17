@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { styled } from 'linaria/react'
 
-// import Avatar from './Avatar'
 import Button from 'components/Button'
 import { Input, InputWrapper, PageTitle } from 'components/styles'
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+	max-width: 300px;
+	width: 100%;
+`
 const Label = styled.div`
 	font-weight: bold;
 	margin: 16px 0px 8px 0px;
@@ -14,79 +16,60 @@ const Label = styled.div`
 const InputContainer = styled.div``
 
 export default function Account() {
-	const [loading, setLoading] = useState(true)
-	const [username, setUsername] = useState(null)
-	const [website, setWebsite] = useState(null)
-	const [avatar_url, setAvatarUrl] = useState(null)
+	// const [loading, setLoading] = useState(true)
+	// const [username, setUsername] = useState(null)
 	const supabaseClient = useSupabaseClient()
 	const user = useUser()
 
-	useEffect(() => {
-		async function getProfile() {
-			try {
-				setLoading(true)
+	// useEffect(() => {
+	// 	async function getProfile() {
+	// 		try {
+	// 			setLoading(true)
 
-				let { data, error, status } = await supabaseClient
-					.from('profiles')
-					.select(`username, website, avatar_url`)
-					.eq('id', user.id)
-					.single()
+	// 			let { data, error, status } = await supabaseClient.from('profiles').select(`username`).eq('id', user.id).single()
 
-				if (error && status !== 406) {
-					throw error
-				}
+	// 			if (error && status !== 406) {
+	// 				throw error
+	// 			}
 
-				if (data) {
-					setUsername(data.username)
-					setWebsite(data.website)
-					setAvatarUrl(data.avatar_url)
-				}
-			} catch (error) {
-				alert(error.message)
-			} finally {
-				setLoading(false)
-			}
-		}
-		getProfile()
-	}, [supabaseClient, user?.id])
+	// 			if (data) {
+	// 				setUsername(data.username)
+	// 			}
+	// 		} catch (error) {
+	// 			alert(error.message)
+	// 		} finally {
+	// 			setLoading(false)
+	// 		}
+	// 	}
+	// 	getProfile()
+	// }, [supabaseClient, user?.id])
 
-	async function updateProfile({ username, website, avatar_url }) {
-		try {
-			setLoading(true)
+	// async function updateProfile({ username }) {
+	// 	try {
+	// 		setLoading(true)
 
-			const updates = {
-				id: user.id,
-				username,
-				website,
-				avatar_url,
-				updated_at: new Date(),
-			}
+	// 		const updates = {
+	// 			id: user.id,
+	// 			username,
+	// 			updated_at: new Date(),
+	// 		}
 
-			let { error } = await supabaseClient.from('profiles').upsert(updates)
+	// 		let { error } = await supabaseClient.from('profiles').upsert(updates)
 
-			if (error) {
-				throw error
-			}
-		} catch (error) {
-			alert(error.message)
-		} finally {
-			setLoading(false)
-		}
-	}
+	// 		if (error) {
+	// 			throw error
+	// 		}
+	// 	} catch (error) {
+	// 		alert(error.message)
+	// 	} finally {
+	// 		setLoading(false)
+	// 	}
+	// }
 
 	return (
 		<Wrapper>
 			<PageTitle>User Info</PageTitle>
 
-			{/* Add to the body */}
-			{/* <Avatar
-				url={avatar_url}
-				size={150}
-				onUpload={url => {
-					setAvatarUrl(url)
-					updateProfile({ username, website, avatar_url: url })
-				}}
-			/> */}
 			<InputContainer>
 				<Label htmlFor="email">Email</Label>
 				<InputWrapper>
@@ -94,25 +77,20 @@ export default function Account() {
 				</InputWrapper>
 			</InputContainer>
 
-			<InputContainer>
+			{/* <InputContainer>
 				<Label htmlFor="username">Name</Label>
 				<InputWrapper>
 					<Input id="username" type="text" value={username || ''} onChange={e => setUsername(e.target.value)} />
 				</InputWrapper>
-			</InputContainer>
+			</InputContainer> */}
 
-			<InputContainer>
-				<Label htmlFor="website">Website</Label>
-				<InputWrapper>
-					<Input id="website" type="website" value={website || ''} onChange={e => setWebsite(e.target.value)} />
-				</InputWrapper>
-			</InputContainer>
+			<div>
+				{/* <Button onClick={() => updateProfile({ username })} disabled={loading}>
+					{loading ? 'Loading ...' : 'Update'}
+				</Button> */}
 
-			<Button onClick={() => updateProfile({ username, website, avatar_url })} disabled={loading}>
-				{loading ? 'Loading ...' : 'Update'}
-			</Button>
-
-			<Button onClick={() => supabaseClient.auth.signOut()}>Sign Out</Button>
+				<Button onClick={() => supabaseClient.auth.signOut()}>Sign Out</Button>
+			</div>
 		</Wrapper>
 	)
 }

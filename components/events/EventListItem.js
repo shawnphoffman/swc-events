@@ -4,13 +4,14 @@ import { styled } from 'linaria/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
-// import DeleteEventIcon from 'components/auth/DeleteEventIcon'
-// import EditEventIcon from 'components/auth/EditEventIcon'
+import DeleteEventIcon from 'components/auth/DeleteEventIcon'
+import EditEventIcon from 'components/auth/EditEventIcon'
 import { dayColor, dayName, formatTime } from 'utils/dataUtils'
 
 import DownloadIcon from './DownloadIcon'
 import EventLinkIcon from './EventLinkIcon'
 import FavoriteIcon from './FavoriteIcon'
+import { useAuth } from 'hooks/useAuth'
 
 const PrivacyIcon = styled.div`
 	font-size: 20px;
@@ -116,7 +117,7 @@ const ActionWrapper = styled.div`
 
 const EventListItem = ({ event, forceOpen = false, onEdit }) => {
 	const [expanded, setExpanded] = useState(forceOpen)
-	// const { data: user } = useUser()
+	const { user } = useAuth()
 
 	const handleClick = useCallback(() => {
 		if (!forceOpen) {
@@ -136,9 +137,10 @@ const EventListItem = ({ event, forceOpen = false, onEdit }) => {
 		return event?.type === 'userEvent' && event?.private
 	}, [event])
 
-	// const isMyUserEvent = useMemo(() => {
-	// 	return user && event?.type === 'userEvent' && event?.creator === user?.uid
-	// }, [event?.creator, event?.type, user])
+	const isMyUserEvent = useMemo(() => {
+		console.log({ user, event })
+		return user && event?.type === 'userEvent' && event?.creator_id === user?.id
+	}, [event, user])
 
 	const time = useMemo(
 		() => ({
@@ -186,9 +188,9 @@ const EventListItem = ({ event, forceOpen = false, onEdit }) => {
 						{/* Open URL */}
 						{!isPrivateUserEvent && !isPublicUserEvent && <EventLinkIcon event={event} />}
 						{/* Delete */}
-						{/* {isMyUserEvent && onEdit && <DeleteEventIcon event={event} />} */}
+						{isMyUserEvent && onEdit && <DeleteEventIcon event={event} />}
 						{/* Edit */}
-						{/* {isMyUserEvent && onEdit && <EditEventIcon event={event} onEdit={onEdit} />} */}
+						{isMyUserEvent && onEdit && <EditEventIcon event={event} onEdit={onEdit} />}
 						{/* {isMyUserEvent && (
 							<PrivacyIcon private={event.private}>
 								{event.private ? (

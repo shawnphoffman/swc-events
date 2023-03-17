@@ -372,6 +372,7 @@ const colorList = [
 	'#d50000',
 ]
 export const colorMap = {
+	'Celebration LIVE! Stage': colorList[11],
 	'Celebration Stage': colorList[0],
 	'Collectors Stage': colorList[1],
 	'Fan Stage': colorList[2],

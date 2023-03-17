@@ -1,15 +1,21 @@
+import { memo } from 'react'
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
-import Account from 'components/supabase/Account'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { styled } from 'linaria/react'
 
+import { Divider } from 'components/styles'
+import Account from 'components/supabase/Account'
+import UserEvents from 'components/auth/UserEvents'
+
 const Wrapper = styled.div`
-	max-width: 300px;
 	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 `
 
-export default function AuthIndex() {
+const AuthIndex = () => {
 	const supabaseClient = useSupabaseClient()
 	const user = useUser()
 
@@ -31,6 +37,10 @@ export default function AuthIndex() {
 	return (
 		<Wrapper>
 			<Account />
+			<Divider />
+			<UserEvents user={user} />
 		</Wrapper>
 	)
 }
+
+export default memo(AuthIndex)

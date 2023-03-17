@@ -1,13 +1,27 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
-import { useDatabase, useDatabaseObjectData } from 'reactfire'
-// import * as Panelbear from '@panelbear/panelbear-js'
-import { ref, set } from 'firebase/database'
+import { DateTime } from 'luxon'
 import { styled } from 'linaria/react'
 import { v4 as uuidv4 } from 'uuid'
 
 import Button from 'components/Button'
 import EventListItem from 'components/events/EventListItem'
-// import Event from 'utils/events'
+import { useAuth } from 'hooks/useAuth'
+
+const cleanDataRelative = rawDate => {
+	const cleaned = rawDate.replace(' ', 'T')
+	const temp = DateTime.fromFormat(`${cleaned}`, "yyyy-MM-dd'T'HH:mm").toISO()
+	// console.log('rel', { temp, rawDate })
+	return temp
+}
+
+const cleanDataWithZone = rawDate => {
+	const cleaned = rawDate.replace(' ', 'T')
+	const temp = DateTime.fromFormat(`${cleaned} Europe/London`, "yyyy-MM-dd'T'HH:mm z", {
+		setZone: 'Europe/London',
+	})
+	// console.log('zone', { temp, rawDate })
+	return temp
+}
 
 const isValidHttpUrl = string => {
 	let url
@@ -18,6 +32,7 @@ const isValidHttpUrl = string => {
 	}
 	return url.protocol === 'http:' || url.protocol === 'https:'
 }
+
 const Instructions = styled.div`
 	margin: 8px 0px 16px 0px;
 	font-size: 18px;
@@ -176,102 +191,149 @@ const CheckHint = styled.span`
 	color: var(--linkHover);
 `
 
-const UserEventForm = ({ user }) => {
+const UserEventForm = () => {
+	const { client, user } = useAuth()
 	const [error, setError] = useState('')
 	const [id, setId] = useState('')
 	const [title, setTitle] = useState('')
 	const [description, setDescription] = useState('')
 	const [venue, setVenue] = useState('My Events')
-	const [startTime, setStartTime] = useState(new Date().toISOString().substring(0, 16))
-	const [endTime, setEndTime] = useState(new Date().toISOString().substring(0, 16))
+	// TODO
+	// const [startTime, setStartTime] = useState(new Date().toISOString().substring(0, 16))
+	const [startTime, setStartTime] = useState('2023-04-02T10:00')
+	// TODO
+	// const [endTime, setEndTime] = useState(new Date().toISOString().substring(0, 16))
+	const [endTime, setEndTime] = useState('2023-04-02T11:00')
 	const [url, setUrl] = useState('')
 	const [address, setAddress] = useState('')
 	const [imageUrl, setImageUrl] = useState('')
 	const [isPrivate, setIsPrivate] = useState(true)
 
 	// ============================================================
-	const database = useDatabase()
+	// const database = useDatabase()
 
-	// User Events Ref
-	const userEventsRef = useMemo(() => {
-		return ref(database, `user-events/${user?.uid}`)
-	}, [database, user])
-	const customEventsRef = useMemo(() => {
-		return ref(database, `custom-events/${user?.uid}`)
-	}, [database, user])
+	// // User Events Ref
+	// const userEventsRef = useMemo(() => {
+	// 	return ref(database, `user-events/${user?.uid}`)
+	// }, [database, user])
+	// const customEventsRef = useMemo(() => {
+	// 	return ref(database, `custom-events/${user?.uid}`)
+	// }, [database, user])
 
-	// User Events Resp
-	const userEventsRep = useDatabaseObjectData(userEventsRef, {})
-	const customEventsRep = useDatabaseObjectData(customEventsRef, {})
+	// // User Events Resp
+	// const userEventsRep = useDatabaseObjectData(userEventsRef, {})
+	// const customEventsRep = useDatabaseObjectData(customEventsRef, {})
 
 	// User Events
 	const userEvents = useMemo(() => {
-		if (userEventsRep?.status !== 'success' || !userEventsRep?.data || customEventsRep?.status !== 'success' || !customEventsRep?.data)
-			return null
-		if (!userEventsRep?.data && !customEventsRep?.data) {
-			return null
-		} else {
-			// const customEvents = Object.keys(customEventsRep.data).reduce((memo, curr) => {
+		// if (userEventsRep?.status !== 'success' || !userEventsRep?.data || customEventsRep?.status !== 'success' || !customEventsRep?.data)
+		// 	return null
+		// if (!userEventsRep?.data && !customEventsRep?.data) {
+		// 	return null
+		// } else {
+		// const customEvents = Object.keys(customEventsRep.data).reduce((memo, curr) => {
 
-			// 	return memo
-			// }, [])
-			const temp = [...Object.values(userEventsRep.data), ...Object.values(customEventsRep.data)]
+		// 	return memo
+		// }, [])
+		// const temp = [...Object.values(userEventsRep.data), ...Object.values(customEventsRep.data)]
+		const temp = []
 
-			// console.log({
-			// 	user: userEventsRep.data,
-			// 	custom: customEventsRep.data,
-			// })
+		// console.log({
+		// 	user: userEventsRep.data,
+		// 	custom: customEventsRep.data,
+		// })
 
-			return temp.sort((a, b) => {
-				const aStart = new Date(a.startDate)
-				const bStart = new Date(b.startDate)
-				const aEnd = new Date(a.endDate)
-				const bEnd = new Date(b.endDate)
+		return temp.sort((a, b) => {
+			const aStart = new Date(a.startDate)
+			const bStart = new Date(b.startDate)
+			const aEnd = new Date(a.endDate)
+			const bEnd = new Date(b.endDate)
 
-				if (aStart > bStart) return 1
+			if (aStart > bStart) return 1
 
-				if (aStart < bStart) return -1
+			if (aStart < bStart) return -1
 
-				if (aEnd > bEnd) return 1
+			if (aEnd > bEnd) return 1
 
-				if (aEnd < bEnd) return -1
+			if (aEnd < bEnd) return -1
 
-				if (a.summary > b.summary) return 1
+			if (a.summary > b.summary) return 1
 
-				if (a.summary < b.summary) return -1
+			if (a.summary < b.summary) return -1
 
-				return 0
-			})
-		}
-	}, [customEventsRep.data, customEventsRep?.status, userEventsRep.data, userEventsRep?.status])
+			return 0
+		})
+		// }
+		// }, [customEventsRep.data, customEventsRep?.status, userEventsRep.data, userEventsRep?.status])
+	}, [])
+
+	// const updateRecord = useCallback(async event => {
+	// 	const { data, error } = await client.from('userEvents').update({ other_column: 'otherValue' }).eq('some_column', 'someValue')
+	// }, [])
+
+	const insertRecord = useCallback(
+		async event => {
+			const { data, error } = await client.from('userEvents').insert([
+				{
+					id: event.id,
+					summary: event.summary,
+					description: event.description,
+					venue: event.venue,
+					timezoneStartAt: event.timezoneStartAt,
+					startDate: event.startDate,
+					endDate: event.endDate,
+					startAt: event.startAt,
+					endAt: event.endAt,
+					color: event.color,
+					url: event.url,
+					address: event.address,
+					imageUrl: event.imageUrl,
+					type: event.type,
+					private: event.private,
+					creator_id: event.creator,
+				},
+			])
+			console.log({ data, error })
+		},
+		[client]
+	)
 
 	// Add User Event
 	const addUserEvent = useCallback(
 		event => {
-			// Existing event. Delete the old
-			if (event.id) {
-				if (event.private) {
-					// Delete public event
-					const publicEventRef = ref(database, `custom-events/${user?.uid}/${event.id}`)
-					set(publicEventRef, null)
-				} else {
-					// Delete private event
-					const privateEventRef = ref(database, `user-events/${user?.uid}/${event.id}`)
-					set(privateEventRef, null)
-				}
-			} else {
-				event.id = uuidv4()
-			}
+			// // Existing event. Delete the old
+			// if (event.id) {
+			// 	if (event.private) {
+			// 		console.log('DELETE PUBLIC EVENT', event.id)
+			// 		// Delete public event
+			// 		// const publicEventRef = ref(database, `custom-events/${user?.uid}/${event.id}`)
+			// 		// set(publicEventRef, null)
+			// 	} else {
+			// 		console.log('DELETE PRIVATE EVENT', event.id)
+			// 		// Delete private event
+			// 		// const privateEventRef = ref(database, `user-events/${user?.uid}/${event.id}`)
+			// 		// set(privateEventRef, null)
+			// 	}
+			// } else {
+			// 	event.id = uuidv4()
+			// }
 
-			if (event.private) {
-				const eventRef = ref(database, `user-events/${user?.uid}/${event.id}`)
-				set(eventRef, event)
-			} else {
-				const eventRef = ref(database, `custom-events/${user?.uid}/${event.id}`)
-				set(eventRef, event)
-			}
+			event.id = uuidv4()
+
+			insertRecord(event)
+
+			// if (event.private) {
+			// 	console.log('CREATE PRIVATE EVENT', event.id)
+			// 	// const eventRef = ref(database, `user-events/${user?.uid}/${event.id}`)
+			// 	// set(eventRef, event)
+			// } else {
+			// 	console.log('CREATE PUBLIC EVENT', event.id)
+			// 	// const eventRef = ref(database, `custom-events/${user?.uid}/${event.id}`)
+			// 	// set(eventRef, event)
+			// }
 		},
-		[database, user?.uid]
+		// [database, user?.uid]
+		[insertRecord]
 	)
 
 	// ============================================================
@@ -282,7 +344,9 @@ const UserEventForm = ({ user }) => {
 		setTitle('')
 		setDescription('')
 		setVenue('My Events')
+		// TODO
 		setStartTime(new Date().toISOString().substring(0, 16))
+		// TODO
 		setEndTime(new Date().toISOString().substring(0, 16))
 		setUrl('')
 		setAddress('')
@@ -418,25 +482,29 @@ const UserEventForm = ({ user }) => {
 			summary: title,
 			description: description ?? null,
 			venue: venue,
-			timezoneStartAt: 'America/Los_Angeles',
-			startDate: startTime,
-			endDate: endTime,
-			startAt: new Date(startTime).toISOString(),
-			endAt: new Date(endTime).toISOString(),
+			timezoneStartAt: 'Europe/London',
+			// startDate: startTime,
+			// endDate: endTime,
+			startDate: cleanDataRelative(startTime),
+			endDate: cleanDataRelative(endTime),
+			// startAt: new Date(startTime).toISOString(),
+			// endAt: new Date(endTime).toISOString(),
+			startAt: cleanDataWithZone(startTime),
+			endAt: cleanDataWithZone(endTime),
 			color: 'var(--linkHover)',
 			url: url ?? null,
 			address: address ?? null,
 			imageUrl: imageUrl ?? null,
 			type: 'userEvent',
 			private: isPrivate,
-			creator: user?.uid,
+			creator: user?.id,
 		}
+
+		console.log({ newEvent })
 
 		addUserEvent(newEvent)
 		handleReset()
-
-		// Panelbear.track(Event.AddOrEditCustomEvent)
-	}, [addUserEvent, address, description, endTime, error, handleReset, id, imageUrl, isPrivate, startTime, title, url, user?.uid, venue])
+	}, [addUserEvent, address, description, endTime, error, handleReset, id, imageUrl, isPrivate, startTime, title, url, user?.id, venue])
 
 	const handleEdit = useCallback(event => {
 		setId(event.id)
@@ -449,12 +517,12 @@ const UserEventForm = ({ user }) => {
 		setAddress(event.address)
 		setImageUrl(event.imageUrl)
 		setIsPrivate(event.private)
-		// Panelbear.track(Event.EditCustomEvent)
 	}, [])
 
 	return (
 		<Wrapper>
-			<Instructions>Custom events are private and not visible to other users.</Instructions>
+			{/* <Instructions>Custom events are private and not visible to other users.</Instructions> */}
+			<Instructions>Add your own custom events.</Instructions>
 			{error && <Error>{error}</Error>}
 			{/*  */}
 			{process.env.NODE_ENV === 'development' && (
@@ -504,8 +572,8 @@ const UserEventForm = ({ user }) => {
 				<InputContainer>
 					<DateTimeInput
 						type="datetime-local"
-						min="2022-05-21T12:00"
-						max="2022-05-31T12:00"
+						min="2023-04-01T00:00"
+						max="2023-05-01T12:00"
 						step="300"
 						onChange={handleStartChange}
 						value={startTime}
@@ -518,8 +586,8 @@ const UserEventForm = ({ user }) => {
 				<InputContainer>
 					<DateTimeInput
 						type="datetime-local"
-						min="2022-05-21T12:00"
-						max="2022-05-31T12:00"
+						min="2023-04-01T00:00"
+						max="2023-05-01T12:00"
 						step="300"
 						onChange={handleEndChange}
 						value={endTime}

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { memo, useMemo } from 'react'
+import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { styled } from 'linaria/react'
 
@@ -59,31 +59,41 @@ const Favorites = () => {
 	const { favorites: ids } = useFavoritesContext()
 	const { client, user, isAuthed } = useAuth()
 
+	const [userEvents, setUserEvents] = useState([])
+
 	const hasFavorites = useMemo(() => {
 		return !!ids.length
 	}, [ids])
 
 	const showLoginPrompt = useMemo(() => {
 		return !isAuthed
-		// return status === 'success' && !signInCheckResult?.signedIn
-		// }, [status, signInCheckResult])
 	}, [isAuthed])
 
 	// ============================================================
 
-	// User Events Ref
-	// const userEventsRef = useMemo(() => {
-	// 	if (!user) return ref(database, `wow`)
-	// 	return ref(database, `user-events/${user?.uid}`)
-	// }, [database, user])
-
-	// User Events Resp
-	// const userEventsRep = useDatabaseObjectData(userEventsRef, {})
-
 	// User Events
-	const userEvents = useMemo(() => {
-		// 	if (userEventsRep?.status !== 'success' || !userEventsRep?.data) return []
-		// if (!userEventsRep?.data) {
+	const fetchUserEvents = useCallback(async () => {
+		// return []
+		if (!isAuthed || !user?.id || !client) {
+			return []
+		}
+
+		try {
+			let { data, error, status } = await client.from('userEvents').select().eq('creator_id', user.id)
+
+			console.log({
+				data,
+				error,
+				status,
+			})
+
+			if (data) {
+				setUserEvents(data)
+			}
+		} catch (e) {
+			console.log(e)
+		}
+
 		return []
 		// 	} else {
 		// 		return Object.values(userEventsRep.data).sort((a, b) => {
@@ -101,17 +111,9 @@ const Favorites = () => {
 		// 		})
 		// 	}
 		// }, [userEventsRep?.data, userEventsRep?.status])
-	}, [])
+	}, [client, isAuthed, user?.id])
 
 	// ============================================================
-
-	// Custom Events Ref
-	// const customEventsRef = useMemo(() => {
-	// 	return ref(database, `custom-events`)
-	// }, [database])
-
-	// Custom Events Resp
-	// const customEventsRep = useDatabaseObjectData(customEventsRef, {})
 
 	// All Events
 	const customEvents = useMemo(() => {
@@ -139,6 +141,12 @@ const Favorites = () => {
 			return ids.includes(e.id)
 		})
 
+		console.log({
+			savedFavorites,
+			userEvents,
+			savedCustomEvents,
+		})
+
 		const rawFavorites = [...savedFavorites, ...userEvents, ...savedCustomEvents]
 
 		return rawFavorites.sort((a, b) => {
@@ -155,6 +163,10 @@ const Favorites = () => {
 			return 0
 		})
 	}, [customEvents, ids, state.allEvents, userEvents])
+
+	useEffect(() => {
+		fetchUserEvents()
+	}, [fetchUserEvents])
 
 	return (
 		<Container>
