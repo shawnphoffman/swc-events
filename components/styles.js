@@ -99,3 +99,22 @@ export const Input = styled.input`
 		border-color: var(--transparent);
 	}
 `
+
+export const Container = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	overflow-x: hidden;
+	background: var(--bg);
+	border-radius: 8px;
+	flex-direction: column;
+	align-items: center;
+`
+
+export const ScrollBox = styled.div`
+	width: 100%;
+	overflow-y: scroll;
+	::-webkit-scrollbar-corner {
+		background: var(--transparent);
+	}
+`

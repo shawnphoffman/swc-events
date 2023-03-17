@@ -16,6 +16,7 @@ export const Button = styled(ICalendarLink)`
 `
 
 const DownloadIcon = ({ event }) => {
+	// console.log({ event })
 	const icsEvent = useMemo(() => {
 		if (!event) return {}
 		return {

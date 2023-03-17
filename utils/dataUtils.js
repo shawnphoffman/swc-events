@@ -1,5 +1,21 @@
+import { DateTime } from 'luxon'
+
 const convertDate = rawDate => {
 	return new Date(rawDate.replace(' ', 'T')).toISOString()
+}
+
+const cleanDataRelative = rawDate => {
+	const cleaned = rawDate.replace(' ', 'T')
+	const temp = DateTime.fromFormat(`${cleaned}`, "yyyy-MM-dd'T'HH:mm:ss").toISO()
+	console.log(temp)
+	return temp
+}
+
+const cleanDataWithZone = rawDate => {
+	const cleaned = rawDate.replace(' ', 'T')
+	return DateTime.fromFormat(`${cleaned} Europe/London`, "yyyy-MM-dd'T'HH:mm:ss z", {
+		setZone: 'Europe/London',
+	})
 }
 
 const customEvents = [
@@ -9,10 +25,10 @@ const customEvents = [
 		description: `Come get your own special Star Wars Spelt Out 2023 beanie!`,
 		venue: ' Collectibles',
 		timezoneStartAt: 'Europe/London',
-		startDate: new Date('2023-04-07T10:00:00'),
-		endDate: new Date('2023-04-07T19:00:00'),
-		startAt: convertDate(new Date('2023-04-07T10:00:00').toISOString()),
-		endAt: convertDate(new Date('2023-04-07T19:00:00').toISOString()),
+		startDate: cleanDataRelative('2023-04-07 10:00:00'),
+		endDate: cleanDataRelative('2023-04-07 19:00:00'),
+		startAt: cleanDataWithZone('2023-04-07 10:00:00'),
+		endAt: cleanDataWithZone('2023-04-07 19:00:00'),
 		color: 'var(--linkHover)',
 		url: 'https://starwarsspeltout.podbean.com/',
 		// address: '440 South Anaheim Boulevard, Anaheim, California 92805',
@@ -24,10 +40,10 @@ const customEvents = [
 		description: `Come get your own special Star Wars Spelt Out 2023 beanie!`,
 		venue: ' Collectibles',
 		timezoneStartAt: 'Europe/London',
-		startDate: new Date('2023-04-08T10:00:00'),
-		endDate: new Date('2023-04-08T19:00:00'),
-		startAt: convertDate(new Date('2023-04-08T10:00:00').toISOString()),
-		endAt: convertDate(new Date('2023-04-08T19:00:00').toISOString()),
+		startDate: cleanDataRelative('2023-04-08T10:00:00'),
+		endDate: cleanDataRelative('2023-04-08T19:00:00'),
+		startAt: cleanDataWithZone('2023-04-08T10:00:00'),
+		endAt: cleanDataWithZone('2023-04-08T19:00:00'),
 		color: 'var(--linkHover)',
 		url: 'https://starwarsspeltout.podbean.com/',
 		// address: '440 South Anaheim Boulevard, Anaheim, California 92805',
@@ -39,10 +55,10 @@ const customEvents = [
 		description: `Come get your own special Star Wars Spelt Out 2023 beanie!`,
 		venue: ' Collectibles',
 		timezoneStartAt: 'Europe/London',
-		startDate: new Date('2023-04-09T10:00:00'),
-		endDate: new Date('2023-04-09T19:00:00'),
-		startAt: convertDate(new Date('2023-04-09T10:00:00').toISOString()),
-		endAt: convertDate(new Date('2023-04-09T19:00:00').toISOString()),
+		startDate: cleanDataRelative('2023-04-09T10:00:00'),
+		endDate: cleanDataRelative('2023-04-09T19:00:00'),
+		startAt: cleanDataWithZone('2023-04-09T10:00:00'),
+		endAt: cleanDataWithZone('2023-04-09T19:00:00'),
 		color: 'var(--linkHover)',
 		url: 'https://starwarsspeltout.podbean.com/',
 		// address: '440 South Anaheim Boulevard, Anaheim, California 92805',
@@ -54,10 +70,10 @@ const customEvents = [
 		description: `Come get your own special Star Wars Spelt Out 2023 beanie!`,
 		venue: ' Collectibles',
 		timezoneStartAt: 'Europe/London',
-		startDate: new Date('2023-04-10T10:00:00'),
-		endDate: new Date('2023-04-10T17:00:00'),
-		startAt: convertDate(new Date('2023-04-10T10:00:00').toISOString()),
-		endAt: convertDate(new Date('2023-04-10T17:00:00').toISOString()),
+		startDate: cleanDataRelative('2023-04-10T10:00:00'),
+		endDate: cleanDataRelative('2023-04-10T17:00:00'),
+		startAt: cleanDataWithZone('2023-04-10T10:00:00'),
+		endAt: cleanDataWithZone('2023-04-10T17:00:00'),
 		color: 'var(--linkHover)',
 		url: 'https://starwarsspeltout.podbean.com/',
 		// address: '440 South Anaheim Boulevard, Anaheim, California 92805',
@@ -70,10 +86,10 @@ const customEvents = [
 		description: `Official exhibit hall hours`,
 		venue: ' Exhibit Hall',
 		timezoneStartAt: 'Europe/London',
-		startDate: new Date('2023-04-07T10:00:00'),
-		endDate: new Date('2023-04-07T19:00:00'),
-		startAt: convertDate(new Date('2023-04-07T10:00:00').toISOString()),
-		endAt: convertDate(new Date('2023-04-07T19:00:00').toISOString()),
+		startDate: cleanDataRelative('2023-04-07T10:00:00'),
+		endDate: cleanDataRelative('2023-04-07T19:00:00'),
+		startAt: cleanDataWithZone('2023-04-07T10:00:00'),
+		endAt: cleanDataWithZone('2023-04-07T19:00:00'),
 		color: 'var(--green)',
 		url: 'https://www.starwarscelebration.com/en-us/show-information.html',
 	},
@@ -84,10 +100,10 @@ const customEvents = [
 		description: `Official exhibit hall hours`,
 		venue: ' Exhibit Hall',
 		timezoneStartAt: 'Europe/London',
-		startDate: new Date('2023-04-08T10:00:00'),
-		endDate: new Date('2023-04-08T19:00:00'),
-		startAt: convertDate(new Date('2023-04-08T10:00:00').toISOString()),
-		endAt: convertDate(new Date('2023-04-08T19:00:00').toISOString()),
+		startDate: cleanDataRelative('2023-04-08T10:00:00'),
+		endDate: cleanDataRelative('2023-04-08T19:00:00'),
+		startAt: cleanDataWithZone('2023-04-08T10:00:00'),
+		endAt: cleanDataWithZone('2023-04-08T19:00:00'),
 		color: 'var(--green)',
 		url: 'https://www.starwarscelebration.com/en-us/show-information.html',
 	},
@@ -98,10 +114,10 @@ const customEvents = [
 		description: `Official exhibit hall hours`,
 		venue: ' Exhibit Hall',
 		timezoneStartAt: 'Europe/London',
-		startDate: new Date('2023-04-09T10:00:00'),
-		endDate: new Date('2023-04-09T19:00:00'),
-		startAt: convertDate(new Date('2023-04-09T10:00:00').toISOString()),
-		endAt: convertDate(new Date('2023-04-09T19:00:00').toISOString()),
+		startDate: cleanDataRelative('2023-04-09T10:00:00'),
+		endDate: cleanDataRelative('2023-04-09T19:00:00'),
+		startAt: cleanDataWithZone('2023-04-09T10:00:00'),
+		endAt: cleanDataWithZone('2023-04-09T19:00:00'),
 		color: 'var(--green)',
 		url: 'https://www.starwarscelebration.com/en-us/show-information.html',
 	},
@@ -112,10 +128,10 @@ const customEvents = [
 		description: `Official exhibit hall hours`,
 		venue: ' Exhibit Hall',
 		timezoneStartAt: 'Europe/London',
-		startDate: new Date('2023-04-10T10:00:00'),
-		endDate: new Date('2023-04-10T17:00:00'),
-		startAt: convertDate(new Date('2023-04-10T10:00:00').toISOString()),
-		endAt: convertDate(new Date('2023-04-10T17:00:00').toISOString()),
+		startDate: cleanDataRelative('2023-04-10T10:00:00'),
+		endDate: cleanDataRelative('2023-04-10T17:00:00'),
+		startAt: cleanDataWithZone('2023-04-10T10:00:00'),
+		endAt: cleanDataWithZone('2023-04-10T17:00:00'),
 		color: 'var(--green)',
 		url: 'https://www.starwarscelebration.com/en-us/show-information.html',
 	},
@@ -396,18 +412,21 @@ export const dayColor = {
 	[dayName[6]]: 'var(--day2)',
 }
 
-export const formatTime = time =>
-	new Date(time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true }).toLowerCase().replace(' ', '')
+export const formatTime = time => {
+	// console.log('1', { time })
+	const temp = time.replace('+01:00', '')
+	// console.log('2', { temp })
+	return new Date(temp).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true }).toLowerCase().replace(' ', '')
+}
 
 const transformEvent = rawEvent => {
 	return {
 		id: rawEvent.id,
-		// timezoneStartAt: 'America/Los_Angeles',
 		timezoneStartAt: 'Europe/London',
-		startDate: new Date(rawEvent.start_time.replace(' ', 'T')),
-		endDate: new Date(rawEvent.end_time.replace(' ', 'T')),
-		startAt: convertDate(rawEvent.start_time),
-		endAt: convertDate(rawEvent.end_time),
+		startDate: cleanDataRelative(rawEvent.start_time),
+		endDate: cleanDataRelative(rawEvent.end_time),
+		startAt: cleanDataWithZone(rawEvent.start_time),
+		endAt: cleanDataWithZone(rawEvent.end_time),
 		summary: decodeEntities(rawEvent.title),
 		description: decodeEntities(rawEvent.description),
 		venue: rawEvent.location,

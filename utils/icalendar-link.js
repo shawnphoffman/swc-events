@@ -59,7 +59,8 @@ export function buildUrl(event, useDataURL = false, rawContent = '') {
 
 	if (!event || !event.startTime || !event.title) throw Error('Both startTime and title fields are mandatory')
 
-	body.push(`DTSTART:${formatDate(event.startTime)}`)
+	// DTEND;TZID=Europe/London:20230407T190000
+	body.push(`DTSTART;TZID=Europe/London:${formatDate(event.startTime)}`)
 	body.push(`SUMMARY:${event.title}`)
 
 	event.url && body.push(`URL:${event.url}`)
@@ -82,12 +83,37 @@ export function buildUrl(event, useDataURL = false, rawContent = '') {
 				)
 			}
 		})
-	event.endTime && body.push(`DTEND:${formatDate(event.endTime)}`)
+	event.endTime && body.push(`DTEND;TZID=Europe/London:${formatDate(event.endTime)}`)
 	event.description && body.push(`DESCRIPTION:${event.description}`)
 	event.location && body.push(`LOCATION:${event.location}`)
 	rawContent && body.push(rawContent)
 
-	const url = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'BEGIN:VEVENT', body.join('\n'), 'END:VEVENT', 'END:VCALENDAR'].join('\n')
+	const url = [
+		'BEGIN:VCALENDAR',
+		'VERSION:2.0',
+		// X-WR-CALNAME:Celebration 2023
+		'BEGIN:VTIMEZONE',
+		'TZID:Europe/London',
+		// 'BEGIN:DAYLIGHT',
+		// 'DTSTART:19810329T010000',
+		// 'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU',
+		// 'TZNAME:GMT+1',
+		// 'TZOFFSETFROM:+0000',
+		// 'TZOFFSETTO:+0100',
+		// 'END:DAYLIGHT',
+		// 'BEGIN:STANDARD',
+		// 'DTSTART:19961027T020000',
+		// 'RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU',
+		// 'TZNAME:GMT',
+		// 'TZOFFSETFROM:+0100',
+		// 'TZOFFSETTO:+0000',
+		// 'END:STANDARD',
+		'END:VTIMEZONE',
+		'BEGIN:VEVENT',
+		body.join('\n'),
+		'END:VEVENT',
+		'END:VCALENDAR',
+	].join('\n')
 
 	if (useDataURL) {
 		return encodeURI(`data:text/calendar;charset=utf8,${url}`)

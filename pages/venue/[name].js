@@ -30,7 +30,7 @@ const VenueDetails = () => {
 	const [state] = useEventContext()
 	const router = useRouter()
 
-	console.log('rrrr', router.query)
+	// console.log('rrrr', router.query)
 
 	const { name } = router.query
 

@@ -1,7 +1,21 @@
-import { memo, useState, useEffect } from 'react'
+import { memo, useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
+import { styled } from 'linaria/react'
+
 import { useAuth } from 'hooks/useAuth'
 import Loading from 'components/Loading'
+import { PageTitle, Container, ScrollBox } from 'components/styles'
+import EventListItem from 'components/events/EventListItem'
+import { useEventContext } from 'context/EventContext'
+
+const NoFavorites = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex: 0;
+	margin-top: 16px;
+	font-weight: bold;
+`
 
 const Page = () => {
 	const { client } = useAuth()
@@ -9,6 +23,7 @@ const Page = () => {
 	const { id } = router.query
 	const [tempFaves, setTempFaves] = useState([])
 	const [loading, setLoading] = useState(true)
+	const [state] = useEventContext()
 
 	useEffect(() => {
 		const fetchFaves = async () => {
@@ -17,11 +32,11 @@ const Page = () => {
 
 				let { data, status, error } = await client.from('favorites').select().eq('user_id', id)
 
-				console.log('fetchFaves', {
-					data,
-					status,
-					error,
-				})
+				// console.log('fetchFaves', {
+				// 	data,
+				// 	status,
+				// 	error,
+				// })
 
 				if (error && status !== 406) {
 					throw error
@@ -31,7 +46,7 @@ const Page = () => {
 					setTempFaves(data)
 				}
 			} catch (error) {
-				console.log('load', error)
+				// console.log('load', error)
 				// alert(error.message)
 			} finally {
 				setLoading(false)
@@ -40,12 +55,55 @@ const Page = () => {
 		fetchFaves()
 	}, [client, id])
 
+	const tempFaveIds = useMemo(() => {
+		return tempFaves?.map(f => f.event_id)
+	}, [tempFaves])
+
+	const favorites = useMemo(() => {
+		if (!state?.allEvents) return []
+
+		const savedFavorites = state.allEvents.filter(e => {
+			return tempFaveIds.includes(e.id)
+		})
+
+		// const savedCustomEvents = customEvents.filter(e => {
+		// 	return sharedFaveIds.includes(e.id)
+		// })
+
+		// const rawFavorites = [...savedFavorites, ...savedCustomEvents]
+		const rawFavorites = [...savedFavorites]
+
+		return rawFavorites.sort((a, b) => {
+			const aStart = new Date(a.startDate)
+			const bStart = new Date(b.startDate)
+			const aEnd = new Date(a.endDate)
+			const bEnd = new Date(b.endDate)
+			if (aStart > bStart) return 1
+			if (aStart < bStart) return -1
+			if (aEnd > bEnd) return 1
+			if (aEnd < bEnd) return -1
+			if (a.summary > b.summary) return 1
+			if (a.summary < b.summary) return -1
+			return 0
+		})
+	}, [state.allEvents, tempFaveIds])
+
+	if (loading) {
+		return <Loading />
+	}
+
 	return (
-		<div>
-			<h1>Fave: {id}</h1>
-			{loading ? <Loading /> : null}
-			{tempFaves?.length ? <pre>{JSON.stringify(tempFaves, null, 2)}</pre> : <div>No favorites found...</div>}
-		</div>
+		<Container>
+			<PageTitle>Shared Favorites</PageTitle>
+
+			<ScrollBox>
+				{!tempFaves?.length && <NoFavorites>No favorites to display...</NoFavorites>}
+				{favorites.map(event => (
+					<EventListItem event={event} key={event.id} forceOpen />
+				))}
+				{/* {tempFaves?.length ? <pre>{JSON.stringify(tempFaves, null, 2)}</pre> : <div>No favorites found...</div>} */}
+			</ScrollBox>
+		</Container>
 	)
 }
 

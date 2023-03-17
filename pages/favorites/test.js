@@ -14,11 +14,11 @@ const MyFavorites = () => {
 
 			let { data, status, error } = await client.from('favorites').select().eq('user_id', user.id)
 
-			console.log({
-				data,
-				status,
-				error,
-			})
+			// console.log({
+			// 	data,
+			// 	status,
+			// 	error,
+			// })
 
 			if (error && status !== 406) {
 				throw error
@@ -28,7 +28,7 @@ const MyFavorites = () => {
 				setFavorites(data)
 			}
 		} catch (error) {
-			console.log('load', error)
+			// console.log('load', error)
 			alert(error.message)
 		} finally {
 			setLoading(false)
@@ -41,29 +41,29 @@ const MyFavorites = () => {
 	}, [])
 
 	const handleCreate = useCallback(async () => {
-		console.log(`Creating`)
+		// console.log(`Creating`)
 		try {
 			let { status, error } = await client.from('favorites').insert({
 				event_id: text,
 				user_id: user?.id,
 			})
-			console.log('insert', { status, error })
+			// console.log('insert', { status, error })
 			setText('')
 			loadData()
 		} catch (e) {
-			console.error('create', e)
+			// console.error('create', e)
 		}
 	}, [loadData, client, text, user?.id])
 
 	const handleDelete = useCallback(
 		async id => {
-			console.log(`Deleting ID: ${id}`)
+			// console.log(`Deleting ID: ${id}`)
 			try {
 				let { status, error } = await client.from('favorites').delete().eq('id', id)
-				console.log('delete', { status, error })
+				// console.log('delete', { status, error })
 				loadData()
 			} catch (e) {
-				console.error('delete', e)
+				// console.error('delete', e)
 			}
 		},
 		[loadData, client]
@@ -71,16 +71,16 @@ const MyFavorites = () => {
 
 	const handleUpdate = useCallback(
 		async (id, event_id) => {
-			console.log(`Update ID: ${id}`)
+			// console.log(`Update ID: ${id}`)
 			try {
 				let { status, error } = await client
 					.from('favorites')
 					.update({ created_at: new Date(), event_id: `${event_id}z` })
 					.eq('id', id)
-				console.log('update', { status, error })
+				// console.log('update', { status, error })
 				loadData()
 			} catch (e) {
-				console.error('update', e)
+				// console.error('update', e)
 			}
 		},
 		[loadData, client]
@@ -88,7 +88,7 @@ const MyFavorites = () => {
 
 	useEffect(() => {
 		if (user) {
-			console.log('init', user)
+			// console.log('init', user)
 			loadData()
 		}
 	}, [loadData, user])

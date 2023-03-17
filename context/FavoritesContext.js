@@ -33,11 +33,11 @@ const FavoritesProvider = ({ children }) => {
 
 			let { data, status, error } = await client.from('favorites').select().eq('user_id', user.id)
 
-			console.log('fetchUserFavorites', {
-				data,
-				status,
-				error,
-			})
+			// console.log('fetchUserFavorites', {
+			// 	data,
+			// 	status,
+			// 	error,
+			// })
 
 			if (error && status !== 406) {
 				throw error
@@ -47,7 +47,7 @@ const FavoritesProvider = ({ children }) => {
 				setUserFavorites(data)
 			}
 		} catch (error) {
-			console.log('load', error)
+			// console.log('load', error)
 			alert(error.message)
 		} finally {
 			setLoading(false)
@@ -57,7 +57,7 @@ const FavoritesProvider = ({ children }) => {
 	//
 	useEffect(() => {
 		if (user) {
-			console.log('user > fetchUserFavorites')
+			// console.log('user > fetchUserFavorites')
 			fetchUserFavorites()
 		}
 	}, [fetchUserFavorites, user])
@@ -65,13 +65,13 @@ const FavoritesProvider = ({ children }) => {
 	// Create Favorite
 	const handleCreate = useCallback(
 		async eventId => {
-			console.log(`Creating`)
+			// console.log(`Creating`)
 			try {
 				let { status, error } = await client.from('favorites').insert({
 					event_id: eventId,
 					user_id: user?.id,
 				})
-				console.log('insert', { status, error })
+				// console.log('insert', { status, error })
 				// fetchUserFavorites()
 			} catch (e) {
 				console.error('create', e)
@@ -83,13 +83,13 @@ const FavoritesProvider = ({ children }) => {
 	// Delete Favorite
 	const handleDelete = useCallback(
 		async eventId => {
-			console.log(`Deleting ID: ${eventId}`, user?.id)
+			// console.log(`Deleting ID: ${eventId}`, user?.id)
 			try {
 				let { status, error } = await client.from('favorites').delete().match({
 					event_id: eventId,
 					user_id: user?.id,
 				})
-				console.log('delete', { status, error })
+				// console.log('delete', { status, error })
 				// fetchUserFavorites()
 			} catch (e) {
 				console.error('delete', e)
@@ -104,22 +104,22 @@ const FavoritesProvider = ({ children }) => {
 	const toggleFavorite = useCallback(
 		async (id, newState) => {
 			if (isAuthed) {
-				console.log('UPDATING SUPABASE WITH FAVORITE')
+				// console.log('UPDATING SUPABASE WITH FAVORITE')
 				if (newState) {
-					console.log('CREATING FAVORITE')
+					// console.log('CREATING FAVORITE')
 					await handleCreate(id)
 				} else {
-					console.log('DELETING FAVORITE')
+					// console.log('DELETING FAVORITE')
 					await handleDelete(id)
 				}
 				fetchUserFavorites()
 			} else {
 				const existing = JSON.parse(localStorage.getItem(favoritesStorageKey) || '[]')
 				if (newState) {
-					console.log('ADDING NEW FAVORITE TO STORAGE')
+					// console.log('ADDING NEW FAVORITE TO STORAGE')
 					setFavorites([...existing, id])
 				} else {
-					console.log('REMOVING FAVORITE FROM STORAGE')
+					// console.log('REMOVING FAVORITE FROM STORAGE')
 					setFavorites(existing.filter(x => x !== id))
 				}
 			}
@@ -133,7 +133,7 @@ const FavoritesProvider = ({ children }) => {
 	useEffect(() => {
 		if (isAuthed) {
 			// console.log('USER FAVES CHANGED', userFaves)
-			console.log('SUPABASE CHANGED. UPDATING STORAGE')
+			// console.log('SUPABASE CHANGED. UPDATING STORAGE')
 			// setFavorites(userFaves)
 		}
 	}, [isAuthed])
@@ -151,7 +151,7 @@ const FavoritesProvider = ({ children }) => {
 		}
 	}, [favorites, isAuthed, toggleFavorite, userFavoriteIds, userFavorites])
 
-	console.log('FAVORITES', value)
+	// console.log('FAVORITES', value)
 
 	return <FavoritesContext.Provider value={value}>{children}</FavoritesContext.Provider>
 }
