@@ -49,14 +49,14 @@ import Nav from 'components/Nav'
 
 const Banner = styled.div`
 	background-color: #b33a3a;
-	width: 110%;
+	width: 100%;
 	padding: 16px;
 	display: flex;
 	justify-content: center;
 	font-size: 18px;
-	/* margin-left: 0px; */
-	/* margin-right: 0px; */
 	text-align: center;
+	flex: 0 0 50px;
+	align-items: center;
 `
 
 const AppWrapper = styled.div`

@@ -88,29 +88,27 @@ const Favorites = () => {
 			})
 
 			if (data) {
-				setUserEvents(data)
+				const temp = Object.values(data).sort((a, b) => {
+					const aStart = new Date(a.startDate)
+					const bStart = new Date(b.startDate)
+					const aEnd = new Date(a.endDate)
+					const bEnd = new Date(b.endDate)
+					if (aStart > bStart) return 1
+					if (aStart < bStart) return -1
+					if (aEnd > bEnd) return 1
+					if (aEnd < bEnd) return -1
+					if (a.summary > b.summary) return 1
+					if (a.summary < b.summary) return -1
+					return 0
+				})
+
+				setUserEvents(temp)
 			}
 		} catch (e) {
 			console.log(e)
 		}
 
 		return []
-		// 	} else {
-		// 		return Object.values(userEventsRep.data).sort((a, b) => {
-		// 			const aStart = new Date(a.startDate)
-		// 			const bStart = new Date(b.startDate)
-		// 			const aEnd = new Date(a.endDate)
-		// 			const bEnd = new Date(b.endDate)
-		// 			if (aStart > bStart) return 1
-		// 			if (aStart < bStart) return -1
-		// 			if (aEnd > bEnd) return 1
-		// 			if (aEnd < bEnd) return -1
-		// 			if (a.summary > b.summary) return 1
-		// 			if (a.summary < b.summary) return -1
-		// 			return 0
-		// 		})
-		// 	}
-		// }, [userEventsRep?.data, userEventsRep?.status])
 	}, [client, isAuthed, user?.id])
 
 	// ============================================================

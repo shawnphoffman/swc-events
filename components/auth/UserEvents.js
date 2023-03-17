@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 import Button from 'components/Button'
 import EventListItem from 'components/events/EventListItem'
 import { useAuth } from 'hooks/useAuth'
+import { PageTitle } from 'components/styles'
 
 const cleanDataRelative = rawDate => {
 	const cleaned = rawDate.replace(' ', 'T')
@@ -521,8 +522,9 @@ const UserEventForm = () => {
 
 	return (
 		<Wrapper>
-			{/* <Instructions>Custom events are private and not visible to other users.</Instructions> */}
-			<Instructions>Add your own custom events.</Instructions>
+			<PageTitle>Your Custom Events</PageTitle>
+
+			<PageTitle>Add Your Own</PageTitle>
 			{error && <Error>{error}</Error>}
 			{/*  */}
 			{process.env.NODE_ENV === 'development' && (

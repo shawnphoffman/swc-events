@@ -14,6 +14,9 @@ const Label = styled.div`
 	margin: 16px 0px 8px 0px;
 `
 const InputContainer = styled.div``
+const StyledInput = styled(Input)`
+	padding: 12px;
+`
 
 export default function Account() {
 	// const [loading, setLoading] = useState(true)
@@ -73,7 +76,7 @@ export default function Account() {
 			<InputContainer>
 				<Label htmlFor="email">Email</Label>
 				<InputWrapper>
-					<Input id="email" type="text" value={user.email} disabled />
+					<StyledInput id="email" type="text" value={user.email} disabled />
 				</InputWrapper>
 			</InputContainer>
 
