@@ -21,7 +21,7 @@ const AuthNavIcon = () => {
 		return (
 			<Link href={Routes.User.path} title={Routes.User.title}>
 				<NavIcon>
-					<FontAwesomeIcon icon={icon({ name: 'user-bounty-hunter', family: 'sharp', style: 'regular' })} />
+					<FontAwesomeIcon icon={icon({ name: 'user-bounty-hunter', family: 'sharp', style: 'solid' })} />
 				</NavIcon>
 			</Link>
 		)
@@ -30,7 +30,7 @@ const AuthNavIcon = () => {
 	return (
 		<Link href={Routes.Login.path} title={Routes.Login.title}>
 			<NavIcon>
-				<FontAwesomeIcon icon={icon({ name: 'user', family: 'sharp', style: 'regular' })} />
+				<FontAwesomeIcon icon={icon({ name: 'user', family: 'sharp', style: 'solid' })} />
 			</NavIcon>
 		</Link>
 	)

@@ -44,6 +44,7 @@ library.add(
 )
 
 import EventProvider from 'context/EventContext'
+import UserEventProvider from 'context/UserEventContext'
 import FavoritesProvider from 'context/FavoritesContext'
 import Nav from 'components/Nav'
 
@@ -128,13 +129,15 @@ function MyApp({ Component, pageProps }) {
 			</Head>
 			<AppWrapper height={windowHeight}>
 				<SessionContextProvider supabaseClient={supabaseClient} initialSession={pageProps.initialSession}>
-					<EventProvider>
-						<FavoritesProvider>
-							<Banner>This is site not 100% ready for Celebration 2023 (yet). It should be fully-functional soon.</Banner>
-							<Nav />
-							<Component {...pageProps} />
-						</FavoritesProvider>
-					</EventProvider>
+					<UserEventProvider>
+						<EventProvider>
+							<FavoritesProvider>
+								<Banner>This is site not 100% ready for Celebration 2023 (yet). It should be fully-functional soon.</Banner>
+								<Nav />
+								<Component {...pageProps} />
+							</FavoritesProvider>
+						</EventProvider>
+					</UserEventProvider>
 				</SessionContextProvider>
 			</AppWrapper>
 		</>

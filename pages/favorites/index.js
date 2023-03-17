@@ -73,19 +73,16 @@ const Favorites = () => {
 
 	// User Events
 	const fetchUserEvents = useCallback(async () => {
-		// return []
 		if (!isAuthed || !user?.id || !client) {
-			return []
+			return
 		}
 
 		try {
-			let { data, error, status } = await client.from('userEvents').select().eq('creator_id', user.id)
+			let { data, error } = await client.from('userEvents').select().eq('creator_id', user?.id)
 
-			console.log({
-				data,
-				error,
-				status,
-			})
+			if (error) {
+				console.error(error)
+			}
 
 			if (data) {
 				const temp = Object.values(data).sort((a, b) => {
@@ -107,8 +104,6 @@ const Favorites = () => {
 		} catch (e) {
 			console.log(e)
 		}
-
-		return []
 	}, [client, isAuthed, user?.id])
 
 	// ============================================================

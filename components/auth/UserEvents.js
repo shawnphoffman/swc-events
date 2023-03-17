@@ -34,13 +34,6 @@ const isValidHttpUrl = string => {
 	return url.protocol === 'http:' || url.protocol === 'https:'
 }
 
-const Instructions = styled.div`
-	margin: 8px 0px 16px 0px;
-	font-size: 18px;
-	font-weight: bold;
-	color: #f00;
-	text-align: center;
-`
 const ButtonWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
@@ -193,90 +186,102 @@ const CheckHint = styled.span`
 `
 
 const UserEventForm = () => {
-	const { client, user } = useAuth()
+	const { client, user, isAuthed } = useAuth()
 	const [error, setError] = useState('')
 	const [id, setId] = useState('')
 	const [title, setTitle] = useState('')
 	const [description, setDescription] = useState('')
 	const [venue, setVenue] = useState('My Events')
-	// TODO
-	// const [startTime, setStartTime] = useState(new Date().toISOString().substring(0, 16))
 	const [startTime, setStartTime] = useState('2023-04-02T10:00')
-	// TODO
-	// const [endTime, setEndTime] = useState(new Date().toISOString().substring(0, 16))
 	const [endTime, setEndTime] = useState('2023-04-02T11:00')
 	const [url, setUrl] = useState('')
 	const [address, setAddress] = useState('')
 	const [imageUrl, setImageUrl] = useState('')
 	const [isPrivate, setIsPrivate] = useState(true)
 
+	const [userEvents, setUserEvents] = useState([])
+
 	// ============================================================
-	// const database = useDatabase()
-
-	// // User Events Ref
-	// const userEventsRef = useMemo(() => {
-	// 	return ref(database, `user-events/${user?.uid}`)
-	// }, [database, user])
-	// const customEventsRef = useMemo(() => {
-	// 	return ref(database, `custom-events/${user?.uid}`)
-	// }, [database, user])
-
-	// // User Events Resp
-	// const userEventsRep = useDatabaseObjectData(userEventsRef, {})
-	// const customEventsRep = useDatabaseObjectData(customEventsRef, {})
 
 	// User Events
-	const userEvents = useMemo(() => {
-		// if (userEventsRep?.status !== 'success' || !userEventsRep?.data || customEventsRep?.status !== 'success' || !customEventsRep?.data)
-		// 	return null
-		// if (!userEventsRep?.data && !customEventsRep?.data) {
-		// 	return null
-		// } else {
-		// const customEvents = Object.keys(customEventsRep.data).reduce((memo, curr) => {
+	// const userEvents = useMemo(() => {
+	// 	// if (userEventsRep?.status !== 'success' || !userEventsRep?.data || customEventsRep?.status !== 'success' || !customEventsRep?.data)
+	// 	// 	return null
+	// 	// if (!userEventsRep?.data && !customEventsRep?.data) {
+	// 	// 	return null
+	// 	// } else {
+	// 	// const customEvents = Object.keys(customEventsRep.data).reduce((memo, curr) => {
 
-		// 	return memo
-		// }, [])
-		// const temp = [...Object.values(userEventsRep.data), ...Object.values(customEventsRep.data)]
-		const temp = []
+	// 	// 	return memo
+	// 	// }, [])
+	// 	// const temp = [...Object.values(userEventsRep.data), ...Object.values(customEventsRep.data)]
+	// 	const temp = []
 
-		// console.log({
-		// 	user: userEventsRep.data,
-		// 	custom: customEventsRep.data,
-		// })
+	// 	// console.log({
+	// 	// 	user: userEventsRep.data,
+	// 	// 	custom: customEventsRep.data,
+	// 	// })
 
-		return temp.sort((a, b) => {
-			const aStart = new Date(a.startDate)
-			const bStart = new Date(b.startDate)
-			const aEnd = new Date(a.endDate)
-			const bEnd = new Date(b.endDate)
+	// 	return temp.sort((a, b) => {
+	// 		const aStart = new Date(a.startDate)
+	// 		const bStart = new Date(b.startDate)
+	// 		const aEnd = new Date(a.endDate)
+	// 		const bEnd = new Date(b.endDate)
 
-			if (aStart > bStart) return 1
+	// 		if (aStart > bStart) return 1
 
-			if (aStart < bStart) return -1
+	// 		if (aStart < bStart) return -1
 
-			if (aEnd > bEnd) return 1
+	// 		if (aEnd > bEnd) return 1
 
-			if (aEnd < bEnd) return -1
+	// 		if (aEnd < bEnd) return -1
 
-			if (a.summary > b.summary) return 1
+	// 		if (a.summary > b.summary) return 1
 
-			if (a.summary < b.summary) return -1
+	// 		if (a.summary < b.summary) return -1
 
-			return 0
-		})
-		// }
-		// }, [customEventsRep.data, customEventsRep?.status, userEventsRep.data, userEventsRep?.status])
-	}, [])
-
-	// const updateRecord = useCallback(async event => {
-	// 	const { data, error } = await client.from('userEvents').update({ other_column: 'otherValue' }).eq('some_column', 'someValue')
+	// 		return 0
+	// 	})
+	// 	// }
+	// 	// }, [customEventsRep.data, customEventsRep?.status, userEventsRep.data, userEventsRep?.status])
 	// }, [])
 
 	const insertRecord = useCallback(
 		async event => {
-			const { data, error } = await client.from('userEvents').insert([
-				{
-					id: event.id,
+			const { data, error } = await client.from('userEvents').insert(
+				[
+					{
+						id: event.id,
+						summary: event.summary,
+						description: event.description,
+						venue: event.venue,
+						timezoneStartAt: event.timezoneStartAt,
+						startDate: event.startDate,
+						endDate: event.endDate,
+						startAt: event.startAt,
+						endAt: event.endAt,
+						color: event.color,
+						url: event.url,
+						address: event.address,
+						imageUrl: event.imageUrl,
+						type: event.type,
+						private: event.private,
+						creator_id: event.creator,
+					},
+				],
+				{ upsert: true }
+			)
+			console.log({ data, error })
+		},
+		[client]
+	)
+
+	const updateRecord = useCallback(
+		async event => {
+			console.log('UPDATING')
+			const { data, error } = await client
+				.from('userEvents')
+				.update({
 					summary: event.summary,
 					description: event.description,
 					venue: event.venue,
@@ -292,49 +297,25 @@ const UserEventForm = () => {
 					type: event.type,
 					private: event.private,
 					creator_id: event.creator,
-				},
-			])
-			console.log({ data, error })
+				})
+				.eq('id', event.id)
+			console.log('update', { data, error, event })
 		},
 		[client]
 	)
 
 	// Add User Event
 	const addUserEvent = useCallback(
-		event => {
-			// // Existing event. Delete the old
-			// if (event.id) {
-			// 	if (event.private) {
-			// 		console.log('DELETE PUBLIC EVENT', event.id)
-			// 		// Delete public event
-			// 		// const publicEventRef = ref(database, `custom-events/${user?.uid}/${event.id}`)
-			// 		// set(publicEventRef, null)
-			// 	} else {
-			// 		console.log('DELETE PRIVATE EVENT', event.id)
-			// 		// Delete private event
-			// 		// const privateEventRef = ref(database, `user-events/${user?.uid}/${event.id}`)
-			// 		// set(privateEventRef, null)
-			// 	}
-			// } else {
-			// 	event.id = uuidv4()
-			// }
-
-			event.id = uuidv4()
-
-			insertRecord(event)
-
-			// if (event.private) {
-			// 	console.log('CREATE PRIVATE EVENT', event.id)
-			// 	// const eventRef = ref(database, `user-events/${user?.uid}/${event.id}`)
-			// 	// set(eventRef, event)
-			// } else {
-			// 	console.log('CREATE PUBLIC EVENT', event.id)
-			// 	// const eventRef = ref(database, `custom-events/${user?.uid}/${event.id}`)
-			// 	// set(eventRef, event)
-			// }
+		async event => {
+			if (!event.id) {
+				event.id = uuidv4()
+				await insertRecord(event)
+			} else {
+				await updateRecord(event)
+			}
+			await fetchUserEvents()
 		},
-		// [database, user?.uid]
-		[insertRecord]
+		[fetchUserEvents, insertRecord, updateRecord]
 	)
 
 	// ============================================================
@@ -345,10 +326,8 @@ const UserEventForm = () => {
 		setTitle('')
 		setDescription('')
 		setVenue('My Events')
-		// TODO
-		setStartTime(new Date().toISOString().substring(0, 16))
-		// TODO
-		setEndTime(new Date().toISOString().substring(0, 16))
+		setStartTime('2023-04-02T10:00')
+		setEndTime('2023-04-02T10:00')
 		setUrl('')
 		setAddress('')
 		setImageUrl('')
@@ -405,10 +384,10 @@ const UserEventForm = () => {
 	const handleUrlChange = useCallback(e => {
 		const value = e.target.value
 
-		if (!isValidHttpUrl(value)) {
-			setError('Invalid event URL')
-			return
-		}
+		// if (!isValidHttpUrl(value)) {
+		// 	setError('Invalid event URL')
+		// 	return
+		// }
 		setError(null)
 		setUrl(value)
 	}, [])
@@ -421,10 +400,10 @@ const UserEventForm = () => {
 	const handleImageUrlChange = useCallback(e => {
 		const value = e.target.value
 
-		if (!isValidHttpUrl(value)) {
-			setError('Invalid image URL')
-			return
-		}
+		// if (!isValidHttpUrl(value)) {
+		// 	setError('Invalid image URL')
+		// 	return
+		// }
 		setError(null)
 		setImageUrl(value)
 	}, [])
@@ -512,17 +491,62 @@ const UserEventForm = () => {
 		setTitle(event.summary)
 		setDescription(event.description)
 		setVenue(event.venue)
-		setStartTime(event.startDate)
-		setEndTime(event.endDate)
+		setStartTime(event.startDate.substring(0, 16))
+		setEndTime(event.endDate.substring(0, 16))
 		setUrl(event.url)
 		setAddress(event.address)
 		setImageUrl(event.imageUrl)
 		setIsPrivate(event.private)
 	}, [])
 
+	const fetchUserEvents = useCallback(async () => {
+		if (!isAuthed || !user?.id || !client) {
+			return
+		}
+		console.log('FETCHING')
+		try {
+			let { data, error } = await client.from('userEvents').select().eq('creator_id', user?.id)
+			if (error) {
+				console.error(error)
+			}
+			if (data) {
+				const temp = Object.values(data).sort((a, b) => {
+					const aStart = new Date(a.startDate)
+					const bStart = new Date(b.startDate)
+					const aEnd = new Date(a.endDate)
+					const bEnd = new Date(b.endDate)
+					if (aStart > bStart) return 1
+					if (aStart < bStart) return -1
+					if (aEnd > bEnd) return 1
+					if (aEnd < bEnd) return -1
+					if (a.summary > b.summary) return 1
+					if (a.summary < b.summary) return -1
+					return 0
+				})
+				setUserEvents(temp)
+			}
+		} catch (e) {
+			console.log(e)
+		}
+	}, [client, isAuthed, user?.id])
+
+	useEffect(() => {
+		fetchUserEvents()
+	}, [fetchUserEvents])
+
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			console.log('POLL')
+			fetchUserEvents()
+		}, 5000)
+		return () => clearInterval(intervalId)
+	}, [fetchUserEvents])
+
 	return (
 		<Wrapper>
 			<PageTitle>Your Custom Events</PageTitle>
+			{/*  */}
+			<div>{userEvents && Object.values(userEvents).map(e => <EventListItem event={e} key={e.id} onEdit={handleEdit} forceOpen />)}</div>
 
 			<PageTitle>Add Your Own</PageTitle>
 			{error && <Error>{error}</Error>}
@@ -631,8 +655,6 @@ const UserEventForm = () => {
 					Clear Form
 				</Button>
 			</ButtonWrapper>
-			{/*  */}
-			<div>{userEvents && Object.values(userEvents).map(e => <EventListItem event={e} key={e.id} onEdit={handleEdit} forceOpen />)}</div>
 		</Wrapper>
 	)
 }

@@ -1,9 +1,9 @@
 import { memo, useCallback, useEffect, useState } from 'react'
 import { styled } from '@linaria/react'
-// import { useDatabase, useUser } from 'reactfire'
-// import { ref, set } from 'firebase/database'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+
+import { useAuth } from 'hooks/useAuth'
 
 export const Button = styled.div`
 	color: ${p => (p.confirm ? 'red' : 'var(--linkAlt)')};
@@ -18,20 +18,20 @@ export const Button = styled.div`
 `
 
 const DeleteEventIcon = ({ event }) => {
-	// const database = useDatabase()
-	// const { data: user } = useUser()
 	const [confirm, setConfirm] = useState(false)
+	const { client, user, isAuthed } = useAuth()
 
 	// Delete User Event
 	const deleteUserEvent = useCallback(
-		id => {
-			// const deleteEventRef = ref(database, `user-events/${user?.uid}/${id}`)
-			// set(deleteEventRef, null)
-			// const deleteCustomEventRef = ref(database, `custom-events/${user?.uid}/${id}`)
-			// set(deleteCustomEventRef, null)
+		// TODO Update the user events context????
+		async id => {
+			let { status, error } = await client.from('userEvents').delete().match({
+				id: id,
+				creator_id: user?.id,
+			})
+			alert("Event deleted. Refresh the page or navigate. I'll fix this as soon as I can")
 		},
-		// [database, user?.uid]
-		[]
+		[client, user?.id]
 	)
 
 	const handleClick = useCallback(() => {

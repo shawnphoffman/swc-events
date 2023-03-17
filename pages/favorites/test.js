@@ -12,13 +12,7 @@ const MyFavorites = () => {
 		try {
 			setLoading(true)
 
-			let { data, status, error } = await client.from('favorites').select().eq('user_id', user.id)
-
-			// console.log({
-			// 	data,
-			// 	status,
-			// 	error,
-			// })
+			let { data, status, error } = await client.from('favorites').select().eq('user_id', user?.id)
 
 			if (error && status !== 406) {
 				throw error
@@ -28,8 +22,7 @@ const MyFavorites = () => {
 				setFavorites(data)
 			}
 		} catch (error) {
-			// console.log('load', error)
-			alert(error.message)
+			console.error(error)
 		} finally {
 			setLoading(false)
 		}
