@@ -377,11 +377,11 @@ export const colorMap = {
 	'Collectors Stage': colorList[2],
 	'Fan Stage': colorList[3],
 	'Galaxy Stage': colorList[4],
-	'Holonet News Stage (Room 14)': colorList[5],
-	'Holonet News Stage (Room 17)': colorList[6],
+	'Holonet News Stage 14': colorList[5],
+	'Holonet News Stage 17': colorList[6],
 	'ICC Capital Suite 16': colorList[7],
-	'ICC Capital Suite Room 11': colorList[8],
-	'ICC Capital Suite Room 12': colorList[9],
+	'ICC Capital Suite 11': colorList[8],
+	'ICC Capital Suite 12': colorList[9],
 	'Kids Stage': colorList[10],
 	'Twin Suns Stage': colorList[11],
 	'University Stage': colorList[12],
@@ -393,7 +393,13 @@ export const colorMap = {
 }
 
 export const cleanVenueName = v => {
-	return v.replace('The ', '').replace('Star Wars ', '').replace('Performance ', '')
+	return v
+		.replace('The ', '')
+		.replace('Star Wars ', '')
+		.replace('Performance ', '')
+		.replace('(Room ', '')
+		.replace(')', '')
+		.replace('Suite Room ', 'Suite ')
 }
 
 export const dayName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
