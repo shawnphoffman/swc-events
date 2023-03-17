@@ -47,6 +47,18 @@ import EventProvider from 'context/EventContext'
 import FavoritesProvider from 'context/FavoritesContext'
 import Nav from 'components/Nav'
 
+const Banner = styled.div`
+	background-color: #b33a3a;
+	width: 110%;
+	padding: 16px;
+	display: flex;
+	justify-content: center;
+	font-size: 18px;
+	/* margin-left: 0px; */
+	/* margin-right: 0px; */
+	text-align: center;
+`
+
 const AppWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -118,6 +130,7 @@ function MyApp({ Component, pageProps }) {
 				<SessionContextProvider supabaseClient={supabaseClient} initialSession={pageProps.initialSession}>
 					<EventProvider>
 						<FavoritesProvider>
+							<Banner>This is site not 100% ready for Celebration 2023 (yet). It should be fully-functional soon.</Banner>
 							<Nav />
 							<Component {...pageProps} />
 						</FavoritesProvider>
