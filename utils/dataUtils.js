@@ -357,33 +357,33 @@ export const processApiVendors = data => {
 }
 
 const colorList = [
-	'#FF8C00',
-	'#ffab00',
-	'#ffd600',
-	'#aeea00',
-	'#00c853',
-	'#00bfa5',
-	'#00b8d4',
-	'#0091ea',
-	'#304ffe',
-	'#6200ea',
-	'#aa00ff',
-	'#c51162',
-	'#d50000',
+	'#FF8C00', // 0
+	'#ffab00', // 1
+	'#ffd600', // 2
+	'#aeea00', // 3
+	'#00c853', // 4
+	'#00bfa5', // 5
+	'#00b8d4', // 6
+	'#0091ea', // 7
+	'#304ffe', // 8
+	'#6200ea', // 9
+	'#aa00ff', // 10
+	'#c51162', // 11
+	'#d50000', // 12
 ]
 export const colorMap = {
-	'Celebration LIVE! Stage': colorList[11],
-	'Celebration Stage': colorList[0],
-	'Collectors Stage': colorList[1],
-	'Fan Stage': colorList[2],
-	'Holonet News Stage (Room 14)': colorList[4],
-	'Holonet News Stage (Room 17)': colorList[5],
-	'Galaxy Stage': colorList[6],
+	'Celebration LIVE! Stage': colorList[0],
+	'Celebration Stage': colorList[1],
+	'Collectors Stage': colorList[2],
+	'Fan Stage': colorList[3],
+	'Galaxy Stage': colorList[4],
+	'Holonet News Stage (Room 14)': colorList[5],
+	'Holonet News Stage (Room 17)': colorList[6],
 	'ICC Capital Suite 16': colorList[7],
 	'ICC Capital Suite Room 11': colorList[8],
 	'ICC Capital Suite Room 12': colorList[9],
-	'Twin Suns Stage': colorList[10],
-	//
+	'Kids Stage': colorList[10],
+	'Twin Suns Stage': colorList[11],
 	'University Stage': colorList[12],
 	' Collectibles': 'var(--linkHover)',
 	' After Hours': 'var(--linkHover)',
