@@ -26,7 +26,7 @@ const UserEventProvider = ({ children }) => {
 			return
 		}
 		try {
-			let { data, error } = await client.from('userEvents').select().eq('creator_id', user?.id)
+			let { data, error } = await client.from('userEvents').select().eq('creator_id', user?.id).eq('private', true)
 			if (error) {
 				console.error(error)
 			}

@@ -16,7 +16,7 @@ import { useAuth } from 'hooks/useAuth'
 const PrivacyIcon = styled.div`
 	font-size: 20px;
 	margin-top: 4px;
-	color: ${p => (p.private ? '#87cefa' : '#ff0')};
+	color: ${p => (p.private ? '#40E0D0' : '#ADFF2F')};
 `
 
 const EventImage = styled.img`
@@ -179,8 +179,7 @@ const EventListItem = ({ event, forceOpen = false, onEdit }) => {
 			)}
 			<ActionWrapper>
 				{/* Favorite */}
-				{/* {!isPrivateUserEvent && <FavoriteIcon event={event} />} */}
-				<FavoriteIcon event={event} />
+				{!isPrivateUserEvent && <FavoriteIcon event={event} />}
 				{expanded && (
 					<>
 						{/* Download */}
@@ -191,15 +190,15 @@ const EventListItem = ({ event, forceOpen = false, onEdit }) => {
 						{isMyUserEvent && onEdit && <DeleteEventIcon event={event} />}
 						{/* Edit */}
 						{isMyUserEvent && onEdit && <EditEventIcon event={event} onEdit={onEdit} />}
-						{/* {isMyUserEvent && (
+						{isMyUserEvent && (
 							<PrivacyIcon private={event.private}>
 								{event.private ? (
-									<i className="fa-sharp fa-solid fa-eye-slash" title="Private Event" />
+									<FontAwesomeIcon icon={icon({ name: 'eye-slash', family: 'sharp', style: 'solid' })} title="Private Event" />
 								) : (
-									<i className="fa-sharp fa-solid fa-eye" title="Public Event" />
+									<FontAwesomeIcon icon={icon({ name: 'eye', family: 'sharp', style: 'solid' })} title="Public Event" />
 								)}
 							</PrivacyIcon>
-						)} */}
+						)}
 					</>
 				)}
 			</ActionWrapper>

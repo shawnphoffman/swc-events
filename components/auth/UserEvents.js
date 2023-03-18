@@ -219,7 +219,7 @@ const UserEventForm = () => {
 		setDescription('')
 		setVenue('My Events')
 		setStartTime('2023-04-02T10:00')
-		setEndTime('2023-04-02T10:00')
+		setEndTime('2023-04-02T11:00')
 		setUrl('')
 		setAddress('')
 		setImageUrl('')
