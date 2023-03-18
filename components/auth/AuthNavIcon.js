@@ -21,8 +21,8 @@ const AuthNavIcon = () => {
 	if (!mounted) return null
 
 	return (
-		<Link href={Routes.Login.path} title={Routes.Login.title}>
-			<NavIcon className={isActive}>
+		<Link href={Routes.Login.path}>
+			<NavIcon className={isActive} title={isAuthed ? Routes.User.title : Routes.Login.title}>
 				{isAuthed ? (
 					<FontAwesomeIcon icon={icon({ name: 'user-bounty-hunter', family: 'sharp', style: 'solid' })} />
 				) : (

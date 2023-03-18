@@ -38,8 +38,8 @@ const NavBar = () => {
 	return (
 		<Nav id="nav">
 			{NavRoutes.map(r => (
-				<Link href={r.path} title={r.title} key={r.title}>
-					<NavIcon className={router.asPath === r.path ? 'active' : ''}>
+				<Link href={r.path} key={r.title}>
+					<NavIcon className={router.asPath === r.path ? 'active' : ''} title={r.title}>
 						<TempIcon>
 							<FontAwesomeIcon icon={`fa-sharp fa-solid ${r.icon}`} />
 						</TempIcon>
