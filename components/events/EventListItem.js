@@ -138,7 +138,7 @@ const EventListItem = ({ event, forceOpen = false, onEdit }) => {
 	}, [event])
 
 	const isMyUserEvent = useMemo(() => {
-		console.log({ user, event })
+		// console.log({ user, event })
 		return user && event?.type === 'userEvent' && event?.creator_id === user?.id
 	}, [event, user])
 

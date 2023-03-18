@@ -108,7 +108,7 @@ const Favorites = () => {
 
 	// ============================================================
 
-	// All Events
+	// Custom Public Events
 	const customEvents = useMemo(() => {
 		// 	if (!state || !state.allEvents) return []
 		// 	if (customEventsRep?.status !== 'success' || !customEventsRep?.data) {
@@ -134,11 +134,11 @@ const Favorites = () => {
 			return ids.includes(e.id)
 		})
 
-		console.log({
-			savedFavorites,
-			userEvents,
-			savedCustomEvents,
-		})
+		// console.log({
+		// 	savedFavorites,
+		// 	userEvents,
+		// 	savedCustomEvents,
+		// })
 
 		const rawFavorites = [...savedFavorites, ...userEvents, ...savedCustomEvents]
 

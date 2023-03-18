@@ -1,6 +1,5 @@
 import React, { createContext, memo, useContext, useEffect, useReducer } from 'react'
-
-// import { processApiData } from 'utils/dataUtils'
+import { usePublicUserEventContext } from './PublicUserEventContext'
 
 const disabledVenueStorageKey = 'SWC.DisabledVenues.2023'
 
@@ -11,25 +10,47 @@ export const EventAction = {
 	ALL_VENUES_ON: 'ALL_VENUES_ON',
 	ALL_VENUES_OFF: 'ALL_VENUES_OFF',
 	SET_EVENTS: 'SET_EVENTS',
+	UPDATE_PUBLIC_EVENTS: 'UPDATE_PUBLIC_EVENTS',
+	UPDATE_USER_EVENTS: 'UPDATE_USER_EVENTS',
 }
 
 const initialReducerState = {
 	allEvents: [],
 	allVenues: [],
-	// disabledVenues: JSON.parse(localStorage.getItem(disabledVenueStorageKey)),
+	coreEvents: [],
+	publicEvents: [],
+	userEvents: [],
 	disabledVenues: [],
+}
+
+const sortDemBitches = events => {
+	return events.sort((a, b) => {
+		const aStart = new Date(a.startDate)
+		const bStart = new Date(b.startDate)
+		const aEnd = new Date(a.endDate)
+		const bEnd = new Date(b.endDate)
+
+		if (aStart > bStart) return 1
+		if (aStart < bStart) return -1
+		if (aEnd > bEnd) return 1
+		if (aEnd < bEnd) return -1
+		if (a.summary > b.summary) return 1
+		if (a.summary < b.summary) return -1
+		return 0
+	})
 }
 
 const reducer = (state, action) => {
 	switch (action.type) {
 		case EventAction.SET_EVENTS:
 			// Don't set it multiple times
-			if (state.allEvents.length > 0) {
+			if (state.allEvents.length > 0 && state.coreEvents.length > 0) {
 				return state
 			}
 			return {
 				...state,
-				allEvents: action.name,
+				allEvents: sortDemBitches([...action.name, ...state.publicEvents, ...state.userEvents]),
+				coreEvents: action.name,
 				allVenues: action.venues,
 				disabledVenues: action.disabled,
 			}
@@ -58,6 +79,14 @@ const reducer = (state, action) => {
 				...state,
 				disabledVenues: [...state.allVenues],
 			}
+		case EventAction.UPDATE_PUBLIC_EVENTS:
+			if (state.publicEvents.length === action.name.length) {
+				return state
+			}
+			return {
+				...state,
+				allEvents: sortDemBitches([...action.name, ...state.coreEvents, ...state.userEvents]),
+			}
 		default:
 			return state
 	}
@@ -65,6 +94,7 @@ const reducer = (state, action) => {
 
 const EventProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, initialReducerState)
+	const { publicEvents } = usePublicUserEventContext()
 
 	useEffect(() => {
 		// console.log('EventContext.init')
@@ -90,6 +120,12 @@ const EventProvider = ({ children }) => {
 	useEffect(() => {
 		localStorage.setItem(disabledVenueStorageKey, JSON.stringify(state.disabledVenues))
 	}, [state.disabledVenues])
+
+	useEffect(() => {
+		console.log('PUBLIC UPDATED', publicEvents)
+
+		dispatch({ type: EventAction.UPDATE_PUBLIC_EVENTS, name: publicEvents })
+	}, [publicEvents])
 
 	return <EventContext.Provider value={[state, dispatch]}>{children}</EventContext.Provider>
 }
