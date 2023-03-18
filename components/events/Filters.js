@@ -101,14 +101,14 @@ const Filters = memo(() => {
 					<Venue enabled={!state.disabledVenues.includes(v)} name={v} />
 				</div>
 			))}
-			{/* <div onClick={handleClick('Public Events')}>
+			<div onClick={handleClick('Public Events')}>
 				<VenueWrapper enabled={!state.disabledVenues.includes('Public Events')}>
 					<Indicator enabled={!state.disabledVenues.includes('Public Events')}>
 						<FontAwesomeIcon icon={icon({ name: 'users', family: 'sharp', style: 'solid' })} />
 					</Indicator>
 					<VenueName enabled={!state.disabledVenues.includes('Public Events')}>Public Events</VenueName>
 				</VenueWrapper>
-			</div> */}
+			</div>
 			<div onClick={handleAllOn}>
 				<VenueWrapper enabled>
 					<Indicator enabled>

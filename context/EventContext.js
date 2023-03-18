@@ -1,5 +1,6 @@
 import React, { createContext, memo, useContext, useEffect, useReducer } from 'react'
 import { usePublicUserEventContext } from './PublicUserEventContext'
+import { useUserEventContext } from './UserEventContext'
 
 const disabledVenueStorageKey = 'SWC.DisabledVenues.2023'
 
@@ -44,9 +45,9 @@ const reducer = (state, action) => {
 	switch (action.type) {
 		case EventAction.SET_EVENTS:
 			// Don't set it multiple times
-			if (state.allEvents.length > 0 && state.coreEvents.length > 0) {
-				return state
-			}
+			// if (state.allEvents.length > 0 && state.coreEvents.length > 0) {
+			// 	return state
+			// }
 			return {
 				...state,
 				allEvents: sortDemBitches([...action.name, ...state.publicEvents, ...state.userEvents]),
@@ -86,6 +87,16 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				allEvents: sortDemBitches([...action.name, ...state.coreEvents, ...state.userEvents]),
+				publicEvents: action.name,
+			}
+		case EventAction.UPDATE_USER_EVENTS:
+			if (state.userEvents.length === action.name.length) {
+				return state
+			}
+			return {
+				...state,
+				allEvents: sortDemBitches([...action.name, ...state.coreEvents, ...state.publicEvents]),
+				userEvents: action.name,
 			}
 		default:
 			return state
@@ -95,6 +106,7 @@ const reducer = (state, action) => {
 const EventProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, initialReducerState)
 	const { publicEvents } = usePublicUserEventContext()
+	const { userEvents } = useUserEventContext()
 
 	useEffect(() => {
 		// console.log('EventContext.init')
@@ -123,9 +135,13 @@ const EventProvider = ({ children }) => {
 
 	useEffect(() => {
 		console.log('PUBLIC UPDATED', publicEvents)
-
 		dispatch({ type: EventAction.UPDATE_PUBLIC_EVENTS, name: publicEvents })
 	}, [publicEvents])
+
+	useEffect(() => {
+		console.log('USEREVENTS UPDATED', userEvents)
+		dispatch({ type: EventAction.UPDATE_USER_EVENTS, name: userEvents })
+	}, [userEvents])
 
 	return <EventContext.Provider value={[state, dispatch]}>{children}</EventContext.Provider>
 }
