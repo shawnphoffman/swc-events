@@ -151,9 +151,11 @@ export const processApiData = data => {
 		return aStart > bStart ? 1 : aStart === bStart ? (aEnd > bEnd ? 1 : -1) : -1
 	})
 
+	console.log(sorted)
+
 	return {
 		venues: Array.from(venueSet).sort((a, b) => (cleanVenueName(a) > cleanVenueName(b) ? 1 : -1)),
-		events: sorted,
+		events: sorted.filter(s => s.startDate.substring(0, 4) === '2023'),
 	}
 }
 
