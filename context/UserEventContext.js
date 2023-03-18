@@ -145,7 +145,7 @@ const UserEventProvider = ({ children }) => {
 			console.log('DELETE USER EVENT', { status, error, id })
 			await fetchUserEvents()
 		},
-		[client, user?.id]
+		[client, fetchUserEvents, user?.id]
 	)
 
 	// ============================================================

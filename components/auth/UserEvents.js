@@ -1,7 +1,6 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { DateTime } from 'luxon'
 import { styled } from 'linaria/react'
-import { v4 as uuidv4 } from 'uuid'
 
 import Button from 'components/Button'
 import EventListItem from 'components/events/EventListItem'
@@ -374,10 +373,6 @@ const UserEventForm = () => {
 		setImageUrl(event.imageUrl)
 		setIsPrivate(event.private)
 	}, [])
-
-	// useEffect(() => {
-	// 	fetchUserEvents()
-	// }, [fetchUserEvents])
 
 	return (
 		<Wrapper>
