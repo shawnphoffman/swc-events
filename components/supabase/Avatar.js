@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { styled } from 'linaria/react'
 
-import { supabase } from 'utils/supabaseClient'
+import { useAuth } from 'hooks/useAuth'
 
 const AvatarWrapper = styled.div`
 	display: flex;
@@ -38,23 +38,23 @@ const UploadButton = styled.label`
 export default function Avatar({ url, size, onUpload }) {
 	const [avatarUrl, setAvatarUrl] = useState(null)
 	const [uploading, setUploading] = useState(false)
+	const { client } = useAuth()
 
 	useEffect(() => {
-		if (url) downloadImage(url)
-	}, [url])
-
-	async function downloadImage(path) {
-		try {
-			const { data, error } = await supabase.storage.from('avatars').download(path)
-			if (error) {
-				throw error
+		async function downloadImage(path) {
+			try {
+				const { data, error } = await client.storage.from('avatars').download(path)
+				if (error) {
+					throw error
+				}
+				const url = URL.createObjectURL(data)
+				setAvatarUrl(url)
+			} catch (error) {
+				console.log('Error downloading image: ', error.message)
 			}
-			const url = URL.createObjectURL(data)
-			setAvatarUrl(url)
-		} catch (error) {
-			console.log('Error downloading image: ', error.message)
 		}
-	}
+		if (url) downloadImage(url)
+	}, [client.storage, url])
 
 	async function uploadAvatar(event) {
 		try {
@@ -69,7 +69,7 @@ export default function Avatar({ url, size, onUpload }) {
 			const fileName = `${Math.random()}.${fileExt}`
 			const filePath = `${fileName}`
 
-			let { error: uploadError } = await supabase.storage.from('avatars').upload(filePath, file)
+			let { error: uploadError } = await client.storage.from('avatars').upload(filePath, file)
 
 			if (uploadError) {
 				throw uploadError

@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useAuth } from 'hooks/useAuth'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { styled } from 'linaria/react'
@@ -16,20 +16,18 @@ const Wrapper = styled.div`
 `
 
 const AuthIndex = () => {
-	const supabaseClient = useSupabaseClient()
-	const user = useUser()
+	const { client, user } = useAuth()
 
 	if (!user)
 		return (
 			<Wrapper>
 				<Auth
-					redirectTo="http://localhost:3000/"
+					redirectTo={process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : 'https://swc.events'}
 					appearance={{ theme: ThemeSupa }}
-					supabaseClient={supabaseClient}
+					supabaseClient={client}
 					magicLink
 					view="magic_link"
-					// showLinks={false}
-					showLinks
+					showLinks={false}
 				/>
 			</Wrapper>
 		)

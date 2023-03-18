@@ -1,8 +1,8 @@
-import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { styled } from 'linaria/react'
 
 import Button from 'components/Button'
 import { Input, InputWrapper, PageTitle } from 'components/styles'
+import { useAuth } from 'hooks/useAuth'
 
 const Wrapper = styled.div`
 	max-width: 300px;
@@ -18,8 +18,7 @@ const StyledInput = styled(Input)`
 `
 
 export default function Account() {
-	const supabaseClient = useSupabaseClient()
-	const user = useUser()
+	const { client, user } = useAuth()
 
 	return (
 		<Wrapper>
@@ -32,7 +31,7 @@ export default function Account() {
 				</InputWrapper>
 			</InputContainer>
 
-			<Button onClick={() => supabaseClient.auth.signOut()}>Sign Out</Button>
+			<Button onClick={() => client.auth.signOut()}>Sign Out</Button>
 		</Wrapper>
 	)
 }

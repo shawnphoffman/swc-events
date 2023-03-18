@@ -33,14 +33,6 @@ export const useAuth = () => {
 		}
 	}, [client.auth])
 
-	useEffect(() => {
-		// console.log('useAuth.session', session)
-	}, [session])
-
-	useEffect(() => {
-		// console.log('useAuth.user', user)
-	}, [user])
-
 	return {
 		client,
 		user,
