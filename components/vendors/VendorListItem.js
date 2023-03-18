@@ -169,8 +169,12 @@ const VendorListItem = ({ vendor, forceOpen }) => {
 			<ActionWrapper>
 				<FavoriteVendorIcon vendor={vendor} />
 				{canExpand && (
-					<ExpandIcon>
-						<FontAwesomeIcon icon={icon({ name: 'arrows-from-line', family: 'sharp', style: 'solid' })} />
+					<ExpandIcon title={expanded ? 'Collapse Details' : 'Expand Details'}>
+						{expanded ? (
+							<FontAwesomeIcon icon={icon({ name: 'arrows-to-dotted-line', family: 'sharp', style: 'regular' })} />
+						) : (
+							<FontAwesomeIcon icon={icon({ name: 'arrows-from-dotted-line', family: 'sharp', style: 'regular' })} />
+						)}
 					</ExpandIcon>
 				)}
 			</ActionWrapper>
