@@ -16,9 +16,6 @@ const UserEventProvider = ({ children }) => {
 	const { client, user, isAuthed } = useAuth()
 	// const [loading, setLoading] = useState(true)
 	const [userEvents, setUserEvents] = useState([])
-	// const userEventIds = useMemo(() => {
-	// 	return userEvents?.map(f => f.id)
-	// }, [userEvents])
 
 	// FETCH
 	const fetchUserEvents = useCallback(async () => {

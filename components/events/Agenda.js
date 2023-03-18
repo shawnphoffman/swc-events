@@ -23,9 +23,9 @@ const ScrollBox = styled.div`
 `
 
 const Agenda = () => {
-	const [state] = useEventContext()
+	const [state, _, loading] = useEventContext()
 
-	if (!state?.allEvents) {
+	if (!state?.allEvents || !state?.coreEvents || loading) {
 		return <Loading />
 	}
 

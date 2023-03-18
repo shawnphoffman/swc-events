@@ -48,18 +48,6 @@ import FavoritesProvider from 'context/FavoritesContext'
 import PublicUserEventProvider from 'context/PublicUserEventContext'
 import UserEventProvider from 'context/UserEventContext'
 
-// const Banner = styled.div`
-// 	background-color: var(--errorColor);
-// 	width: 100%;
-// 	padding: 16px;
-// 	display: flex;
-// 	justify-content: center;
-// 	font-size: 18px;
-// 	text-align: center;
-// 	flex: 0 0 50px;
-// 	align-items: center;
-// `
-
 const AppWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -133,7 +121,6 @@ function MyApp({ Component, pageProps }) {
 						<PublicUserEventProvider>
 							<EventProvider>
 								<FavoritesProvider>
-									{/* <Banner>This site is not 100% ready for Celebration 2023 (yet). It should be fully-functional soon.</Banner> */}
 									<Nav />
 									<Component {...pageProps} />
 								</FavoritesProvider>

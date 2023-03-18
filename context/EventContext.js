@@ -1,4 +1,4 @@
-import React, { createContext, memo, useContext, useEffect, useReducer } from 'react'
+import React, { createContext, memo, useContext, useEffect, useReducer, useState } from 'react'
 
 import { usePublicUserEventContext } from './PublicUserEventContext'
 import { useUserEventContext } from './UserEventContext'
@@ -46,9 +46,10 @@ const reducer = (state, action) => {
 	switch (action.type) {
 		case EventAction.SET_EVENTS:
 			// Don't set it multiple times
-			// if (state.allEvents.length > 0 && state.coreEvents.length > 0) {
-			// 	return state
-			// }
+			if (state.allEvents.length > 0 && state.coreEvents.length > 0) {
+				console.log("SHOULD'VE AVOIDED THIS")
+				// return state
+			}
 			return {
 				...state,
 				allEvents: sortDemBitches([...action.name, ...state.publicEvents, ...state.userEvents]),
@@ -106,28 +107,32 @@ const reducer = (state, action) => {
 
 const EventProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, initialReducerState)
+	const [loading, setLoading] = useState(true)
 	const { publicEvents } = usePublicUserEventContext()
 	const { userEvents } = useUserEventContext()
 
 	useEffect(() => {
 		// console.log('EventContext.init')
+		setLoading(true)
 
-		let disabledVenues = []
-		const raw = localStorage.getItem(disabledVenueStorageKey)
-		if (raw) {
-			const stored = JSON.parse(raw)
-			// console.log('STORED', stored)
-			if (Array.isArray(stored)) {
-				disabledVenues = stored
+		const fetchEvents = async () => {
+			let disabledVenues = []
+			const raw = localStorage.getItem(disabledVenueStorageKey)
+			if (raw) {
+				const stored = JSON.parse(raw)
+				// console.log('STORED', stored)
+				if (Array.isArray(stored)) {
+					disabledVenues = stored
+				}
 			}
-		}
 
-		fetch('/api/schedule')
-			.then(res => res.json())
-			.then(data => {
-				const { events, venues } = data
-				dispatch({ type: EventAction.SET_EVENTS, name: events, venues: venues, disabled: disabledVenues })
-			})
+			const resp = await fetch('/api/schedule')
+			const data = await resp.json()
+			const { events, venues } = data
+			dispatch({ type: EventAction.SET_EVENTS, name: events, venues: venues, disabled: disabledVenues })
+			setLoading(false)
+		}
+		fetchEvents()
 	}, [])
 
 	useEffect(() => {
@@ -135,16 +140,14 @@ const EventProvider = ({ children }) => {
 	}, [state.disabledVenues])
 
 	useEffect(() => {
-		// console.log('PUBLIC UPDATED', publicEvents)
 		dispatch({ type: EventAction.UPDATE_PUBLIC_EVENTS, name: publicEvents })
 	}, [publicEvents])
 
 	useEffect(() => {
-		// console.log('USEREVENTS UPDATED', userEvents)
 		dispatch({ type: EventAction.UPDATE_USER_EVENTS, name: userEvents })
 	}, [userEvents])
 
-	return <EventContext.Provider value={[state, dispatch]}>{children}</EventContext.Provider>
+	return <EventContext.Provider value={[state, dispatch, loading]}>{children}</EventContext.Provider>
 }
 
 export const useEventContext = () => useContext(EventContext)
