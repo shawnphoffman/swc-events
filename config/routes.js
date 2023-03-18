@@ -2,7 +2,6 @@ const Routes = {
 	Home: {
 		path: '/schedule',
 		icon: 'fa-calendar-lines',
-		// icon: 'fa-calendar-days',
 		title: 'Home',
 	},
 	FAQ: {
@@ -72,22 +71,8 @@ const Routes = {
 		icon: 'fa-paintbrush-fine',
 		title: 'Tattoos',
 	},
-	Map: {
-		path: '/map',
-		icon: 'fa-map',
-		title: 'Map',
-	},
 }
 
-export const NavRoutes = [
-	Routes.Home,
-	Routes.Search,
-	Routes.Favorites,
-	Routes.Vendors,
-	Routes.Tattoos,
-	// Routes.Map,
-	// ...(process.env.NODE_ENV === 'development' ? [Routes.Tattoos] : []),
-	Routes.FAQ,
-]
+export const NavRoutes = [Routes.Home, Routes.Search, Routes.Favorites, Routes.Vendors, Routes.Tattoos, Routes.FAQ]
 
 export default Routes
