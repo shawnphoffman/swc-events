@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
-import Link from 'next/link'
 import { styled } from 'linaria/react'
+import Link from 'next/link'
 
 import CopyUrlIcon from 'components/events/CopyUrlIcon'
 import EventListItem from 'components/events/EventListItem'

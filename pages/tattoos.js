@@ -1,6 +1,7 @@
 import { memo } from 'react'
-import VendorProvider from 'context/VendorContext'
+
 import TattooList from 'components/vendors/TattooList'
+import VendorProvider from 'context/VendorContext'
 
 const Page = () => {
 	return (

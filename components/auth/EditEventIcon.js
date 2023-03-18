@@ -1,7 +1,7 @@
 import { memo, useCallback } from 'react'
-import { styled } from '@linaria/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { styled } from '@linaria/react'
 
 export const Button = styled.div`
 	color: var(--linkAlt);

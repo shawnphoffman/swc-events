@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import { memo } from 'react'
-import { styled } from 'linaria/react'
+import { brands, icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { icon, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { styled } from 'linaria/react'
 
 import { List, ListItem, NonScrollWrapper, PageTitle, Section } from 'components/styles'
 

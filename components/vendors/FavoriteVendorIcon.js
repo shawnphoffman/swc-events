@@ -1,7 +1,7 @@
 import { memo, useCallback, useMemo } from 'react'
-import { styled } from '@linaria/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { styled } from '@linaria/react'
 
 import { useFavoriteVendorsContext } from 'context/FavoriteVendorsContext'
 
@@ -35,7 +35,6 @@ const FavoriteVendorIcon = ({ vendor }) => {
 	)
 
 	const isFavorite = useMemo(() => {
-		// console.log({ favorites, id: vendor.id })
 		return favorites.includes(vendor.id)
 	}, [vendor.id, favorites])
 

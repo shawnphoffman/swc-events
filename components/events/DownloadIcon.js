@@ -1,8 +1,9 @@
 import { memo, useMemo } from 'react'
-import ICalendarLink from 'utils/icalendar-link'
-import { styled } from '@linaria/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { styled } from '@linaria/react'
+
+import ICalendarLink from 'utils/icalendar-link'
 
 export const Button = styled(ICalendarLink)`
 	color: var(--download);

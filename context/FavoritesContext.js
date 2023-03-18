@@ -1,7 +1,7 @@
 import { createContext, memo, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
-import useLocalStorage from 'hooks/useLocalStorage'
 import { useAuth } from 'hooks/useAuth'
+import useLocalStorage from 'hooks/useLocalStorage'
 
 const favoritesStorageKey = 'SWC.Favorites.2023'
 

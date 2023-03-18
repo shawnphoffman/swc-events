@@ -1,7 +1,7 @@
 import { styled } from 'linaria/react'
 
 import Button from 'components/Button'
-import { Input, InputWrapper, PageTitle } from 'components/styles'
+import { Input, InputWrapper } from 'components/styles'
 import { useAuth } from 'hooks/useAuth'
 
 const AccountWrapper = styled.div`

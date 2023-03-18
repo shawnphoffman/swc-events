@@ -1,12 +1,12 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
-import { DateTime } from 'luxon'
 import { styled } from 'linaria/react'
+import { DateTime } from 'luxon'
 
 import Button from 'components/Button'
 import EventListItem from 'components/events/EventListItem'
-import { useAuth } from 'hooks/useAuth'
 import { PageTitle } from 'components/styles'
 import { useUserEventContext } from 'context/UserEventContext'
+import { useAuth } from 'hooks/useAuth'
 
 // StartDate
 // API:  "2023-04-07T10:00:00.000-07:00"

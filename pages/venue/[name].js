@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { memo, useMemo } from 'react'
-import { useRouter } from 'next/router'
 import { styled } from 'linaria/react'
+import { useRouter } from 'next/router'
 
 import EventListItem from 'components/events/EventListItem'
 import Loading from 'components/Loading'
@@ -29,8 +29,6 @@ const ScrollBox = styled.div`
 const VenueDetails = () => {
 	const [state] = useEventContext()
 	const router = useRouter()
-
-	// console.log('rrrr', router.query)
 
 	const { name } = router.query
 

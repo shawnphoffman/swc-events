@@ -1,30 +1,29 @@
 import 'styles/globals.css'
+import '@fortawesome/fontawesome-svg-core/styles.css'
 
 import { useEffect, useState } from 'react'
-import { styled } from 'linaria/react'
+import { config } from '@fortawesome/fontawesome-svg-core'
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { SessionContextProvider } from '@supabase/auth-helpers-react'
+import { styled } from 'linaria/react'
 import Head from 'next/head'
-
-import { config } from '@fortawesome/fontawesome-svg-core'
-import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
 	faCalendarLines,
-	faMessagesQuestion,
-	faMagnifyingGlass,
-	faHeart,
-	faPrint,
-	faUser,
-	faRightFromBracket,
-	faUserBountyHunter,
-	faFlaskVial,
 	faCashRegister,
-	faStore,
-	faPaintBrushFine,
+	faFlaskVial,
+	faHeart,
+	faMagnifyingGlass,
 	faMap,
+	faMessagesQuestion,
+	faPaintBrushFine,
+	faPrint,
+	faRightFromBracket,
+	faStore,
+	faUser,
+	faUserBountyHunter,
 } from '@fortawesome/sharp-solid-svg-icons'
 
 library.add(
@@ -43,23 +42,23 @@ library.add(
 	faMap
 )
 
-import EventProvider from 'context/EventContext'
-import UserEventProvider from 'context/UserEventContext'
-import PublicUserEventProvider from 'context/PublicUserEventContext'
-import FavoritesProvider from 'context/FavoritesContext'
 import Nav from 'components/Nav'
+import EventProvider from 'context/EventContext'
+import FavoritesProvider from 'context/FavoritesContext'
+import PublicUserEventProvider from 'context/PublicUserEventContext'
+import UserEventProvider from 'context/UserEventContext'
 
-const Banner = styled.div`
-	background-color: var(--errorColor);
-	width: 100%;
-	padding: 16px;
-	display: flex;
-	justify-content: center;
-	font-size: 18px;
-	text-align: center;
-	flex: 0 0 50px;
-	align-items: center;
-`
+// const Banner = styled.div`
+// 	background-color: var(--errorColor);
+// 	width: 100%;
+// 	padding: 16px;
+// 	display: flex;
+// 	justify-content: center;
+// 	font-size: 18px;
+// 	text-align: center;
+// 	flex: 0 0 50px;
+// 	align-items: center;
+// `
 
 const AppWrapper = styled.div`
 	display: flex;
@@ -134,7 +133,7 @@ function MyApp({ Component, pageProps }) {
 						<PublicUserEventProvider>
 							<EventProvider>
 								<FavoritesProvider>
-									<Banner>This site is not 100% ready for Celebration 2023 (yet). It should be fully-functional soon.</Banner>
+									{/* <Banner>This site is not 100% ready for Celebration 2023 (yet). It should be fully-functional soon.</Banner> */}
 									<Nav />
 									<Component {...pageProps} />
 								</FavoritesProvider>

@@ -1,12 +1,12 @@
-import { memo, useState, useEffect, useMemo } from 'react'
-import { useRouter } from 'next/router'
+import { memo, useEffect, useMemo, useState } from 'react'
 import { styled } from 'linaria/react'
+import { useRouter } from 'next/router'
 
-import { useAuth } from 'hooks/useAuth'
-import Loading from 'components/Loading'
-import { PageTitle, Container, ScrollBox } from 'components/styles'
 import EventListItem from 'components/events/EventListItem'
+import Loading from 'components/Loading'
+import { Container, PageTitle, ScrollBox } from 'components/styles'
 import { useEventContext } from 'context/EventContext'
+import { useAuth } from 'hooks/useAuth'
 
 const NoFavorites = styled.div`
 	display: flex;

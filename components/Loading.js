@@ -1,7 +1,7 @@
 import { memo } from 'react'
-import { styled } from 'linaria/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { brands } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { styled } from 'linaria/react'
 
 const Wrapper = styled.div`
 	display: flex;

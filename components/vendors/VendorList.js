@@ -1,8 +1,8 @@
 import { memo, Suspense, useCallback, useEffect, useMemo, useState, useTransition } from 'react'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Fuse from 'fuse.js'
 import { styled } from 'linaria/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 import Loading from 'components/Loading'
 import { Input, InputWrapper, PageTitle } from 'components/styles'
@@ -11,13 +11,11 @@ import { useVendorContext } from 'context/VendorContext'
 
 import VendorListItem from './VendorListItem'
 
-// const FilterName = styled.span``
-
 const Filter = styled.div`
 	flex: 0 1;
 	display: flex;
 	flex-direction: row;
-	margin: 0px 16px 16px 16px;
+	margin: 0px 0px 16px 16px;
 	padding: 12px;
 	border: 1px solid var(--text);
 	border-radius: 8px;

@@ -1,8 +1,8 @@
 import { memo, useEffect, useState } from 'react'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 import { NavIcon } from 'components/styles'
 import Routes from 'config/routes'

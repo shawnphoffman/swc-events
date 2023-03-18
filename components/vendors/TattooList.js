@@ -69,7 +69,6 @@ const VendorList = () => {
 		startTransition(() => setSearch(value))
 	}, [])
 
-	// if (!state || state?.allTattoos.length === 0) {
 	if (!state) {
 		return <Loading />
 	}

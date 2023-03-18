@@ -1,7 +1,8 @@
 import { memo } from 'react'
-import VendorProvider from 'context/VendorContext'
-import FavoriteVendorsProvider from 'context/FavoriteVendorsContext'
+
 import VendorList from 'components/vendors/VendorList'
+import FavoriteVendorsProvider from 'context/FavoriteVendorsContext'
+import VendorProvider from 'context/VendorContext'
 
 const Page = () => {
 	return (

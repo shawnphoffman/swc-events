@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useMemo, useState } from 'react'
-import { styled } from 'linaria/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { styled } from 'linaria/react'
 
 import FavoriteVendorIcon from './FavoriteVendorIcon'
 
@@ -137,7 +137,7 @@ const VendorListItem = ({ vendor, forceOpen }) => {
 
 	return (
 		<Container onClick={handleClick}>
-			<ColorBlock color={vendor.featured ? 'var(--fallback)' : null} />
+			<ColorBlock color={vendor.featured ? 'var(--fallback)' : 'var(--linkAlt)'} />
 			<Booth>{vendor.booth.join('\n')}</Booth>
 			<Event>
 				<Title>{vendor.company}</Title>

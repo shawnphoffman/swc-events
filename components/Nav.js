@@ -1,8 +1,8 @@
-import { memo, useState, useEffect } from 'react'
+import { memo, useEffect, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { styled } from 'linaria/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import AuthNavIcon from 'components/auth/AuthNavIcon'
 import { NavIcon } from 'components/styles'

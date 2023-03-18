@@ -1,12 +1,10 @@
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { styled } from '@linaria/react'
 import copy from 'copy-to-clipboard'
 
 import { useAuth } from 'hooks/useAuth'
-
-// import Routes from 'config/routes'
 
 export const Button = styled.div`
 	color: ${p => (p.copied ? 'var(--green)' : 'var(--linkAlt)')};

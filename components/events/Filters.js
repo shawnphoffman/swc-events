@@ -1,12 +1,11 @@
 import { memo, useCallback, useMemo } from 'react'
-import Link from 'next/link'
-import { styled } from 'linaria/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { styled } from 'linaria/react'
+import Link from 'next/link'
 
 import Routes from 'config/routes'
 import { EventAction, useEventContext } from 'context/EventContext'
-
 import { cleanVenueName, colorMap } from 'utils/dataUtils'
 
 const PrintLink = styled.div`

@@ -1,9 +1,8 @@
 import { memo, useCallback, useEffect, useState } from 'react'
-import { styled } from '@linaria/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { styled } from '@linaria/react'
 
-import { useAuth } from 'hooks/useAuth'
 import { useUserEventContext } from 'context/UserEventContext'
 
 export const Button = styled.div`

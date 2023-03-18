@@ -1,17 +1,16 @@
 import React, { memo, useCallback, useMemo, useState } from 'react'
-// import { useUser } from 'reactfire'
-import { styled } from 'linaria/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { styled } from 'linaria/react'
 
 import DeleteEventIcon from 'components/auth/DeleteEventIcon'
 import EditEventIcon from 'components/auth/EditEventIcon'
+import { useAuth } from 'hooks/useAuth'
 import { dayColor, dayName, formatTime } from 'utils/dataUtils'
 
 import DownloadIcon from './DownloadIcon'
 import EventLinkIcon from './EventLinkIcon'
 import FavoriteIcon from './FavoriteIcon'
-import { useAuth } from 'hooks/useAuth'
 
 const PrivacyIcon = styled.div`
 	font-size: 20px;

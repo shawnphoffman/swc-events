@@ -1,12 +1,12 @@
 import { memo } from 'react'
-import { useAuth } from 'hooks/useAuth'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { styled } from 'linaria/react'
 
+import UserEvents from 'components/auth/UserEvents'
 import { Divider } from 'components/styles'
 import Account from 'components/supabase/Account'
-import UserEvents from 'components/auth/UserEvents'
+import { useAuth } from 'hooks/useAuth'
 
 const Wrapper = styled.div`
 	width: 100%;

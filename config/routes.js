@@ -63,7 +63,6 @@ const Routes = {
 	Vendors: {
 		path: '/vendors',
 		icon: 'fa-cash-register',
-		// icon: 'fa-store',
 		title: 'Vendors',
 	},
 	Tattoos: {
@@ -73,6 +72,14 @@ const Routes = {
 	},
 }
 
-export const NavRoutes = [Routes.Home, Routes.Search, Routes.Favorites, Routes.Vendors, Routes.Tattoos, Routes.FAQ]
+export const NavRoutes = [
+	Routes.Home,
+	Routes.Search,
+	Routes.Favorites,
+	Routes.Vendors,
+	// Routes.Tattoos,
+	...(process.env.NODE_ENV === 'development' ? [Routes.Tattoos] : []),
+	Routes.FAQ,
+]
 
 export default Routes
