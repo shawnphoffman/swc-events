@@ -1,11 +1,9 @@
 import { memo, useCallback, useMemo } from 'react'
 import { useAuth } from 'reactfire'
-// import * as Panelbear from '@panelbear/panelbear-js'
 import { styled } from 'linaria/react'
 
 import Button from 'components/Button'
 
-// import Event from 'utils/events'
 import UserEvents from './UserEvents'
 
 const Divider = styled.hr`
@@ -48,7 +46,6 @@ const UserProfile = ({ user }) => {
 
 	const handleLogout = useCallback(() => {
 		auth.signOut().then(() => {
-			// Panelbear.track(Event.LogOut)
 			console.log('signed out')
 		})
 	}, [auth])

@@ -85,21 +85,6 @@ const EventProvider = ({ children }) => {
 				const { events, venues } = data
 				dispatch({ type: EventAction.SET_EVENTS, name: events, venues: venues, disabled: disabledVenues })
 			})
-
-		// https://api-melupufoagt.stackpathdns.com/api/schedules?key=f4da60d9-7791-4d31-aaf0-5cce46bf1e5d
-		// fetch(process.env.NEXT_PUBLIC_SCHEDULE_ENDPOINT)
-		// 	.then(res => res.json())
-		// 	.then(data => {
-		// 		const { events, venues } = processApiData(data)
-		// 		dispatch({ type: EventAction.SET_EVENTS, name: events, venues: venues, disabled: disabledVenues })
-		// 	})
-		// 	.catch(e => {
-		// 		// Panelbear.track(Event.FetchFailure)
-		// 		import('data/schedule.json').then(rawEvents => {
-		// 			const { events, venues } = processApiData(rawEvents)
-		// 			dispatch({ type: EventAction.SET_EVENTS, name: events, venues: venues, disabled: disabledVenues })
-		// 		})
-		// 	})
 	}, [])
 
 	useEffect(() => {
