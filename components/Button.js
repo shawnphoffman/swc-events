@@ -29,7 +29,7 @@ const StyledButton = styled(Link)`
 	min-width: 175px;
 
 	&:disabled {
-		background: green !important;
+		background: var(--disabled);
 	}
 `
 

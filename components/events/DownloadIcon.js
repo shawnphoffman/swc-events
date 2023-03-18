@@ -9,6 +9,7 @@ export const Button = styled(ICalendarLink)`
 	font-size: 26px;
 	margin-top: 4px;
 	display: block;
+	transition: all 0.5s;
 
 	&:hover {
 		color: var(--linkHover);

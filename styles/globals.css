@@ -1,24 +1,50 @@
 :root {
-	--bg: #111;
-	--outline: #1d1f26;
-	--outlineHover: #18161e;
-	--text: #fff;
-	--link: #fff;
-	--linkAlt: #a0a8d9;
-	--linkHover: #00b8d4;
-	--linkActive: #304ffe;
-	--heart: #ff1493;
-	--download: #ff540d;
+	/* Core */
+	--bg: #010101;
+	--outline: #161616;
+	--outlineHover: #1B1B1B;
+	--text: #FFF;
 	--inactive: #333;
 	--transparent: #0000;
-	--inputBg: #fff;
+	--inputBg: #FFF;
 	--inputBorder: #000;
+	--disabled: #CCC;
+	/* Links */
+	--link: #FFF;
+	--linkAlt: #A0A8D9;
+	--linkHover: #55F4FF;
+	--linkActive: #556EFF;
+	/* Errors */
+	--errorBg: #FFC6C4;
+	--errorColor: #800000;
+	/* Specials */
+	--heart: #FF1493;
+	--download: #FF540D;
+	--private: #00B8D4;
+	--public: #AEEA00;
+	--fallback: #FFD600;
+	--green: #00C853;
+	/* Days */
 	--day1: #042940;
 	--day2: #174001;
-	--day3: #400a40;
-	--day4: #40290a;
-	--fallback: yellow;
-	--green: #32de84;
+	--day3: #400A40;
+	--day4: #40290A;
+	/* Rainbow */
+	--color0: #FF540D;
+	--color1: #FF8C00;
+	--color2: #FFAB00;
+	--color3: #FFD600;
+	--color4: #AEEA00;
+	--color5: #00C853;
+	--color6: #00BFA5;
+	--color7: #00B8D4;
+	--color8: #0091EA;
+	--color9: #304FFE;
+	--color10: #6200EA;
+	--color11: #AA00FF;
+	--color12: #C51162;
+	--color13: #D50000;
+	--color14: #FF1493;
 
 	color: var(--text);
 }

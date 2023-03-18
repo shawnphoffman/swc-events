@@ -38,6 +38,7 @@ export const NavIcon = styled.div`
 	color: var(--link);
 	font-size: 24px;
 	margin: 4px 8px;
+	transition: all 0.5s;
 
 	&:hover {
 		color: var(--linkHover);
@@ -53,8 +54,8 @@ export const InputWrapper = styled.div`
 	flex-direction: row;
 	position: relative;
 	background-color: var(--inputBg);
-	border-color: none;
-	border-width: 1px;
+	border-color: var(--transparent);
+	border-width: 0px;
 	border-style: solid;
 	transition-delay: 0s;
 	transition-duration: 0.2s;
@@ -67,7 +68,7 @@ export const InputWrapper = styled.div`
 	width: 100%;
 
 	&:hover {
-		opacity: 0.8;
+		opacity: 0.9;
 	}
 
 	&:focus-within {
@@ -79,7 +80,7 @@ export const InputWrapper = styled.div`
 
 export const Input = styled.input`
 	margin: 0;
-	padding: 16px;
+	padding: 8px 12px;
 	font-size: 16px;
 	line-height: 24px;
 	text-align: start;
@@ -97,6 +98,11 @@ export const Input = styled.input`
 		outline-style: none;
 		box-shadow: none;
 		border-color: var(--transparent);
+	}
+
+	&:disabled {
+		background: var(--disabled);
+		border-radius: 8px;
 	}
 `
 

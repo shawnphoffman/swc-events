@@ -4,17 +4,21 @@ import Button from 'components/Button'
 import { Input, InputWrapper, PageTitle } from 'components/styles'
 import { useAuth } from 'hooks/useAuth'
 
-const Wrapper = styled.div`
-	max-width: 300px;
+const AccountWrapper = styled.div`
 	width: 100%;
+	max-width: 500px;
+`
+
+const Wrapper = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	max-width: 800px;
 `
 const Label = styled.div`
 	font-weight: bold;
 	margin: 16px 0px 8px 0px;
-`
-const InputContainer = styled.div``
-const StyledInput = styled(Input)`
-	padding: 12px;
 `
 
 export default function Account() {
@@ -22,15 +26,12 @@ export default function Account() {
 
 	return (
 		<Wrapper>
-			<PageTitle>User Info</PageTitle>
-
-			<InputContainer>
+			<AccountWrapper>
 				<Label htmlFor="email">Email</Label>
 				<InputWrapper>
-					<StyledInput id="email" type="text" value={user.email} disabled />
+					<Input id="email" type="text" value={user.email} disabled />
 				</InputWrapper>
-			</InputContainer>
-
+			</AccountWrapper>
 			<Button onClick={() => client.auth.signOut()}>Sign Out</Button>
 		</Wrapper>
 	)

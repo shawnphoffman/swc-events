@@ -16,7 +16,7 @@ import { useAuth } from 'hooks/useAuth'
 const PrivacyIcon = styled.div`
 	font-size: 20px;
 	margin-top: 4px;
-	color: ${p => (p.private ? '#40E0D0' : '#ADFF2F')};
+	color: ${p => (p.private ? 'var(--private)' : 'var(--public)')};
 `
 
 const EventImage = styled.img`
@@ -70,7 +70,7 @@ const ColorBlock = styled.div`
 	background-color: ${e => e.color ?? `var(--fallback)`};
 	background-image: ${e =>
 		e.userEvent
-			? `linear-gradient(135deg, var(--linkHover) 25%, var(--outlineHover) 25%, var(--outlineHover) 50%, var(--linkHover) 50%, var(--linkHover) 75%, var(--outlineHover) 75%, var(--outlineHover) 100%)`
+			? `linear-gradient(135deg, var(--linkHover) 25%, var(--linkActive) 25%, var(--linkActive) 50%, var(--linkHover) 50%, var(--linkHover) 75%, var(--linkActive) 75%, var(--linkActive) 100%)`
 			: 'none'};
 	background-size: ${e => (e.userEvent ? `28.28px 28.28px` : 'auto')};
 `
@@ -83,7 +83,7 @@ const Details = styled.div`
 	font-style: italic;
 	font-size: 14px;
 	margin-top: 8px;
-	opacity: 0.8;
+	opacity: 0.9;
 
 	display: flex;
 	flex-wrap: wrap;
@@ -152,7 +152,9 @@ const EventListItem = ({ event, forceOpen = false, onEdit }) => {
 
 	return (
 		<Container onClick={handleClick}>
-			<DayName bg={dayColor[eventDay]}>{eventDay}</DayName>
+			<DayName bg={dayColor[eventDay]}>
+				{eventDay} - {new Date(event.startAt).getDate()}
+			</DayName>
 			<ColorBlock color={event.color} userEvent={event.type === 'userEvent'} />
 			<Event>
 				<Title>{event.summary}</Title>

@@ -69,7 +69,6 @@ const DayName = styled.div`
 
 	@media print {
 		color: black;
-		/* background: #ddd; */
 		background: none;
 	}
 `
@@ -94,7 +93,7 @@ const Details = styled.div`
 	font-style: italic;
 	font-size: 12px;
 	margin-top: 4px;
-	opacity: 0.8;
+	opacity: 0.9;
 	page-break-inside: avoid;
 	break-inside: avoid;
 

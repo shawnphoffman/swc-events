@@ -9,6 +9,7 @@ const IconButton = styled.div`
 	color: var(--heart);
 	font-size: 26px;
 	cursor: pointer;
+	transition: all 0.5s;
 
 	&:hover {
 		color: var(--linkHover);

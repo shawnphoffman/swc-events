@@ -49,12 +49,12 @@ const ButtonWrapper = styled.div`
 	justify-content: center;
 `
 const Error = styled.div`
-	background: #ffc6c4;
-	padding: 16px;
+	background: var(--errorBg);
+	padding: 12px;
 	border-radius: 8px;
 	margin-bottom: 8px;
-	border: 2px solid #800000;
-	color: #800000;
+	border: 2px solid var(--errorColor);
+	color: var(--errorColor);
 	font-weight: bold;
 `
 const InputWrapper = styled.div`
@@ -68,8 +68,8 @@ const InputContainer = styled.div`
 	flex-direction: row;
 	position: relative;
 	background-color: var(--inputBg);
-	border-color: none;
-	border-width: 1px;
+	border-color: var(--transparent);
+	border-width: 0px;
 	border-style: solid;
 	transition-delay: 0s;
 	transition-duration: 0.2s;
@@ -82,7 +82,7 @@ const InputContainer = styled.div`
 	width: 100%;
 
 	&:hover {
-		opacity: 0.8;
+		opacity: 0.9;
 	}
 
 	&:focus-within {
@@ -95,7 +95,7 @@ const DateTimeInput = styled.input`
 	margin: 0;
 	padding: 8px;
 	font-size: 16px;
-	line-height: 1.2;
+	line-height: 1;
 	text-align: start;
 	text-indent: 0px;
 	text-transform: none;
@@ -115,7 +115,7 @@ const DateTimeInput = styled.input`
 `
 const TextArea = styled.textarea`
 	margin: 0;
-	padding: 8px;
+	padding: 12px;
 	font-size: 16px;
 	line-height: 1.2;
 	text-align: start;
@@ -140,9 +140,9 @@ const TextArea = styled.textarea`
 `
 const TextInput = styled.input`
 	margin: 0;
-	padding: 8px;
+	padding: 8px 12px;
 	font-size: 16px;
-	line-height: 1.2;
+	line-height: 1;
 	text-align: start;
 	text-indent: 0px;
 	text-transform: none;
@@ -160,7 +160,7 @@ const TextInput = styled.input`
 		border-color: var(--transparent);
 	}
 	&:disabled {
-		background: #d3d3d3;
+		background: var(--disabled);
 		border-radius: 8px;
 	}
 `
@@ -176,6 +176,7 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+	max-width: 800px;
 `
 const CheckboxWrapper = styled(InputWrapper)`
 	align-items: center;
@@ -191,11 +192,11 @@ const Checkbox = styled.input`
 	margin-right: 4px;
 `
 const CheckHint = styled.span`
-	color: var(--linkHover);
+	color: ${p => (p.isPrivate ? 'var(--private)' : 'var(--public)')};
 `
 
 const UserEventForm = () => {
-	const { client, user, isAuthed } = useAuth()
+	const { user } = useAuth()
 	const [error, setError] = useState('')
 	const [id, setId] = useState('')
 	const [title, setTitle] = useState('')
@@ -412,13 +413,13 @@ const UserEventForm = () => {
 			<CheckboxWrapper>
 				<CheckboxLabel>Is this event only for you?:</CheckboxLabel>
 				<Checkbox type="checkbox" onChange={handlePrivateChange} checked={isPrivate} />
-				<CheckHint>{isPrivate ? 'Yes, this is private' : 'No, I want this to be public'}</CheckHint>
+				<CheckHint isPrivate={isPrivate}>{isPrivate ? 'Yes, this is private' : 'No, I want this to be public'}</CheckHint>
 			</CheckboxWrapper>
 			{/*  */}
 			<InputWrapper>
 				<Label>Description:</Label>
 				<InputContainer>
-					<TextArea type="text" placeholder="Event description" onChange={handleDescriptionChange} value={description} />
+					<TextArea placeholder="Event description" onChange={handleDescriptionChange} value={description} />
 				</InputContainer>
 			</InputWrapper>
 			{/*  */}
@@ -474,7 +475,7 @@ const UserEventForm = () => {
 			<InputWrapper>
 				<Label>Physical Address:</Label>
 				<InputContainer>
-					<TextArea type="textarea" placeholder="Address of the venue" onChange={handleAddressChange} value={address} />
+					<TextArea placeholder="Address of the venue" onChange={handleAddressChange} value={address} />
 				</InputContainer>
 			</InputWrapper>
 			{/*  */}

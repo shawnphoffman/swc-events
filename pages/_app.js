@@ -50,7 +50,7 @@ import FavoritesProvider from 'context/FavoritesContext'
 import Nav from 'components/Nav'
 
 const Banner = styled.div`
-	background-color: #b33a3a;
+	background-color: var(--errorColor);
 	width: 100%;
 	padding: 16px;
 	display: flex;
