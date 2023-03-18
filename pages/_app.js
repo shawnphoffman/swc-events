@@ -134,7 +134,7 @@ function MyApp({ Component, pageProps }) {
 						<PublicUserEventProvider>
 							<EventProvider>
 								<FavoritesProvider>
-									<Banner>This site not 100% ready for Celebration 2023 (yet). It should be fully-functional soon.</Banner>
+									<Banner>This site is not 100% ready for Celebration 2023 (yet). It should be fully-functional soon.</Banner>
 									<Nav />
 									<Component {...pageProps} />
 								</FavoritesProvider>
