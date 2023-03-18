@@ -44,6 +44,7 @@ const UserEventProvider = ({ children }) => {
 					if (a.summary < b.summary) return -1
 					return 0
 				})
+				console.log('UserEvents', temp)
 				setUserEvents(temp)
 			}
 		} catch (e) {

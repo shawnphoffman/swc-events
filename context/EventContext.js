@@ -134,12 +134,12 @@ const EventProvider = ({ children }) => {
 	}, [state.disabledVenues])
 
 	useEffect(() => {
-		console.log('PUBLIC UPDATED', publicEvents)
+		// console.log('PUBLIC UPDATED', publicEvents)
 		dispatch({ type: EventAction.UPDATE_PUBLIC_EVENTS, name: publicEvents })
 	}, [publicEvents])
 
 	useEffect(() => {
-		console.log('USEREVENTS UPDATED', userEvents)
+		// console.log('USEREVENTS UPDATED', userEvents)
 		dispatch({ type: EventAction.UPDATE_USER_EVENTS, name: userEvents })
 	}, [userEvents])
 

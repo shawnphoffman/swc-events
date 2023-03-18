@@ -27,7 +27,7 @@ const PublicUserEventProvider = ({ children }) => {
 				console.error(error)
 			}
 			if (data) {
-				console.log('PUBLIC', data)
+				// console.log('PUBLIC', data)
 
 				const temp = Object.values(data).sort((a, b) => {
 					const aStart = new Date(a.startDate)
@@ -57,7 +57,7 @@ const PublicUserEventProvider = ({ children }) => {
 	// POLL BAYBEEE
 	useEffect(() => {
 		const intervalId = setInterval(() => {
-			console.log('POLL')
+			// console.log('POLL')
 			fetchPublicEvents()
 		}, 30000)
 		return () => clearInterval(intervalId)

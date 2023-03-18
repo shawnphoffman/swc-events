@@ -8,18 +8,27 @@ import { useAuth } from 'hooks/useAuth'
 import { PageTitle } from 'components/styles'
 import { useUserEventContext } from 'context/UserEventContext'
 
+// StartDate
+// API:  "2023-04-07T10:00:00.000-07:00"
+// Supa: "2023-04-02T10:00:00.000+01:00"
 const cleanDataRelative = rawDate => {
 	const cleaned = rawDate.replace(' ', 'T')
-	const temp = DateTime.fromFormat(`${cleaned}`, "yyyy-MM-dd'T'HH:mm").toISO()
-	// console.log('rel', { temp, rawDate })
+	// const temp = DateTime.fromFormat(`${cleaned}`, "yyyy-MM-dd'T'HH:mm").toISO()
+	const temp = DateTime.fromFormat(`${cleaned} Europe/London`, "yyyy-MM-dd'T'HH:mm z", {
+		setZone: 'Europe/London',
+	}).toISO()
+	console.log('rel', { temp, rawDate })
 	return temp
 }
 
+// StartAt
+// API:  "2023-04-07T10:00:00.000+01:00"
+// Supa: "2023-04-02T10:00:00.000+01:00"
 const cleanDataWithZone = rawDate => {
 	const cleaned = rawDate.replace(' ', 'T')
 	const temp = DateTime.fromFormat(`${cleaned} Europe/London`, "yyyy-MM-dd'T'HH:mm z", {
 		setZone: 'Europe/London',
-	})
+	}).toISO()
 	// console.log('zone', { temp, rawDate })
 	return temp
 }
@@ -256,6 +265,8 @@ const UserEventForm = () => {
 	//
 	const handleStartChange = useCallback(e => {
 		const value = e.target.value
+		console.log('START', value)
+		console.log('START2', cleanDataRelative(value))
 		setStartTime(value)
 		if (!value) {
 			setError('Missing start time')
