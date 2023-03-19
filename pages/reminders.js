@@ -1,6 +1,17 @@
 import { memo, useCallback, useEffect, useState } from 'react'
 import { styled } from 'linaria/react'
-import { ButtonWrapper, FormWrapper, InputContainer, InputWrapper, Label, TextInput } from 'styles/forms'
+import {
+	ButtonWrapper,
+	Checkbox,
+	CheckboxLabel,
+	CheckboxWrapper,
+	CheckHint,
+	FormWrapper,
+	InputContainer,
+	InputWrapper,
+	Label,
+	TextInput,
+} from 'styles/forms'
 
 import Button from 'components/Button'
 import { Divider, PageTitle } from 'components/styles'
@@ -11,6 +22,20 @@ const Warning = styled.div`
 	font-size: 18px;
 	font-weight: bold;
 `
+
+const ReminderListItem = ({ reminder }) => {
+	const [checked, setChecked] = useState('')
+	const handleChange = () => {}
+	return (
+		<>
+			<CheckboxWrapper>
+				<Checkbox type="checkbox" onChange={handleChange} checked={checked} />
+				{/* <CheckHint isPrivate={checked}>{checked ? 'Yes, this is private' : 'No, I want this to be public'}</CheckHint> */}
+				<CheckboxLabel>{reminder.summary}</CheckboxLabel>
+			</CheckboxWrapper>
+		</>
+	)
+}
 
 const Page = () => {
 	const { user, client, isAuthed } = useAuth()
@@ -110,7 +135,8 @@ const Page = () => {
 			{reminders.length ? (
 				<div>
 					{reminders.map(r => (
-						<div key={r.id}>{r.summary}</div>
+						// <div key={r.id}>{r.summary}</div>
+						<ReminderListItem key={r.id} reminder={r} />
 					))}
 				</div>
 			) : (
