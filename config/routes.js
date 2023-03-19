@@ -70,6 +70,11 @@ const Routes = {
 		icon: 'fa-paintbrush-fine',
 		title: 'Tattoos',
 	},
+	Reminders: {
+		path: '/reminders',
+		icon: 'fa-list-check',
+		title: 'Reminders',
+	},
 }
 
 export const NavRoutes = [
@@ -77,8 +82,8 @@ export const NavRoutes = [
 	Routes.Search,
 	Routes.Favorites,
 	Routes.Vendors,
-	// Routes.Tattoos,
 	...(process.env.NODE_ENV === 'development' ? [Routes.Tattoos] : []),
+	Routes.Reminders,
 	Routes.FAQ,
 ]
 

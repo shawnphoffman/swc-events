@@ -13,10 +13,9 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import {
 	faCalendarLines,
 	faCashRegister,
-	faFlaskVial,
 	faHeart,
+	faListCheck,
 	faMagnifyingGlass,
-	faMap,
 	faMessagesQuestion,
 	faPaintBrushFine,
 	faPrint,
@@ -28,18 +27,17 @@ import {
 
 library.add(
 	faCalendarLines,
-	faMessagesQuestion,
-	faMagnifyingGlass,
-	faHeart,
-	faPrint,
-	faUser,
-	faRightFromBracket,
-	faUserBountyHunter,
-	faFlaskVial,
 	faCashRegister,
-	faStore,
+	faHeart,
+	faListCheck,
+	faMagnifyingGlass,
+	faMessagesQuestion,
 	faPaintBrushFine,
-	faMap
+	faPrint,
+	faRightFromBracket,
+	faStore,
+	faUser,
+	faUserBountyHunter
 )
 
 import Nav from 'components/Nav'
