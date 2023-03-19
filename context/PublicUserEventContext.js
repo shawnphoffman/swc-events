@@ -19,6 +19,7 @@ const PublicUserEventProvider = ({ children }) => {
 			return
 		}
 		try {
+			console.log('UE.Fetch', { user })
 			let { data, error } = user
 				? await client.from('userEvents').select().eq('private', false).neq('creator_id', user?.id)
 				: await client.from('userEvents').select().eq('private', false)
@@ -27,7 +28,7 @@ const PublicUserEventProvider = ({ children }) => {
 				console.error(error)
 			}
 			if (data) {
-				// console.log('PUBLIC', data)
+				console.log('PUBLIC', data)
 
 				const temp = Object.values(data).sort((a, b) => {
 					const aStart = new Date(a.startDate)
