@@ -25,10 +25,13 @@
 	--fallback: #FFD600;
 	--green: #00C853;
 	/* Days */
-	--day1: #042940;
-	--day2: #174001;
-	--day3: #400A40;
-	--day4: #40290A;
+	--day1: #003f5c;
+	--day2: #1c2f4e;
+	--day3: #3b355f;
+	--day4: #632f58;
+	--day5: #6e2a3a;
+	--day6: #653124;
+	--day7: #664301;
 	/* Rainbow */
 	--color0: #FF540D;
 	--color1: #FF8C00;

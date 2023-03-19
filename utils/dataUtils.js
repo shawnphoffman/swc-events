@@ -225,9 +225,9 @@ export const colorMap = {
 	'Kids Stage': 'var(--color11)',
 	'Twin Suns Stage': 'var(--color12)',
 	'University Stage': 'var(--color13)',
-	' Collectibles': 'var(--linkHover)',
+	' Collectibles': 'var(--color14)',
 	' After Hours': 'var(--linkHover)',
-	' Exhibit Hall': 'var(--green)',
+	' Exhibit Hall': 'var(--color0)',
 
 	//
 }
@@ -247,9 +247,9 @@ export const dayName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 
 export const dayColor = {
 	[dayName[0]]: 'var(--day3)',
 	[dayName[1]]: 'var(--day4)',
-	[dayName[2]]: 'var(--outline)',
-	[dayName[3]]: 'var(--outline)',
-	[dayName[4]]: 'var(--outline)',
+	[dayName[2]]: 'var(--day5)',
+	[dayName[3]]: 'var(--day6)',
+	[dayName[4]]: 'var(--day7)',
 	[dayName[5]]: 'var(--day1)',
 	[dayName[6]]: 'var(--day2)',
 }
