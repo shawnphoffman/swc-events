@@ -166,6 +166,8 @@ export const processApiVendors = data => {
 	const processBooth = booth => {
 		if (booth.startsWith('TAT')) return ['TAT*']
 
+		if (booth.startsWith('TP')) return ['TP*']
+
 		return booth.split(', ')
 	}
 
