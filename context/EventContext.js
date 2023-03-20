@@ -92,7 +92,7 @@ const reducer = (state, action) => {
 		case EventAction.ALL_VENUES_OFF:
 			return {
 				...state,
-				disabledVenues: [...state.allVenues],
+				disabledVenues: [...state.allVenues, 'Public Events', 'My Events'],
 			}
 		case EventAction.UPDATE_PUBLIC_EVENTS:
 			if (state.publicEvents.length === action.name.length) {
