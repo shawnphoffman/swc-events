@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
-import { memo, useCallback, useEffect, useMemo, useState } from 'react'
+import { memo, useMemo } from 'react'
 import { styled } from 'linaria/react'
 import Link from 'next/link'
 
@@ -57,9 +56,7 @@ const NextLink = styled.div`
 const Favorites = () => {
 	const [state] = useEventContext()
 	const { favorites: ids } = useFavoritesContext()
-	const { client, user, isAuthed } = useAuth()
-
-	const [userEvents, setUserEvents] = useState([])
+	const { isAuthed } = useAuth()
 
 	const hasFavorites = useMemo(() => {
 		return !!ids.length
@@ -71,58 +68,6 @@ const Favorites = () => {
 
 	// ============================================================
 
-	// User Events
-	const fetchUserEvents = useCallback(async () => {
-		if (!isAuthed || !user?.id || !client) {
-			return
-		}
-
-		try {
-			let { data, error } = await client.from('userEvents').select().eq('creator_id', user?.id)
-
-			if (error) {
-				console.error(error)
-			}
-
-			if (data) {
-				const temp = Object.values(data).sort((a, b) => {
-					const aStart = new Date(a.startDate)
-					const bStart = new Date(b.startDate)
-					const aEnd = new Date(a.endDate)
-					const bEnd = new Date(b.endDate)
-					if (aStart > bStart) return 1
-					if (aStart < bStart) return -1
-					if (aEnd > bEnd) return 1
-					if (aEnd < bEnd) return -1
-					if (a.summary > b.summary) return 1
-					if (a.summary < b.summary) return -1
-					return 0
-				})
-
-				setUserEvents(temp)
-			}
-		} catch (e) {
-			console.log(e)
-		}
-	}, [client, isAuthed, user?.id])
-
-	// ============================================================
-
-	// Custom Public Events
-	const customEvents = useMemo(() => {
-		// 	if (!state || !state.allEvents) return []
-		// 	if (customEventsRep?.status !== 'success' || !customEventsRep?.data) {
-		return []
-		// 	} else {
-		// 		return Object.keys(customEventsRep.data).reduce((memo, curr) => {
-		// 			memo = [...memo, ...Object.values(customEventsRep.data[curr])]
-		// 			return memo
-		// 		}, [])
-		// 	}
-		// }, [customEventsRep.data, customEventsRep?.status, state])
-	}, [])
-	// ============================================================
-
 	const favorites = useMemo(() => {
 		if (!state?.allEvents) return []
 
@@ -130,19 +75,7 @@ const Favorites = () => {
 			return ids.includes(e.id)
 		})
 
-		const savedCustomEvents = customEvents.filter(e => {
-			return ids.includes(e.id)
-		})
-
-		// console.log({
-		// 	savedFavorites,
-		// 	userEvents,
-		// 	savedCustomEvents,
-		// })
-
-		const rawFavorites = [...savedFavorites, ...userEvents, ...savedCustomEvents]
-
-		return rawFavorites.sort((a, b) => {
+		return savedFavorites.sort((a, b) => {
 			const aStart = new Date(a.startDate)
 			const bStart = new Date(b.startDate)
 			const aEnd = new Date(a.endDate)
@@ -155,11 +88,7 @@ const Favorites = () => {
 			if (a.summary < b.summary) return -1
 			return 0
 		})
-	}, [customEvents, ids, state.allEvents, userEvents])
-
-	useEffect(() => {
-		fetchUserEvents()
-	}, [fetchUserEvents])
+	}, [ids, state.allEvents])
 
 	return (
 		<Container>
@@ -173,14 +102,13 @@ const Favorites = () => {
 						<NextLink>
 							<Link href={Routes.Login.path}>log in</Link>
 						</NextLink>
-						, we'll save your favorites across your devices!
+						, we&apos;ll save your favorites across your devices!
 					</LoginPrompt>
 				</>
 			)}
 			<ScrollBox>
-				{!hasFavorites && !userEvents && <NoFavorites>No favorites to display...</NoFavorites>}
-				{/* {userEvents && userEvents.map(event => <EventListItem event={event} key={event.id} forceOpen />)} */}
-				{hasFavorites && userEvents && <Divider />}
+				{!hasFavorites && <NoFavorites>No favorites to display...</NoFavorites>}
+				{hasFavorites && <Divider />}
 				{favorites.map(event => (
 					<EventListItem event={event} key={event.id} forceOpen />
 				))}
