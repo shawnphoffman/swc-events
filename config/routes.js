@@ -47,6 +47,11 @@ const Routes = {
 		path: '/event/:id',
 		title: 'Event Details',
 	},
+	Venue: {
+		path: '/venue',
+		icon: 'fa-map',
+		title: 'Venues',
+	},
 	VenueDetails: {
 		path: '/venue/:venue',
 		title: 'Venue Details',
@@ -82,6 +87,7 @@ export const NavRoutes = [
 	Routes.Search,
 	Routes.Favorites,
 	Routes.Vendors,
+	Routes.Venue,
 	...(process.env.NODE_ENV === 'development' ? [Routes.Tattoos] : []),
 	Routes.Reminders,
 	Routes.FAQ,

@@ -16,6 +16,7 @@ import {
 	faHeart,
 	faListCheck,
 	faMagnifyingGlass,
+	faMap,
 	faMessagesQuestion,
 	faPaintBrushFine,
 	faPrint,
@@ -37,6 +38,7 @@ library.add(
 	faRightFromBracket,
 	faStore,
 	faUser,
+	faMap,
 	faUserBountyHunter
 )
 
