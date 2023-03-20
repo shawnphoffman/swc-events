@@ -1,41 +1,22 @@
 import { memo, useCallback, useEffect, useState } from 'react'
 import { styled } from 'linaria/react'
-import {
-	ButtonWrapper,
-	Checkbox,
-	CheckboxLabel,
-	CheckboxWrapper,
-	CheckHint,
-	FormWrapper,
-	InputContainer,
-	InputWrapper,
-	Label,
-	TextInput,
-} from 'styles/forms'
+import { ButtonWrapper, FormWrapper, InputContainer, InputWrapper, Label, TextInput } from 'styles/forms'
 
 import Button from 'components/Button'
 import { Divider, PageTitle } from 'components/styles'
 import { useAuth } from 'hooks/useAuth'
 
-const Warning = styled.div`
-	color: var(--color4);
-	font-size: 18px;
-	font-weight: bold;
+import ReminderListItem from './ReminderListItem'
+
+const ListWrapper = styled.div`
+	max-width: 600px;
 `
 
-const ReminderListItem = ({ reminder }) => {
-	const [checked, setChecked] = useState('')
-	const handleChange = () => {}
-	return (
-		<>
-			<CheckboxWrapper>
-				<Checkbox type="checkbox" onChange={handleChange} checked={checked} />
-				{/* <CheckHint isPrivate={checked}>{checked ? 'Yes, this is private' : 'No, I want this to be public'}</CheckHint> */}
-				<CheckboxLabel>{reminder.summary}</CheckboxLabel>
-			</CheckboxWrapper>
-		</>
-	)
-}
+// const Warning = styled.div`
+// 	color: var(--color4);
+// 	font-size: 18px;
+// 	font-weight: bold;
+// `
 
 const Page = () => {
 	const { user, client, isAuthed } = useAuth()
@@ -48,14 +29,14 @@ const Page = () => {
 			return
 		}
 		try {
-			let { data, error } = await client.from('reminders').select().eq('user_id', user?.id)
+			let { data, error } = await client.from('reminders').select().eq('user_id', user?.id).order('created_at', { ascending: true })
 			if (error) {
 				console.error(error)
 			}
-			console.log('REMINDERS', data)
+			// console.log('REMINDERS', data)
 			setReminders(data)
 		} catch (e) {
-			console.log(e)
+			// console.log(e)
 		}
 	}, [client, isAuthed, user?.id])
 
@@ -69,8 +50,7 @@ const Page = () => {
 	}, [])
 
 	const handleSummaryChange = useCallback(e => {
-		const value = e.target.value
-		setSummary(value)
+		setSummary(e.target.value)
 	}, [])
 
 	const insertRecord = useCallback(
@@ -79,27 +59,43 @@ const Page = () => {
 				{
 					summary: reminder.summary,
 					user_id: user?.id,
+					priority: reminder.priority,
 				},
 			])
-			console.log('CREATE REMINDER', { data, error, reminder })
+			// console.log('CREATE REMINDER', { data, error, reminder })
 		},
 		[client, user?.id]
 	)
 
 	const updateRecord = useCallback(
 		async reminder => {
-			console.log('UPDATING')
+			// console.log('UPDATING')
 			const { data, error } = await client
 				.from('reminders')
 				.update({
 					id: reminder.id,
 					summary: reminder.summary,
 					user_id: user?.id,
+					complete: reminder.complete,
+					priority: reminder.priority,
 				})
 				.eq('id', reminder.id)
-			console.log('UPDATE REMINDER', { data, error, reminder })
+			// console.log('UPDATE REMINDER', { data, error, reminder })
 		},
 		[client, user?.id]
+	)
+
+	const deleteReminder = useCallback(
+		async id => {
+			// console.log('DELETING')
+			const { data, error } = await client.from('reminders').delete().match({
+				id: id,
+				user_id: user?.id,
+			})
+			// console.log('DELETE REMINDER', { data, error, id })
+			await fetchReminders()
+		},
+		[client, fetchReminders, user?.id]
 	)
 
 	//
@@ -117,7 +113,7 @@ const Page = () => {
 	)
 
 	const handleSubmit = useCallback(async () => {
-		console.log('SUBMIT')
+		// console.log('SUBMIT')
 
 		await editReminder({
 			summary: summary,
@@ -129,16 +125,15 @@ const Page = () => {
 	return (
 		<>
 			<PageTitle>Reminders</PageTitle>
-			<Warning>THIS PAGE IS CURRENTLY IN DEVELOPMENT</Warning>
+			{/* <Warning>THIS PAGE IS CURRENTLY IN DEVELOPMENT</Warning> */}
 			{/* <div>Create your own simple reminders for Celebration</div> */}
 
 			{reminders.length ? (
-				<div>
+				<ListWrapper>
 					{reminders.map(r => (
-						// <div key={r.id}>{r.summary}</div>
-						<ReminderListItem key={r.id} reminder={r} />
+						<ReminderListItem key={r.id} reminder={r} onSave={editReminder} onDelete={deleteReminder} />
 					))}
-				</div>
+				</ListWrapper>
 			) : (
 				<div>No reminders to display (yet).</div>
 			)}
@@ -148,7 +143,7 @@ const Page = () => {
 			<PageTitle>Create a Reminder</PageTitle>
 			<FormWrapper>
 				<InputWrapper>
-					<Label>Title*:</Label>
+					<Label>Reminder:</Label>
 					<InputContainer>
 						<TextInput type="text" placeholder="What would you like to remember?" onChange={handleSummaryChange} value={summary} />
 					</InputContainer>

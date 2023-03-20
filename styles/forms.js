@@ -28,7 +28,7 @@ export const InputContainer = styled.div`
 	transition-timing-function: ease-in-out;
 	border-radius: 8px;
 	user-select: none;
-	margin-bottom: 16px;
+	margin-bottom: 8px;
 	max-width: 1200px;
 	width: 100%;
 
@@ -143,8 +143,8 @@ export const TextArea = styled.textarea`
 `
 export const CheckboxWrapper = styled(InputWrapper)`
 	align-items: center;
-	margin-bottom: 16px;
-	height: 40px;
+	margin-bottom: 0px;
+	min-height: 40px;
 `
 export const CheckboxLabel = styled(Label)`
 	margin-top: 0;
@@ -152,7 +152,8 @@ export const CheckboxLabel = styled(Label)`
 export const Checkbox = styled.input`
 	height: 24px;
 	width: 24px;
-	margin-right: 4px;
+	min-width: 24px;
+	margin-right: 16px;
 `
 export const CheckHint = styled.span`
 	color: ${p => (p.isPrivate ? 'var(--private)' : 'var(--public)')};

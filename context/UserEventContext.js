@@ -41,7 +41,7 @@ const UserEventProvider = ({ children }) => {
 					if (a.summary < b.summary) return -1
 					return 0
 				})
-				console.log('UserEvents', temp)
+				// console.log('UserEvents', temp)
 				setUserEvents(temp)
 			}
 		} catch (e) {
@@ -87,14 +87,14 @@ const UserEventProvider = ({ children }) => {
 					creator_id: event.creator,
 				},
 			])
-			console.log('CREATE USER EVENT', { data, error, event })
+			// console.log('CREATE USER EVENT', { data, error, event })
 		},
 		[client]
 	)
 
 	const updateRecord = useCallback(
 		async event => {
-			console.log('UPDATING')
+			// console.log('UPDATING')
 			const { data, error } = await client
 				.from('userEvents')
 				.update({
@@ -115,7 +115,7 @@ const UserEventProvider = ({ children }) => {
 					creator_id: event.creator,
 				})
 				.eq('id', event.id)
-			console.log('UPDATE USER EVENT', { data, error, event })
+			// console.log('UPDATE USER EVENT', { data, error, event })
 		},
 		[client]
 	)
@@ -140,7 +140,7 @@ const UserEventProvider = ({ children }) => {
 				id: id,
 				creator_id: user?.id,
 			})
-			console.log('DELETE USER EVENT', { status, error, id })
+			// console.log('DELETE USER EVENT', { status, error, id })
 			await fetchUserEvents()
 		},
 		[client, fetchUserEvents, user?.id]

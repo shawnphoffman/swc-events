@@ -31,7 +31,7 @@ const cleanDataRelative = rawDate => {
 	const temp = DateTime.fromFormat(`${cleaned} Europe/London`, "yyyy-MM-dd'T'HH:mm z", {
 		setZone: 'Europe/London',
 	}).toISO()
-	console.log('rel', { temp, rawDate })
+	// console.log('rel', { temp, rawDate })
 	return temp
 }
 
@@ -128,8 +128,8 @@ const UserEventForm = () => {
 	//
 	const handleStartChange = useCallback(e => {
 		const value = e.target.value
-		console.log('START', value)
-		console.log('START2', cleanDataRelative(value))
+		// console.log('START', value)
+		// console.log('START2', cleanDataRelative(value))
 		setStartTime(value)
 		if (!value) {
 			setError('Missing start time')
