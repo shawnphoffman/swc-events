@@ -13,6 +13,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import {
 	faCalendarLines,
 	faCashRegister,
+	faChartLine,
 	faHeart,
 	faListCheck,
 	faMagnifyingGlass,
@@ -39,7 +40,8 @@ library.add(
 	faStore,
 	faUser,
 	faMap,
-	faUserBountyHunter
+	faUserBountyHunter,
+	faChartLine
 )
 
 import Nav from 'components/Nav'

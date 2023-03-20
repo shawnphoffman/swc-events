@@ -80,6 +80,11 @@ const Routes = {
 		icon: 'fa-list-check',
 		title: 'Reminders',
 	},
+	Stats: {
+		path: '/stats',
+		icon: 'fa-chart-line',
+		title: 'Stats',
+	},
 }
 
 export const NavRoutes = [
@@ -90,6 +95,7 @@ export const NavRoutes = [
 	Routes.Venue,
 	...(process.env.NODE_ENV === 'development' ? [Routes.Tattoos] : []),
 	Routes.Reminders,
+	Routes.Stats,
 	Routes.FAQ,
 ]
 
