@@ -214,10 +214,14 @@ export const processApiVendors = data => {
 }
 
 export const colorMap = {
-	'Celebration LIVE! Stage': 'var(--color1)',
-	'Celebration Stage': 'var(--color2)',
-	'Collectors Stage': 'var(--color3)',
-	'Fan Stage': 'var(--color4)',
+	' After Hours': 'var(--linkHover)',
+	' Collectibles': 'var(--color13)',
+	' Exhibit Hall': 'var(--color14)',
+	'Celebration LIVE! Stage': 'var(--color0)',
+	'Celebration Stage': 'var(--color1)',
+	'Collectors Stage': 'var(--color2)',
+	'Fan Stage': 'var(--color3)',
+	'Galactic Senate Stage': 'var(--color4)',
 	'Galaxy Stage': 'var(--color5)',
 	'Holonet News Stage 14': 'var(--color6)',
 	'Holonet News Stage 17': 'var(--color7)',
@@ -227,9 +231,6 @@ export const colorMap = {
 	'Kids Stage': 'var(--color11)',
 	'Twin Suns Stage': 'var(--color12)',
 	'University Stage': 'var(--color13)',
-	' Collectibles': 'var(--color14)',
-	' After Hours': 'var(--linkHover)',
-	' Exhibit Hall': 'var(--color0)',
 
 	//
 }
