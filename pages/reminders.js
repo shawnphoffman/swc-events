@@ -5,10 +5,9 @@ import Link from 'next/link'
 import { ButtonWrapper, FormWrapper, InputContainer, InputWrapper, Label, TextInput } from 'styles/forms'
 
 import Button from 'components/Button'
+import ReminderListItem from 'components/reminders/ReminderListItem'
 import { Divider, PageTitle } from 'components/styles'
 import { useAuth } from 'hooks/useAuth'
-
-import ReminderListItem from './ReminderListItem'
 
 const ListWrapper = styled.div`
 	max-width: 600px;
