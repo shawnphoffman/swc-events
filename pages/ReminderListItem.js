@@ -90,11 +90,11 @@ const ReminderListItem = ({ reminder, onSave, onDelete }) => {
 
 	const handleDelete = useCallback(() => {
 		if (confirmDelete) {
-			onDelete(reminder.id)
+			onDelete(reminder?.id)
 		} else {
 			setConfirmDelete(true)
 		}
-	}, [confirmDelete, onDelete, reminder.id])
+	}, [confirmDelete, onDelete, reminder?.id])
 
 	useEffect(() => {
 		let t = () => {}
