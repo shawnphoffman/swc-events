@@ -18,8 +18,9 @@ export const Button = styled.div`
 
 const EventLinkIcon = ({ event }) => {
 	const [copied, setCopied] = useState(false)
+	const [baseUrl, setBaseUrl] = useState('')
 
-	const url = useMemo(() => `/event/${event.id}`, [event.id])
+	const url = useMemo(() => `${baseUrl}/event/${event.id}`, [baseUrl, event.id])
 
 	const logCopy = useCallback(
 		e => {
@@ -39,6 +40,10 @@ const EventLinkIcon = ({ event }) => {
 		}
 		return () => t
 	}, [copied])
+
+	useEffect(() => {
+		setBaseUrl(window.location.origin)
+	}, [])
 
 	if (!event) return null
 
