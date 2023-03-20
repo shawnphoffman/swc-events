@@ -106,6 +106,10 @@ const ReminderListItem = ({ reminder, onSave, onDelete }) => {
 		return () => t
 	}, [confirmDelete])
 
+	if (!reminder) {
+		return null
+	}
+
 	if (editing) {
 		return (
 			<Wrapper>
