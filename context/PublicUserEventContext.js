@@ -10,7 +10,7 @@ const PublicUserEventContext = createContext(initialState)
 
 const PublicUserEventProvider = ({ children }) => {
 	// Supabase
-	const { client, user } = useAuth()
+	const { client, user, isAuthed } = useAuth()
 	const [publicEvents, setPublicEvents] = useState([])
 
 	// FETCH
@@ -20,7 +20,7 @@ const PublicUserEventProvider = ({ children }) => {
 		}
 		try {
 			// console.log('UE.Fetch', { user })
-			let { data, error } = user
+			let { data, error } = isAuthed
 				? await client.from('userEvents').select().eq('private', false).neq('creator_id', user?.id)
 				: await client.from('userEvents').select().eq('private', false)
 
@@ -28,7 +28,7 @@ const PublicUserEventProvider = ({ children }) => {
 				console.error(error)
 			}
 			if (data) {
-				// console.log('PUBLIC', data)
+				// console.log('PUBLIC', { data, user })
 
 				const temp = Object.values(data).sort((a, b) => {
 					const aStart = new Date(a.startDate)
@@ -43,12 +43,13 @@ const PublicUserEventProvider = ({ children }) => {
 					if (a.summary < b.summary) return -1
 					return 0
 				})
+				// setPublicEvents(temp => temp)
 				setPublicEvents(temp)
 			}
 		} catch (e) {
 			console.log(e)
 		}
-	}, [client, user])
+	}, [client, isAuthed, user])
 
 	// INIT
 	useEffect(() => {

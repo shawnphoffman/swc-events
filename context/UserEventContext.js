@@ -41,13 +41,13 @@ const UserEventProvider = ({ children }) => {
 					if (a.summary < b.summary) return -1
 					return 0
 				})
-				// console.log('UserEvents', temp)
+				// console.log('UserEvents', { temp, user })
 				setUserEvents(temp)
 			}
 		} catch (e) {
 			console.log(e)
 		}
-	}, [client, isAuthed, user?.id])
+	}, [client, isAuthed, user])
 
 	// INIT
 	useEffect(() => {

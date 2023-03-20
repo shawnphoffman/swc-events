@@ -6,6 +6,7 @@ import Link from 'next/link'
 
 import Routes from 'config/routes'
 import { EventAction, useEventContext } from 'context/EventContext'
+import { useAuth } from 'hooks/useAuth'
 import { cleanVenueName, colorMap } from 'utils/dataUtils'
 
 const PrintLink = styled.div`
@@ -85,6 +86,7 @@ Venue.displayName = 'Venue'
 
 const Filters = memo(() => {
 	const [state, dispatch] = useEventContext()
+	const { isAuthed } = useAuth()
 
 	const handleClick = useCallback(name => () => dispatch({ type: EventAction.TOGGLE_VENUE, name }), [dispatch])
 
@@ -108,6 +110,16 @@ const Filters = memo(() => {
 					<VenueName enabled={!state.disabledVenues.includes('Public Events')}>Public Events</VenueName>
 				</VenueWrapper>
 			</div>
+			{isAuthed && (
+				<div onClick={handleClick('My Events')}>
+					<VenueWrapper enabled={!state.disabledVenues.includes('My Events')}>
+						<Indicator enabled={!state.disabledVenues.includes('My Events')}>
+							<FontAwesomeIcon icon={icon({ name: 'eye-slash', family: 'sharp', style: 'solid' })} />
+						</Indicator>
+						<VenueName enabled={!state.disabledVenues.includes('My Events')}>My Private Events</VenueName>
+					</VenueWrapper>
+				</div>
+			)}
 			<div onClick={handleAllOn}>
 				<VenueWrapper enabled>
 					<Indicator enabled>

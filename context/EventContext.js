@@ -25,8 +25,20 @@ const initialReducerState = {
 	disabledVenues: [],
 }
 
+function removeDuplicatesBy(keyFn, array) {
+	var mySet = new Set()
+	return array.filter(function (x) {
+		var key = keyFn(x),
+			isNew = !mySet.has(key)
+		if (isNew) mySet.add(key)
+		return isNew
+	})
+}
+
 const sortDemBitches = events => {
-	return events.sort((a, b) => {
+	const deduped = removeDuplicatesBy(x => x.id, events)
+
+	return deduped.sort((a, b) => {
 		const aStart = new Date(a.startDate)
 		const bStart = new Date(b.startDate)
 		const aEnd = new Date(a.endDate)
