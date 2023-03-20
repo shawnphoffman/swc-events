@@ -4,7 +4,7 @@ import { memo, useCallback, useEffect, useState } from 'react'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { styled } from 'linaria/react'
-import { Checkbox, CheckboxLabel, CheckboxWrapper, InputContainer, InputWrapper, TextInput } from 'styles/forms'
+import { Checkbox, CheckboxWrapper, InputContainer, InputWrapper, TextInput } from 'styles/forms'
 
 const Wrapper = styled.div`
 	display: flex;
@@ -59,7 +59,7 @@ const CleanContainer = styled(InputContainer)`
 const ReminderListItem = ({ reminder, onSave, onDelete }) => {
 	const [editing, setEditing] = useState(false)
 	const [confirmDelete, setConfirmDelete] = useState(false)
-	const [tempSummary, setTempSummary] = useState(reminder.summary)
+	const [tempSummary, setTempSummary] = useState(reminder?.summary)
 	const [checked, setChecked] = useState('')
 
 	const handleChange = useCallback(
