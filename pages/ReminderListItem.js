@@ -1,5 +1,3 @@
-'use client'
-
 import { memo, useCallback, useEffect, useState } from 'react'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
