@@ -1,5 +1,7 @@
+/* eslint-disable react/no-unescaped-entities */
 import { memo, useCallback, useEffect, useState } from 'react'
 import { styled } from 'linaria/react'
+import Link from 'next/link'
 import { ButtonWrapper, FormWrapper, InputContainer, InputWrapper, Label, TextInput } from 'styles/forms'
 
 import Button from 'components/Button'
@@ -11,12 +13,16 @@ import ReminderListItem from './ReminderListItem'
 const ListWrapper = styled.div`
 	max-width: 600px;
 `
+const NextLink = styled.div`
+	color: var(--linkAlt);
+	font-weight: bold;
+	text-decoration: none;
+	display: inline-block;
 
-// const Warning = styled.div`
-// 	color: var(--color4);
-// 	font-size: 18px;
-// 	font-weight: bold;
-// `
+	&:hover {
+		color: var(--linkHover);
+	}
+`
 
 const Page = () => {
 	const { user, client, isAuthed } = useAuth()
@@ -121,6 +127,17 @@ const Page = () => {
 
 		resetForm()
 	}, [editReminder, resetForm, summary])
+
+	if (!isAuthed) {
+		return (
+			<>
+				<PageTitle>Reminders</PageTitle>
+				<NextLink>
+					<Link href="/auth">Please log in to use reminders</Link>
+				</NextLink>
+			</>
+		)
+	}
 
 	return (
 		<>

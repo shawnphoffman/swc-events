@@ -23,15 +23,17 @@ const AuthIndex = () => {
 			<Wrapper>
 				<PageTitle>Sign in</PageTitle>
 				<div>For additional functionality, sign in with a magic link sent to your email.</div>
-				<Auth
-					redirectTo={process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : 'https://swc.events'}
-					appearance={{ theme: ThemeSupa, style: { container: { width: 500 } } }}
-					supabaseClient={client}
-					magicLink
-					view="magic_link"
-					showLinks={false}
-					dark
-				/>
+				<div style={{ width: '100%', maxWidth: 400 }}>
+					<Auth
+						redirectTo={process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : 'https://swc.events'}
+						appearance={{ theme: ThemeSupa, style: { container: { width: '100%' } } }}
+						supabaseClient={client}
+						magicLink
+						view="magic_link"
+						showLinks={false}
+						dark
+					/>
+				</div>
 			</Wrapper>
 		)
 

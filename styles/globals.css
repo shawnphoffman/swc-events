@@ -104,6 +104,10 @@ html body {
 	}
 }
 
+form {
+	width: 100%;
+}
+
 input.supabase-auth-ui_ui-input {
 	color: white !important;
 }
