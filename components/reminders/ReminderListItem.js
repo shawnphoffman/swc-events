@@ -54,7 +54,7 @@ const CleanContainer = styled(InputContainer)`
 	margin-bottom: 0;
 `
 
-const CleanInput = styled(TextInput)`
+const CleanWrapper = styled(InputWrapper)`
 	margin-bottom: 0;
 `
 
@@ -117,9 +117,9 @@ const ReminderListItem = ({ reminder, onSave, onDelete }) => {
 	if (editing) {
 		return (
 			<Wrapper>
-				<InputWrapper>
+				<CleanWrapper>
 					<CleanContainer>
-						<CleanInput type="text" onChange={e => setTempSummary(e.target.value)} value={tempSummary} />
+						<TextInput type="text" onChange={e => setTempSummary(e.target.value)} value={tempSummary} />
 					</CleanContainer>
 					<SaveButton title="Save" onClick={handleSave}>
 						<FontAwesomeIcon icon={icon({ name: 'floppy-disk-circle-arrow-right', family: 'sharp', style: 'solid' })} />
@@ -127,7 +127,7 @@ const ReminderListItem = ({ reminder, onSave, onDelete }) => {
 					<ActionButton title="Cancel" onClick={() => setEditing(false)}>
 						<FontAwesomeIcon icon={icon({ name: 'xmark', family: 'sharp', style: 'solid' })} />
 					</ActionButton>
-				</InputWrapper>
+				</CleanWrapper>
 			</Wrapper>
 		)
 	}
