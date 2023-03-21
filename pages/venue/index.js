@@ -5,6 +5,10 @@ import Loading from 'components/Loading'
 import { PageTitle, ScrollBox } from 'components/styles'
 import { useEventContext } from 'context/EventContext'
 
+const Desc = styled.div`
+	margin-bottom: 16px;
+`
+
 const Container = styled.div`
 	width: 100%;
 	display: flex;
@@ -45,6 +49,7 @@ const StyledLink = styled.a`
 const CleanScroll = styled(ScrollBox)`
 	display: flex;
 	flex-direction: column;
+	max-width: 400px;
 `
 
 const VenueDetails = () => {
@@ -53,7 +58,7 @@ const VenueDetails = () => {
 	return (
 		<Container>
 			<PageTitle>Venues</PageTitle>
-			<div>Click any link below to see the full schedule for that venue.</div>
+			<Desc>Click any link below to see the full schedule for that venue.</Desc>
 			<CleanScroll>
 				{!state?.allVenues ? (
 					<Loading />
