@@ -24,8 +24,8 @@ const ItemLabel = styled.div`
 
 const ActionButton = styled.div`
 	color: var(--linkAlt);
-	font-size: 28px;
-	margin: 2px 16px;
+	font-size: 20px;
+	margin: 2px 0px 2px 16px;
 	transition: all 0.5s;
 	cursor: pointer;
 	display: flex;
@@ -51,6 +51,10 @@ const SaveButton = styled(ActionButton)`
 `
 
 const CleanContainer = styled(InputContainer)`
+	margin-bottom: 0;
+`
+
+const CleanInput = styled(TextInput)`
 	margin-bottom: 0;
 `
 
@@ -115,7 +119,7 @@ const ReminderListItem = ({ reminder, onSave, onDelete }) => {
 			<Wrapper>
 				<InputWrapper>
 					<CleanContainer>
-						<TextInput type="text" onChange={e => setTempSummary(e.target.value)} value={tempSummary} />
+						<CleanInput type="text" onChange={e => setTempSummary(e.target.value)} value={tempSummary} />
 					</CleanContainer>
 					<SaveButton title="Save" onClick={handleSave}>
 						<FontAwesomeIcon icon={icon({ name: 'floppy-disk-circle-arrow-right', family: 'sharp', style: 'solid' })} />

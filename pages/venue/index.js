@@ -2,7 +2,7 @@ import { memo } from 'react'
 import { styled } from 'linaria/react'
 
 import Loading from 'components/Loading'
-import { PageTitle } from 'components/styles'
+import { PageTitle, ScrollBox } from 'components/styles'
 import { useEventContext } from 'context/EventContext'
 
 const Container = styled.div`
@@ -42,6 +42,11 @@ const StyledLink = styled.a`
 	}
 `
 
+const CleanScroll = styled(ScrollBox)`
+	display: flex;
+	flex-direction: column;
+`
+
 const VenueDetails = () => {
 	const [state] = useEventContext()
 
@@ -49,17 +54,19 @@ const VenueDetails = () => {
 		<Container>
 			<PageTitle>Venues</PageTitle>
 			<div>Click any link below to see the full schedule for that venue.</div>
-			{!state?.allVenues ? (
-				<Loading />
-			) : (
-				<>
-					{state.allVenues.sort().map(v => (
-						<StyledLink href={`/venue/${v.trim()}`} key={v}>
-							{v.trim()}
-						</StyledLink>
-					))}
-				</>
-			)}
+			<CleanScroll>
+				{!state?.allVenues ? (
+					<Loading />
+				) : (
+					<>
+						{state.allVenues.sort().map(v => (
+							<StyledLink href={`/venue/${v.trim()}`} key={v}>
+								{v.trim()}
+							</StyledLink>
+						))}
+					</>
+				)}
+			</CleanScroll>
 		</Container>
 	)
 }

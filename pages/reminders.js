@@ -2,7 +2,7 @@
 import { memo, useCallback, useEffect, useState } from 'react'
 import { styled } from 'linaria/react'
 import Link from 'next/link'
-import { ButtonWrapper, FormWrapper, InputContainer, InputWrapper, Label, TextInput } from 'styles/forms'
+import { ButtonWrapper, FormWrapper, InputContainer, InputWrapper, Label, TextArea } from 'styles/forms'
 
 import Button from 'components/Button'
 import ReminderListItem from 'components/reminders/ReminderListItem'
@@ -10,7 +10,8 @@ import { Divider, PageTitle } from 'components/styles'
 import { useAuth } from 'hooks/useAuth'
 
 const ListWrapper = styled.div`
-	max-width: 600px;
+	max-width: 800px;
+	width: 100%;
 `
 const NextLink = styled.div`
 	color: var(--linkAlt);
@@ -159,9 +160,9 @@ const Page = () => {
 			<PageTitle>Create a Reminder</PageTitle>
 			<FormWrapper>
 				<InputWrapper>
-					<Label>Reminder:</Label>
+					{/* <Label>Reminder:</Label> */}
 					<InputContainer>
-						<TextInput type="text" placeholder="What would you like to remember?" onChange={handleSummaryChange} value={summary} />
+						<TextArea type="text" placeholder="What would you like to remember?" onChange={handleSummaryChange} value={summary} />
 					</InputContainer>
 				</InputWrapper>
 				<ButtonWrapper>

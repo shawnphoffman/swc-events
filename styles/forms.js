@@ -139,7 +139,7 @@ export const TextArea = styled.textarea`
 	}
 
 	width: 100%;
-	height: 100px;
+	// height: 100px;
 `
 export const CheckboxWrapper = styled(InputWrapper)`
 	align-items: center;
