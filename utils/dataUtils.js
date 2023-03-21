@@ -261,7 +261,7 @@ export const formatTime = time => {
 	// console.log('1', { time })
 	const temp = time.replace('+01:00', '')
 	// console.log('2', { temp })
-	return new Date(temp).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true }).toLowerCase().replace(' ', '')
+	return new Date(temp).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hourCycle: 'h12' }).toLowerCase().replace(' ', '')
 }
 
 const transformEvent = rawEvent => {
