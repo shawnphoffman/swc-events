@@ -69,7 +69,9 @@ const ColorBlock = styled.div`
 	background-color: ${e => e.color ?? `var(--fallback)`};
 	background-image: ${e =>
 		e.userEvent
-			? `linear-gradient(135deg, var(--linkHover) 25%, var(--linkActive) 25%, var(--linkActive) 50%, var(--linkHover) 50%, var(--linkHover) 75%, var(--linkActive) 75%, var(--linkActive) 100%)`
+			? e.private
+				? `linear-gradient(135deg, var(--private) 25%, var(--inactive) 25%, var(--inactive) 50%, var(--private) 50%, var(--private) 75%, var(--inactive) 75%, var(--inactive) 100%)`
+				: `linear-gradient(135deg, var(--public) 25%, var(--green) 25%, var(--green) 50%, var(--public) 50%, var(--public) 75%, var(--green) 75%, var(--green) 100%)`
 			: 'none'};
 	background-size: ${e => (e.userEvent ? `28.28px 28.28px` : 'auto')};
 `
@@ -154,7 +156,7 @@ const EventListItem = ({ event, forceOpen = false, onEdit }) => {
 			<DayName bg={dayColor[eventDay]}>
 				{eventDay} - {new Date(event.startAt).getDate()}
 			</DayName>
-			<ColorBlock color={event.color} userEvent={event.type === 'userEvent'} />
+			<ColorBlock color={event.color} userEvent={event.type === 'userEvent'} private={event.private} />
 			<Event>
 				<Title>{event.summary}</Title>
 				<Details>

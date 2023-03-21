@@ -231,7 +231,8 @@ export const colorMap = {
 	'Kids Stage': 'var(--color11)',
 	'Twin Suns Stage': 'var(--color12)',
 	'University Stage': 'var(--color13)',
-
+	'Public Events': 'var(--public)',
+	'My Events': 'var(--private)',
 	//
 }
 

@@ -104,7 +104,7 @@ const Filters = memo(() => {
 			))}
 			<div onClick={handleClick('Public Events')}>
 				<VenueWrapper enabled={!state.disabledVenues.includes('Public Events')}>
-					<Indicator enabled={!state.disabledVenues.includes('Public Events')}>
+					<Indicator enabled={!state.disabledVenues.includes('Public Events')} name="Public Events">
 						<FontAwesomeIcon icon={icon({ name: 'users', family: 'sharp', style: 'solid' })} />
 					</Indicator>
 					<VenueName enabled={!state.disabledVenues.includes('Public Events')}>Public Events</VenueName>
@@ -113,7 +113,7 @@ const Filters = memo(() => {
 			{isAuthed && (
 				<div onClick={handleClick('My Events')}>
 					<VenueWrapper enabled={!state.disabledVenues.includes('My Events')}>
-						<Indicator enabled={!state.disabledVenues.includes('My Events')}>
+						<Indicator enabled={!state.disabledVenues.includes('My Events')} name="My Events">
 							<FontAwesomeIcon icon={icon({ name: 'eye-slash', family: 'sharp', style: 'solid' })} />
 						</Indicator>
 						<VenueName enabled={!state.disabledVenues.includes('My Events')}>My Private Events</VenueName>
