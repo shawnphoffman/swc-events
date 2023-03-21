@@ -56,6 +56,7 @@ const AppWrapper = styled.div`
 	width: 100%;
 	height: 100vh;
 	height: ${p => (p.height ? `${p.height}px` : '100vh')};
+	min-height: 400px;
 	align-items: center;
 	padding: 0 8px 8px 8px;
 	background: var(--bg);
