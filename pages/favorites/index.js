@@ -77,7 +77,11 @@ const Favorites = () => {
 			return ids.includes(e.id)
 		})
 
-		const rawFavorites = [...savedFavorites, ...userEvents]
+		const privateUserEvents = userEvents.filter(e => {
+			return e.private
+		})
+
+		const rawFavorites = [...savedFavorites, ...privateUserEvents]
 
 		return rawFavorites.sort((a, b) => {
 			const aStart = new Date(a.startDate)
