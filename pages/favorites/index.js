@@ -8,6 +8,7 @@ import { PageTitle } from 'components/styles'
 import Routes from 'config/routes'
 import { useEventContext } from 'context/EventContext'
 import { useFavoritesContext } from 'context/FavoritesContext'
+import { useUserEventContext } from 'context/UserEventContext'
 import { useAuth } from 'hooks/useAuth'
 
 const Divider = styled.hr`
@@ -56,6 +57,7 @@ const NextLink = styled.div`
 const Favorites = () => {
 	const [state] = useEventContext()
 	const { favorites: ids } = useFavoritesContext()
+	const { userEvents } = useUserEventContext()
 	const { isAuthed } = useAuth()
 
 	const hasFavorites = useMemo(() => {
@@ -75,7 +77,9 @@ const Favorites = () => {
 			return ids.includes(e.id)
 		})
 
-		return savedFavorites.sort((a, b) => {
+		const rawFavorites = [...savedFavorites, ...userEvents]
+
+		return rawFavorites.sort((a, b) => {
 			const aStart = new Date(a.startDate)
 			const bStart = new Date(b.startDate)
 			const aEnd = new Date(a.endDate)
@@ -88,7 +92,7 @@ const Favorites = () => {
 			if (a.summary < b.summary) return -1
 			return 0
 		})
-	}, [ids, state.allEvents])
+	}, [ids, state.allEvents, userEvents])
 
 	return (
 		<Container>
