@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react'
+import { memo, useCallback, useMemo, useState } from 'react'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { styled } from 'linaria/react'
@@ -87,6 +87,7 @@ Venue.displayName = 'Venue'
 const Filters = memo(() => {
 	const [state, dispatch] = useEventContext()
 	const { isAuthed } = useAuth()
+	const [expanded, setExpanded] = useState(true)
 
 	const handleClick = useCallback(name => () => dispatch({ type: EventAction.TOGGLE_VENUE, name }), [dispatch])
 
@@ -97,55 +98,77 @@ const Filters = memo(() => {
 
 	return (
 		<Wrapper>
-			{state.allVenues.map(v => (
-				<div key={v} onClick={handleClick(v)}>
-					<Venue enabled={!state.disabledVenues.includes(v)} name={v} />
-				</div>
-			))}
-			<div onClick={handleClick('Public Events')}>
-				<VenueWrapper enabled={!state.disabledVenues.includes('Public Events')}>
-					<Indicator enabled={!state.disabledVenues.includes('Public Events')} name="Public Events">
-						<FontAwesomeIcon icon={icon({ name: 'users', family: 'sharp', style: 'solid' })} />
-					</Indicator>
-					<VenueName enabled={!state.disabledVenues.includes('Public Events')}>Public Events</VenueName>
-				</VenueWrapper>
-			</div>
-			{isAuthed && (
-				<div onClick={handleClick('My Events')}>
-					<VenueWrapper enabled={!state.disabledVenues.includes('My Events')}>
-						<Indicator enabled={!state.disabledVenues.includes('My Events')} name="My Events">
-							<FontAwesomeIcon icon={icon({ name: 'eye-slash', family: 'sharp', style: 'solid' })} />
+			{expanded ? (
+				<>
+					{state.allVenues.map(v => (
+						<div key={v} onClick={handleClick(v)}>
+							<Venue enabled={!state.disabledVenues.includes(v)} name={v} />
+						</div>
+					))}
+					<div onClick={handleClick('Public Events')}>
+						<VenueWrapper enabled={!state.disabledVenues.includes('Public Events')}>
+							<Indicator enabled={!state.disabledVenues.includes('Public Events')} name="Public Events">
+								<FontAwesomeIcon icon={icon({ name: 'users', family: 'sharp', style: 'solid' })} />
+							</Indicator>
+							<VenueName enabled={!state.disabledVenues.includes('Public Events')}>Public Events</VenueName>
+						</VenueWrapper>
+					</div>
+					{isAuthed && (
+						<div onClick={handleClick('My Events')}>
+							<VenueWrapper enabled={!state.disabledVenues.includes('My Events')}>
+								<Indicator enabled={!state.disabledVenues.includes('My Events')} name="My Events">
+									<FontAwesomeIcon icon={icon({ name: 'eye-slash', family: 'sharp', style: 'solid' })} />
+								</Indicator>
+								<VenueName enabled={!state.disabledVenues.includes('My Events')}>My Private Events</VenueName>
+							</VenueWrapper>
+						</div>
+					)}
+					<div onClick={handleAllOn}>
+						<VenueWrapper enabled>
+							<Indicator enabled>
+								<FontAwesomeIcon icon={icon({ name: 'check', family: 'sharp', style: 'solid' })} />
+							</Indicator>
+							<VenueName enabled>All On</VenueName>
+						</VenueWrapper>
+					</div>
+					<div onClick={handleAllOff}>
+						<VenueWrapper enabled>
+							<Indicator enabled>
+								<FontAwesomeIcon icon={icon({ name: 'close', family: 'sharp', style: 'solid' })} />
+							</Indicator>
+							<VenueName enabled>All Off</VenueName>
+						</VenueWrapper>
+					</div>
+					<Link href={Routes.PrintSchedule.path}>
+						<PrintLink>
+							<VenueWrapper enabled>
+								<Indicator enabled>
+									<FontAwesomeIcon icon={icon({ name: 'print', family: 'sharp', style: 'solid' })} />
+								</Indicator>
+								<VenueName enabled>Print</VenueName>
+							</VenueWrapper>
+						</PrintLink>
+					</Link>
+
+					<div onClick={() => setExpanded(false)}>
+						<VenueWrapper enabled>
+							<Indicator enabled>
+								<FontAwesomeIcon icon={icon({ name: 'chevron-up', family: 'sharp', style: 'solid' })} />
+							</Indicator>
+							<VenueName enabled>Hide Filters</VenueName>
+						</VenueWrapper>
+					</div>
+				</>
+			) : (
+				<div onClick={() => setExpanded(true)}>
+					<VenueWrapper enabled>
+						<Indicator enabled>
+							<FontAwesomeIcon icon={icon({ name: 'chevron-down', family: 'sharp', style: 'solid' })} />
 						</Indicator>
-						<VenueName enabled={!state.disabledVenues.includes('My Events')}>My Private Events</VenueName>
+						<VenueName enabled>Show Filters</VenueName>
 					</VenueWrapper>
 				</div>
 			)}
-			<div onClick={handleAllOn}>
-				<VenueWrapper enabled>
-					<Indicator enabled>
-						<FontAwesomeIcon icon={icon({ name: 'check', family: 'sharp', style: 'solid' })} />
-					</Indicator>
-					<VenueName enabled>All On</VenueName>
-				</VenueWrapper>
-			</div>
-			<div onClick={handleAllOff}>
-				<VenueWrapper enabled>
-					<Indicator enabled>
-						<FontAwesomeIcon icon={icon({ name: 'close', family: 'sharp', style: 'solid' })} />
-					</Indicator>
-					<VenueName enabled>All Off</VenueName>
-				</VenueWrapper>
-			</div>
-			<Link href={Routes.PrintSchedule.path}>
-				<PrintLink>
-					<VenueWrapper enabled>
-						<Indicator enabled>
-							<FontAwesomeIcon icon={icon({ name: 'print', family: 'sharp', style: 'solid' })} />
-						</Indicator>
-						<VenueName enabled>Print</VenueName>
-					</VenueWrapper>
-				</PrintLink>
-			</Link>
 		</Wrapper>
 	)
 })

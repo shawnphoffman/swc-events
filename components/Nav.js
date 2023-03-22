@@ -9,7 +9,7 @@ import { NavIcon } from 'components/styles'
 import { NavRoutes } from 'config/routes'
 
 const Nav = styled.div`
-	margin: 16px 8px;
+	margin: 16px 8px 8px 8px;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
