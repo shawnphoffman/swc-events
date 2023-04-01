@@ -215,11 +215,12 @@ export const processApiVendors = data => {
 
 export const colorMap = {
 	' After Hours': 'var(--linkHover)',
-	' Collectibles': 'var(--color13)',
-	' Exhibit Hall': 'var(--color14)',
-	'Celebration LIVE! Stage': 'var(--color0)',
-	'Celebration Stage': 'var(--color1)',
-	'Collectors Stage': 'var(--color2)',
+	' Collectibles': 'var(--public)',
+	' Exhibit Hall': 'var(--private)',
+	'Celebration LIVE! Stage': 'var(--color14)',
+	'Celebration Stage': 'var(--color0)',
+	'Collectors Stage': 'var(--color1)',
+	'Droid Racing': 'var(--color2)',
 	'Fan Stage': 'var(--color3)',
 	'Galactic Senate Stage': 'var(--color4)',
 	'Galaxy Stage': 'var(--color5)',
