@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 
-// import '@/app/globals.css'
+import '@/app/globals-temp.css'
 
 const defaultUrl = process.env.VERCEL_URL ? `https://swc.events` : 'http://localhost:3000'
 
@@ -22,12 +22,16 @@ export const metadata: Metadata = {
 	},
 }
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+type Props = {
+	children: React.ReactNode
+}
+
+export default async function RootLayout({ children }: Props) {
 	return (
 		<html lang="en">
-			<head>
+			{/* <head>
 				<script src="https://kit.fontawesome.com/166b274226.js" crossOrigin="anonymous" async></script>
-			</head>
+			</head> */}
 			<body>
 				<Suspense>
 					<main className="container flex flex-col items-center mx-auto h-dvh">{children}</main>

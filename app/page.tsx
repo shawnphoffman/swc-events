@@ -1,18 +1,8 @@
-import { Suspense } from 'react'
-
-import { FallbackRow } from '@/components/common/Fallbacks'
-import ListsByUser from '@/components/lists/ListsByUser'
-
-export default async function Lists() {
-	// await new Promise(resolve => setTimeout(resolve, 50000))
+export default async function LandingPage() {
 	return (
-		<div className="flex flex-col flex-1 w-full max-w-4xl px-3 opacity-0 animate-in">
-			<div className="flex flex-col flex-1 gap-6">
-				<h1>Wish Lists</h1>
-				<Suspense fallback={<FallbackRow label="Loading..." />}>
-					<ListsByUser />
-				</Suspense>
-			</div>
+		<div className="flex flex-col flex-1 w-full max-w-4xl px-3">
+			<h1>Exciting things...</h1>
+			<h3>are coming...</h3>
 		</div>
 	)
 }
