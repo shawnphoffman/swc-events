@@ -1,26 +1,12 @@
-const withLinaria = require('next-linaria')
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-	reactStrictMode: true,
-	swcMinify: true,
-	webpack(config) {
-		config.module.rules.push({
-			test: /\.svg$/i,
-			issuer: /\.[jt]sx?$/,
-			use: ['@svgr/webpack'],
-		})
-		return config
-	},
-	async redirects() {
-		return [
+module.exports = {
+	images: {
+		remotePatterns: [
 			{
-				source: '/',
-				destination: '/schedule',
-				permanent: false,
+				protocol: 'https',
+				hostname: 'media.zencastr.com',
+				port: '',
+				pathname: '/image-files/**',
 			},
-		]
+		],
 	},
 }
-
-module.exports = withLinaria(nextConfig)
