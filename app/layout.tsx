@@ -1,7 +1,7 @@
-import type { Metadata } from 'next'
-import { Suspense } from 'react'
-
 import '@/app/globals-temp.css'
+
+import { Suspense } from 'react'
+import type { Metadata } from 'next'
 
 const defaultUrl = process.env.VERCEL_URL ? `https://swc.events` : 'http://localhost:3000'
 
