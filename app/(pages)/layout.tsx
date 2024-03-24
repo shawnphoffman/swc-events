@@ -1,6 +1,7 @@
 import '@/app/(pages)/globals-temp.css'
 
 import { Suspense } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
 
 const defaultUrl = process.env.VERCEL_URL ? `https://swc.events` : 'http://localhost:3000'
@@ -36,6 +37,7 @@ export default async function RootLayout({ children }: Props) {
 				<Suspense>
 					<main className="container flex flex-col items-center mx-auto h-dvh">{children}</main>
 				</Suspense>
+				<Analytics />
 			</body>
 		</html>
 	)
