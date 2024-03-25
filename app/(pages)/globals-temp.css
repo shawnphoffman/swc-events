@@ -6,7 +6,7 @@ html {
 	@apply bg-neutral-950;
 }
 body {
-	@apply bg-gradient-to-b from-neutral-950 to-red-950 text-white;
+	@apply text-white bg-gradient-to-b from-gray-950 via-gray-950 to-red-950;
 }
 
 @layer base {
