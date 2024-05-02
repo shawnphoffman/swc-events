@@ -1,8 +1,11 @@
 import '@/app/(pages)/globals-temp.css'
+import '@/app/stars.css'
 
 import { Suspense } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
+
+import StarBackground from '@/components/StarBackground'
 
 const defaultUrl = process.env.VERCEL_URL ? `https://swc.events` : 'http://localhost:3000'
 
@@ -34,6 +37,7 @@ export default async function RootLayout({ children }: Props) {
 				<script src="https://kit.fontawesome.com/166b274226.js" crossOrigin="anonymous" async></script>
 			</head> */}
 			<body>
+				<StarBackground />
 				<Suspense>
 					<main className="container flex flex-col items-center justify-center mx-auto h-dvh">{children}</main>
 				</Suspense>
