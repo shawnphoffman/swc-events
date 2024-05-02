@@ -17,7 +17,7 @@ const timerProps = {
 
 const renderTime = (dimension: string, time: number) => {
 	return (
-		<div className="text-3xl time-wrapper">
+		<div className="text-3xl time-wrapper text-shadow">
 			<div className="text-7xl time">{time}</div>
 			<div>{dimension}</div>
 		</div>
@@ -98,7 +98,6 @@ function CountdownCircle({ duration, initialRemainingTime, updateInterval, shoul
 			colors={['#7e22ce', '#9333ea', '#a855f7', '#c084fc', '#d8b4fe']}
 			colorsTime={[duration, duration * 0.75, duration * 0.5, duration * 0.25, 0]}
 			trailColor="#f3e8ff"
-			// trailColor="#3b0764"
 			duration={duration}
 			initialRemainingTime={initialRemainingTime}
 			updateInterval={updateInterval}

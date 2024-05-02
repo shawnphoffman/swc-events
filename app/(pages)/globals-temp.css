@@ -35,6 +35,14 @@ html body {
 	overflow-x: hidden;
 }
 
+svg {
+	filter: drop-shadow(5px 5px 5px black);
+}
+
+.text-shadow {
+	text-shadow: 5px 5px 5px black;
+}
+
 @layer base {
 	h1 {
 		@apply text-4xl font-bold;
