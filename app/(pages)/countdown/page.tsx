@@ -5,14 +5,14 @@ import Image from 'next/image'
 import Countdown from './Countdown'
 import countdownLogo from './countdown.png'
 
-const defaultUrl = process.env.VERCEL_URL ? `https://swc.events` : 'http://localhost:3000/countdown'
+const defaultUrl = process.env.VERCEL_URL ? `https://swc.events/countdown` : 'http://localhost:3000/countdown'
 
 export const metadata: Metadata = {
 	metadataBase: new URL(defaultUrl),
-	title: 'Countdown to Celebration',
+	title: `Countdown to Celebration 2025`,
 	description: 'Countdown to Star Wars Celebration 2025 in Japan!',
 	openGraph: {
-		title: 'Countdown to Star Wars Celebration',
+		title: `Countdown to Celebration 2025`,
 		description: 'Countdown to Star Wars Celebration 2025 in Japan!',
 		type: 'website',
 		url: '/',
