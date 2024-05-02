@@ -40,7 +40,7 @@ export default async function RootLayout({ children }: Props) {
 				<StarBackground />
 				<div className="scroller">
 					<Suspense>
-						<main className="container flex flex-col items-center pt-4 mx-auto md:pt-0 md:justify-center h-dvh">{children}</main>
+						<main className="container flex flex-col pt-4 mx-auto h-dvh">{children}</main>
 					</Suspense>
 				</div>
 				<Analytics />
