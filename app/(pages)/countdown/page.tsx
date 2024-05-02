@@ -1,8 +1,24 @@
 import { Suspense } from 'react'
+import type { Metadata } from 'next'
 import Image from 'next/image'
 
 import Countdown from './Countdown'
 import countdownLogo from './countdown.png'
+
+const defaultUrl = process.env.VERCEL_URL ? `https://swc.events` : 'http://localhost:3000/countdown'
+
+export const metadata: Metadata = {
+	metadataBase: new URL(defaultUrl),
+	title: 'Countdown to Celebration',
+	description: 'Countdown to Star Wars Celebration 2025 in Japan!',
+	openGraph: {
+		title: 'Countdown to Star Wars Celebration',
+		description: 'Countdown to Star Wars Celebration 2025 in Japan!',
+		type: 'website',
+		url: '/',
+		locale: 'en_US',
+	},
+}
 
 export default async function CountdownPage() {
 	return (
