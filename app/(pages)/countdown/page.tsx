@@ -1,0 +1,18 @@
+import { Suspense } from 'react'
+import Image from 'next/image'
+
+import Countdown from './Countdown'
+import countdownLogo from './countdown.png'
+
+export default async function CountdownPage() {
+	return (
+		<div className="min-h-screen mt-4 md:mt-16">
+			<div className="flex flex-col items-center gap-4 font-bold text-center md:gap-8">
+				<Image src={countdownLogo} alt="Countdown to Star Wars Celebration" width={400} />
+				<Suspense>
+					<Countdown />
+				</Suspense>
+			</div>
+		</div>
+	)
+}

@@ -35,7 +35,7 @@ export default async function RootLayout({ children }: Props) {
 			</head> */}
 			<body>
 				<Suspense>
-					<main className="container flex flex-col items-center mx-auto h-dvh">{children}</main>
+					<main className="container flex flex-col items-center justify-center mx-auto h-dvh">{children}</main>
 				</Suspense>
 				<Analytics />
 			</body>
