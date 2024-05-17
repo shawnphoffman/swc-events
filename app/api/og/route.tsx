@@ -8,7 +8,7 @@ export const runtime = 'edge'
 
 export async function GET(request: Request) {
 	// Make sure the font exists in the specified path:
-	const fontData = await fetch(new URL('./NotoSans-Black.ttf', import.meta.url)).then(res => res.arrayBuffer())
+	const fontData = await fetch(new URL('./NotoSans-Black-opt.ttf', import.meta.url)).then(res => res.arrayBuffer())
 
 	const stratTime = Date.now() / 1000
 	const endTime = celebrationStartTime / 1000
@@ -53,7 +53,7 @@ export async function GET(request: Request) {
 						color: 'white',
 						fontFamily: '"NotoBlack"',
 						lineHeight: 1.2,
-						paddingTop: 140,
+						paddingBottom: 80,
 					}}
 				>
 					{/* 366 */}
