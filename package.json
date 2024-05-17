@@ -26,6 +26,7 @@
 		"@supabase/ssr": "^0.1.0",
 		"@supabase/supabase-js": "^2.39.8",
 		"@vercel/analytics": "^1.2.2",
+		"@vercel/og": "^0.6.2",
 		"copy-to-clipboard": "^3.3.3",
 		"fuse.js": "^6.6.2",
 		"geist": "^1.2.2",

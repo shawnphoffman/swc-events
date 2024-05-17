@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 		description: 'Countdown to Star Wars Celebration 2025 in Japan!',
 		type: 'website',
 		url: '/countdown',
+		images: ['https://swc.events/api/og', 'https://swc.events/countdown/opengraph-image.png'],
 		locale: 'en_US',
 	},
 }
