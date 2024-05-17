@@ -13,6 +13,8 @@ export const size = {
 	height: 630,
 }
 
+export const revalidate = 60 * 60 // 1 hour
+export const dynamic = 'force-dynamic'
 export const contentType = 'image/png'
 
 // Image generation

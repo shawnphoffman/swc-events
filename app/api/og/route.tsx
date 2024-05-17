@@ -5,8 +5,10 @@ const celebrationStartTime = new Date('2025-04-18T10:00:00+09:00').getTime()
 const daySeconds = 86400
 
 export const runtime = 'edge'
+export const revalidate = 60 * 60 // 1 hour
+export const dynamic = 'force-dynamic'
 
-export async function GET(request: Request) {
+export async function GET() {
 	// Make sure the font exists in the specified path:
 	const fontData = await fetch(new URL('./NotoSans-Black-opt.ttf', import.meta.url)).then(res => res.arrayBuffer())
 
