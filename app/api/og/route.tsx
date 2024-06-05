@@ -5,7 +5,7 @@ const celebrationStartTime = new Date('2025-04-18T10:00:00+09:00').getTime()
 const daySeconds = 86400
 
 export const runtime = 'edge'
-export const revalidate = 60 * 60 // 1 hour
+export const revalidate = 3600
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
