@@ -12,7 +12,7 @@ html {
 	@apply bg-neutral-950;
 }
 body {
-	@apply text-white bg-gradient-to-b from-gray-950 via-gray-950 to-purple-950;
+	@apply text-white bg-gradient-to-b from-neutral-950 via-neutral-950 to-purple-950;
 }
 
 html {
