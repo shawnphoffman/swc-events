@@ -24,7 +24,7 @@ const renderTime = (dimension: string, time: number) => {
 	)
 }
 
-const getTimeSeconds = (time: number) => (minuteSeconds - time) | 0
+// const getTimeSeconds = (time: number) => (minuteSeconds - time) | 0
 const getTimeMinutes = (time: number) => ((time % hourSeconds) / minuteSeconds) | 0
 const getTimeHours = (time: number) => ((time % daySeconds) / hourSeconds) | 0
 const getTimeDays = (time: number) => (time / daySeconds) | 0
