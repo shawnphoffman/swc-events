@@ -1,7 +1,8 @@
 import { ImageResponse } from 'next/og'
 
 // CELEBRATION START TIME
-const celebrationStartTime = new Date('2025-04-18T10:00:00+09:00').getTime()
+// const celebrationStartTime = new Date('2025-04-18T10:00:00+09:00').getTime()
+const celebrationStartTime = new Date('2027-04-01T10:00:00-07:00').getTime()
 const daySeconds = 86400
 
 export const runtime = 'edge'

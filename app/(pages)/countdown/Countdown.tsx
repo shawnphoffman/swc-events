@@ -3,7 +3,7 @@
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 // CELEBRATION START TIME
-const celebrationStartTime = new Date('2025-04-18T10:00:00+09:00').getTime()
+const celebrationStartTime = new Date('2027-04-01T10:00:00-07:00').getTime()
 
 const minuteSeconds = 60
 const hourSeconds = 3600
@@ -95,7 +95,8 @@ function CountdownCircle({ duration, initialRemainingTime, updateInterval, shoul
 	return (
 		<CountdownCircleTimer
 			{...timerProps}
-			colors={['#7e22ce', '#9333ea', '#a855f7', '#c084fc', '#d8b4fe']}
+			// colors={['#7e22ce', '#9333ea', '#a855f7', '#c084fc', '#d8b4fe']}
+			colors={['#9f7421', '#c28d28', '#d7a23d', '#deb360', '#e6c484']}
 			colorsTime={[duration, duration * 0.75, duration * 0.5, duration * 0.25, 0]}
 			trailColor="#f3e8ff"
 			duration={duration}
