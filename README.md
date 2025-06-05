@@ -1,1 +1,1 @@
-# Star Wars Celebration Events 2025
+# Star Wars Celebration Events 2027

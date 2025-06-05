@@ -9,11 +9,11 @@ const defaultUrl = process.env.VERCEL_URL ? `https://swc.events/` : 'http://loca
 
 export const metadata: Metadata = {
 	metadataBase: new URL(defaultUrl),
-	title: `Countdown to Celebration 2025`,
-	description: 'Countdown to Star Wars Celebration 2025 in Japan!',
+	title: `Countdown to Celebration 2027`,
+	description: 'Countdown to Star Wars Celebration 2027 in Los Angeles!',
 	openGraph: {
-		title: `Countdown to Celebration 2025`,
-		description: 'Countdown to Star Wars Celebration 2025 in Japan!',
+		title: `Countdown to Celebration 2027`,
+		description: 'Countdown to Star Wars Celebration 2027 in Los Angeles!',
 		type: 'website',
 		url: '/countdown',
 		// images: ['https://swc.events/api/og'],

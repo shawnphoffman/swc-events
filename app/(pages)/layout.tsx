@@ -11,18 +11,18 @@ const defaultUrl = process.env.VERCEL_URL ? `https://swc.events` : 'http://local
 
 export const metadata: Metadata = {
 	metadataBase: new URL(defaultUrl),
-	title: 'Celebration 2025 Companion',
-	description: 'A no-frills Celebration 2025 companion. Search and favorite panels, quick reference, and more!',
+	title: 'Celebration 2027 Companion',
+	description: 'A no-frills Celebration 2027 companion. Search and favorite panels, quick reference, and more!',
 	openGraph: {
-		title: 'Celebration 2025 Companion',
-		description: 'A no-frills Celebration 2025 companion. Search and favorite panels, quick reference, and more!',
+		title: 'Celebration 2027 Companion',
+		description: 'A no-frills Celebration 2027 companion. Search and favorite panels, quick reference, and more!',
 		type: 'website',
 		url: '/',
 		locale: 'en_US',
 	},
 	appleWebApp: {
 		statusBarStyle: 'black-translucent',
-		title: 'Celebration 2025 Companion',
+		title: 'Celebration 2027 Companion',
 	},
 }
 
