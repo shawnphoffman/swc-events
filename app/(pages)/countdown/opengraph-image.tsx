@@ -53,7 +53,7 @@ export default async function Image() {
 					}}
 				>
 					{/* eslint-disable-next-line @next/next/no-img-element */}
-					<img alt="" src={'https://swc.events/bg.png'} width={1200} height={630} />
+					<img alt="" src={'https://swc.events/bg27.png'} width={1200} height={630} />
 					{/* <img alt="" src={'http://localhost:3000/bg.png'} width={1200} height={630} /> */}
 				</div>
 				<div
