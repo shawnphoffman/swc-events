@@ -3,7 +3,8 @@
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 // CELEBRATION START TIME
-const celebrationStartTime = new Date('2027-04-01T10:00:00-07:00').getTime()
+const celebrationStartTime = 1806584400000 // as per celebration website
+// const celebrationStartTime = new Date('2027-04-01T10:00:00-07:00').getTime()
 
 const minuteSeconds = 60
 const hourSeconds = 3600
