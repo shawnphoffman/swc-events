@@ -1,7 +1,3 @@
-.stars {
-	position: relative;
-}
-
 #stars {
 	width: 1px;
 	height: 1px;
@@ -1361,5 +1357,13 @@
 	}
 	to {
 		transform: translateY(-2000px);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	#stars,
+	#stars2,
+	#stars3 {
+		animation: none;
 	}
 }
