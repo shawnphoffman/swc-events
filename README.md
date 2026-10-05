@@ -32,6 +32,20 @@ Other scripts: `pnpm build`, `pnpm test`, `pnpm typecheck`, `pnpm lint`, `pnpm f
 | `SCHEDULE_ENDPOINT` | Official schedule JSON (`{ schedules: [...] }`). Server-only. Falls back to the legacy `NEXT_PUBLIC_SCHEDULE_ENDPOINT`, which is safe because rows outside the show year are dropped. |
 | `VENDOR_ENDPOINT` | Official exhibitor JSON (`{ space_orders: [...] }`). Server-only. No legacy fallback: vendor rows have no dates, and the old URL still serves the 2023 London list. |
 | `SCHEDULE_SOURCE` | Optional. `sample` forces sample data, `live` disables the dev fallback. |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL (`SWC Events 2027`). Public. |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase publishable key (`sb_publishable_...`). Public; row level security guards the data. Without these two, account features hide and favorites stay device-only. |
+| `CRON_SECRET` | Optional. When set, the keep-alive cron requires it as a bearer token. |
+
+## Accounts and sync
+
+Setup steps for going live are in [runbook-accounts.md](docs/runbook-accounts.md).
+
+Saved events and vendor bookmarks are local-first ([synced-set.ts](lib/sync/synced-set.ts)): every change lands in `localStorage` immediately (works offline on show-floor wifi) and is queued. When signed in, the queue is pushed to Supabase and the account copy is pulled back on sign-in, focus, reconnect, and every two minutes. The first sign-in on a device merges whatever was saved there into the account; an explicit sign-out clears the device.
+
+- Sign-in: Google, Discord, or a 6-digit emailed code (codes instead of links, because links open in the mail app's browser and can't sign in a home-screen web app).
+- Schema and row level security: [supabase/migrations](supabase/migrations). Profiles are private by default; a public profile needs a handle and is served at `/u/[handle]`.
+- Auth settings (redirect URLs, email template, Resend SMTP, OAuth providers): [configure-auth.sh](supabase/configure-auth.sh), applied with the Supabase Management API.
+- Keep-alive: a daily Vercel cron ([vercel.ts](vercel.ts)) pings the database so the free-tier project never pauses.
 
 ## How data flows
 
