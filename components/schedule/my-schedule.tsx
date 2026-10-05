@@ -1,17 +1,19 @@
 'use client'
 
 import { useMemo } from 'react'
-import { CalendarPlusIcon, CalendarSyncIcon, HeartIcon, PrinterIcon, Share2Icon, TriangleAlertIcon, UsersIcon } from 'lucide-react'
+import { CalendarPlusIcon, CalendarSyncIcon, CloudUploadIcon, HeartIcon, PrinterIcon, Share2Icon, TriangleAlertIcon, UsersIcon } from 'lucide-react'
 import Link from 'next/link'
 import { parseAsArrayOf, parseAsString, useQueryState } from 'nuqs'
 import { toast } from 'sonner'
 
+import { openSignIn } from '@/components/auth/sign-in-dialog'
 import { Alert, AlertAction, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty'
 import { useFavorites } from '@/hooks/use-favorites'
 import { useNow } from '@/hooks/use-now'
+import { useSession } from '@/hooks/use-session'
 import type { EventSummary } from '@/lib/schedule/summary'
 import { formatDayLong, overlaps } from '@/lib/time'
 
@@ -42,6 +44,7 @@ function conflictIds(events: EventSummary[]): Set<string> {
 
 export function MySchedule({ events }: { events: EventSummary[] }) {
 	const favorites = useFavorites()
+	const session = useSession()
 	const [shared, setShared] = useQueryState('shared', parseAsArrayOf(parseAsString).withDefault([]))
 	const now = useNow(30_000)
 
@@ -166,6 +169,21 @@ export function MySchedule({ events }: { events: EventSummary[] }) {
 				</Button>
 			</div>
 
+			{session.status === 'signed-out' && (
+				<Alert data-print="hide">
+					<CloudUploadIcon />
+					<AlertTitle>Saved on this device only</AlertTitle>
+					<AlertDescription>
+						Browsers can clear site data, and it won&apos;t follow you to your phone. Sign in to keep it safe and synced.
+					</AlertDescription>
+					<AlertAction>
+						<Button size="sm" onClick={openSignIn}>
+							Sign in
+						</Button>
+					</AlertAction>
+				</Alert>
+			)}
+
 			{conflicts.size > 0 && (
 				<Alert variant="destructive">
 					<TriangleAlertIcon />
@@ -185,7 +203,7 @@ export function MySchedule({ events }: { events: EventSummary[] }) {
 						<Button
 							size="sm"
 							variant="outline"
-							onClick={() => missing.forEach(id => favorites.toggle(id))}
+							onClick={() => favorites.removeMany(missing)}
 						>
 							Remove
 						</Button>

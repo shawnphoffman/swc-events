@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import icon from '@/app/icon.png'
+import { AccountButton } from '@/components/auth/account-button'
 import { useFavorites } from '@/hooks/use-favorites'
 import { cn } from '@/lib/utils'
 
@@ -98,6 +99,9 @@ export function SiteHeader() {
 						<WithPathname render={pathname => <HeaderLinks pathname={pathname} />} />
 					</Suspense>
 				</nav>
+				<div className="ml-auto md:ml-2">
+					<AccountButton />
+				</div>
 			</div>
 		</header>
 	)

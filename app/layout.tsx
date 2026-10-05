@@ -1,11 +1,14 @@
 import './globals.css'
 
+import { Suspense } from 'react'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
+import { SignInDialog } from '@/components/auth/sign-in-dialog'
+import { SyncAgent } from '@/components/auth/sync-agent'
 import { MobileTabBar, SiteHeader } from '@/components/site-nav'
 import { Starfield } from '@/components/starfield'
 import { Toaster } from '@/components/ui/sonner'
@@ -48,6 +51,11 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
 					<main className="mx-auto flex w-full max-w-6xl flex-col px-4 pt-4 pb-28 md:pb-12">{children}</main>
 					<MobileTabBar />
 					<Toaster position="top-center" />
+					<SyncAgent />
+					{/* usePathname() inside; keep it out of the prerendered shell's blocking path */}
+					<Suspense>
+						<SignInDialog />
+					</Suspense>
 				</NuqsAdapter>
 				<Analytics />
 				<SpeedInsights />
