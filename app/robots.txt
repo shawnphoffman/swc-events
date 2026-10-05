@@ -1,5 +1,0 @@
-# https://www.robotstxt.org/robotstxt.html
-
-User-agent: _
-Allow: /api/og/_
-Disallow: /
