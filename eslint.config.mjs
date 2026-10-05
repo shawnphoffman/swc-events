@@ -9,7 +9,7 @@ export default defineConfig([
 	{
 		plugins: { 'simple-import-sort': simpleImportSort },
 		rules: {
-			// Same groups as @shawnphoffman/eslint-config
+			// Groups: side effects, packages, aliases, parents, siblings
 			'simple-import-sort/imports': [
 				'error',
 				{
