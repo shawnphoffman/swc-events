@@ -4,7 +4,7 @@ import { useSyncExternalStore } from 'react'
 import type { User } from '@supabase/supabase-js'
 
 import { getSupabaseBrowserClient } from '@/lib/supabase/client'
-import { isSupabaseConfigured } from '@/lib/supabase/env'
+import { accountsEnabled } from '@/lib/supabase/env'
 
 export type SessionState =
 	| { status: 'disabled'; user: null }
@@ -16,7 +16,7 @@ const DISABLED: SessionState = { status: 'disabled', user: null }
 const LOADING: SessionState = { status: 'loading', user: null }
 const SIGNED_OUT: SessionState = { status: 'signed-out', user: null }
 
-let state: SessionState = isSupabaseConfigured ? LOADING : DISABLED
+let state: SessionState = accountsEnabled ? LOADING : DISABLED
 let started = false
 const listeners = new Set<() => void>()
 
@@ -43,7 +43,7 @@ function subscribe(listener: () => void) {
 export const getSessionState = () => state
 export const subscribeSession = subscribe
 
-const getServerSnapshot = () => (isSupabaseConfigured ? LOADING : DISABLED)
+const getServerSnapshot = () => (accountsEnabled ? LOADING : DISABLED)
 
 export function useSession(): SessionState {
 	return useSyncExternalStore(subscribe, getSessionState, getServerSnapshot)

@@ -7,6 +7,7 @@ Everything needed to take sign-in and sync from "built" to "live". Steps are in 
 - Supabase project **SWC Events 2027** (`lwithjozvrufswjnnrdx`, us-west-1, free plan) with tables, row level security, and the keep-alive function.
 - Vercel env vars: `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (all environments), `CRON_SECRET` (Production). The old `NEXT_PUBLIC_SUPABASE_ANON_KEY` is removed.
 - Code: sign-in (Google, Discord, emailed code), sync, account page, public profiles, account deletion, daily keep-alive cron.
+- Production: the 2027 site is live on `main` with `NEXT_PUBLIC_ACCOUNTS=off` in Production, so swc.events shows no **Sign in** button until step 8. The keep-alive cron already runs daily, so the database stays awake.
 
 **What you'll need open:** a terminal in this repo, the [Supabase dashboard](https://supabase.com/dashboard/project/lwithjozvrufswjnnrdx), [Resend](https://resend.com), [Porkbun](https://porkbun.com) (DNS for `swc.events`), [Google Cloud Console](https://console.cloud.google.com), and the [Discord Developer Portal](https://discord.com/developers/applications).
 
@@ -112,13 +113,13 @@ It's safe to re-run.
 
 *Where: terminal, then a browser and your phone.*
 
-- [ ] Push the branch. Vercel builds a preview automatically:
+- [ ] Build a preview deploy from your checkout of `main`. Previews have accounts turned on (`NEXT_PUBLIC_ACCOUNTS` is only set in Production). The command prints the preview URL when it finishes:
 
 ```bash
-git push -u origin swc-2027-modernize
+vercel deploy
 ```
 
-- [ ] Open the preview URL from the Vercel dashboard and run through:
+- [ ] Open the preview URL and run through:
   - [ ] **Email code:** Sign in > enter an email > the code arrives from `no-reply@swc.events` > entering it signs you in.
   - [ ] **Google** and **Discord:** each signs in and returns you to the page you started on.
   - [ ] **Merge:** sign out, save a few events while signed out, sign in. The events are still there and the account menu says **Synced**.
@@ -129,14 +130,29 @@ git push -u origin swc-2027-modernize
 
 **Done when:** every box above is checked.
 
-## 8. Ship to production
+## 8. Turn on accounts in production
 
-*Where: GitHub/Vercel.*
+*Where: terminal.* The code is already live; this removes the switch that hides sign-in.
 
-- [ ] Merge `swc-2027-modernize` into `main` and let Vercel deploy production.
-- [ ] Vercel dashboard: **Settings > Cron Jobs**. `/api/cron/keep-alive` is listed (daily at 15:17 UTC). Click **Run** once.
+- [ ] Remove the switch from Production:
 
-**Done when:** the run's logs show a 200 response. A 401 means `CRON_SECRET` is missing in Production; a 503 means the Supabase env vars didn't reach the deploy.
+```bash
+vercel env rm NEXT_PUBLIC_ACCOUNTS production --yes
+```
+
+- [ ] Redeploy production. The switch is read at build time, so the old build keeps hiding sign-in until this finishes:
+
+```bash
+vercel deploy --prod
+```
+
+**Done when:** swc.events shows a **Sign in** button in the header and signing in works.
+
+To hide accounts again, add the switch back and redeploy:
+
+```bash
+printf off | vercel env add NEXT_PUBLIC_ACCOUNTS production
+```
 
 ## 9. Optional: remove unused Vercel env vars
 
@@ -172,4 +188,5 @@ Also revoke the Supabase access token from step 6 if you haven't.
 | Code email never arrives | Domain not verified, or Resend key lacks sending access | Step 3; check **Logs** in Resend |
 | "Email rate limit exceeded" | Supabase email rate limit | The script sets 300 per hour; raise `rate_limit_email_sent` in [configure-auth.sh](../supabase/configure-auth.sh) and re-run |
 | Delete account says it isn't available | `SUPABASE_SECRET_KEY` missing for that environment | Step 2, then redeploy |
-| Sign-in or sync fails everywhere, dashboard shows project paused | Keep-alive didn't run for 7+ days | Restore the project in the Supabase dashboard, then check step 8 |
+| No **Sign in** button on swc.events | `NEXT_PUBLIC_ACCOUNTS=off` still set in Production, or production wasn't redeployed after removing it | Step 8 |
+| Sign-in or sync fails everywhere, dashboard shows project paused | Keep-alive didn't run for 7+ days | Restore the project in the Supabase dashboard, then in Vercel **Settings > Cron Jobs** click **Run** on `/api/cron/keep-alive` and check for a 200. A 401 means `CRON_SECRET` is missing in Production; a 503 means the Supabase env vars didn't reach the deploy |

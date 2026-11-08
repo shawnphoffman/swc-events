@@ -34,6 +34,7 @@ Other scripts: `pnpm build`, `pnpm test`, `pnpm typecheck`, `pnpm lint`, `pnpm f
 | `SCHEDULE_SOURCE` | Optional. `sample` forces sample data, `live` disables the dev fallback. |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL (`SWC Events 2027`). Public. |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase publishable key (`sb_publishable_...`). Public; row level security guards the data. Without these two, account features hide and favorites stay device-only. |
+| `NEXT_PUBLIC_ACCOUNTS` | Optional. `off` hides sign-in, sync and public profiles while keeping the database connected for the keep-alive cron. Read at build time, so redeploy after changing it. |
 | `CRON_SECRET` | Optional. When set, the keep-alive cron requires it as a bearer token. |
 
 ## Accounts and sync
