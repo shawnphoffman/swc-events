@@ -54,9 +54,9 @@ vercel env add SUPABASE_SECRET_KEY preview --sensitive
 
 **Done when:** `vercel env ls` lists `SUPABASE_SECRET_KEY` for Production and Preview.
 
-## 3. Set up Resend for sign-in emails
+## 3. Later: set up Resend for sign-in emails
 
-*Where: Resend, then Porkbun.* Supabase's built-in email sender allows only a few messages per hour; Resend sends the 6-digit codes.
+*Where: Resend, then Porkbun.* Skip this until email sign-in needs to work for the public. Until then, Supabase's built-in sender delivers the 6-digit codes, but only to members of your Supabase organization and only a few an hour, which is enough for testing with your own address. When you do set it up, re-run step 6 with the Resend key.
 
 - [ ] Resend: **Domains > Add domain** > `swc.events`.
 - [ ] Porkbun: **Domain Management > swc.events > DNS**. Add each record Resend shows (usually an MX and a TXT on `send`, and a TXT on `resend._domainkey`). In Porkbun's **Host** field enter only the part before `.swc.events` (for example `send`). These live on a subdomain, so they don't touch any existing email setup on the root domain.
@@ -93,7 +93,7 @@ vercel env add SUPABASE_SECRET_KEY preview --sensitive
 *Where: Supabase dashboard, then terminal.*
 
 - [ ] Create a personal access token at [supabase.com/dashboard/account/tokens](https://supabase.com/dashboard/account/tokens). Name it `swc-configure-auth`. You can revoke it right after this step.
-- [ ] Run the settings script. It loads the Discord values from `.env`, then silently prompts for the Supabase token, Resend key, and Google client ID and secret:
+- [ ] Run the settings script. It loads the Discord values from `.env`, then silently prompts for the Supabase token, Google client ID and secret, and Resend key (press Enter to skip it):
 
 ```bash
 set -a && source .env && set +a && ./supabase/configure-auth.sh
@@ -102,7 +102,7 @@ set -a && source .env && set +a && ./supabase/configure-auth.sh
 The script ([configure-auth.sh](../supabase/configure-auth.sh)) sets:
 - the site URL and allowed redirect URLs (production, previews, localhost)
 - 6-digit code emails
-- Resend as the email sender
+- Resend as the email sender, when a Resend key is given
 - the Google and Discord providers
 
 It's safe to re-run.
@@ -120,7 +120,7 @@ vercel deploy
 ```
 
 - [ ] Open the preview URL and run through:
-  - [ ] **Email code:** Sign in > enter an email > the code arrives from `no-reply@swc.events` > entering it signs you in.
+  - [ ] **Email code:** Sign in > enter your own email > the code arrives (from Supabase until Resend is set up, then from `no-reply@swc.events`) > entering it signs you in.
   - [ ] **Google** and **Discord:** each signs in and returns you to the page you started on.
   - [ ] **Merge:** sign out, save a few events while signed out, sign in. The events are still there and the account menu says **Synced**.
   - [ ] **Cross-device:** save events on the laptop, sign in on your phone. The same events appear (re-focus the tab to force a sync).

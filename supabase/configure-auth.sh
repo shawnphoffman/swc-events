@@ -4,7 +4,8 @@
 #
 # Reads these from the environment, prompting for any that are missing:
 #   SUPABASE_ACCESS_TOKEN   personal access token (https://supabase.com/dashboard/account/tokens)
-#   RESEND_API_KEY          Resend API key with sending access for swc.events
+#   RESEND_API_KEY          optional: Resend API key with sending access for swc.events.
+#                           Leave empty to keep Supabase's built-in sender (team members only, a few emails an hour).
 #   GOOGLE_CLIENT_ID        Google OAuth web client
 #   GOOGLE_CLIENT_SECRET
 #   DISCORD_CLIENT_ID       Discord application (OAuth2)
@@ -15,7 +16,7 @@ PROJECT_REF="${PROJECT_REF:-lwithjozvrufswjnnrdx}"
 
 # Prompt (without echo) for anything not already in the environment, so secrets
 # never need to be written to a file or shell history.
-for var in SUPABASE_ACCESS_TOKEN RESEND_API_KEY GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET DISCORD_CLIENT_ID DISCORD_CLIENT_SECRET; do
+for var in SUPABASE_ACCESS_TOKEN GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET DISCORD_CLIENT_ID DISCORD_CLIENT_SECRET; do
 	if [ -z "${!var:-}" ]; then
 		if [ -t 0 ]; then
 			read -rsp "$var: " "${var?}"
@@ -28,6 +29,12 @@ for var in SUPABASE_ACCESS_TOKEN RESEND_API_KEY GOOGLE_CLIENT_ID GOOGLE_CLIENT_S
 		fi
 	fi
 done
+
+if [ -z "${RESEND_API_KEY:-}" ] && [ -t 0 ]; then
+	read -rsp "RESEND_API_KEY (Enter to skip): " RESEND_API_KEY
+	echo
+fi
+export RESEND_API_KEY="${RESEND_API_KEY:-}"
 
 read -r -d '' CODE_EMAIL <<'HTML' || true
 <div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;max-width:420px;margin:0 auto;padding:24px;color:#111">
@@ -42,7 +49,7 @@ payload=$(
 	CODE_EMAIL="$CODE_EMAIL" python3 - <<'PY'
 import json, os
 e = os.environ
-print(json.dumps({
+config = {
     "site_url": "https://swc.events",
     "uri_allow_list": ",".join([
         "https://swc.events/**",
@@ -58,14 +65,6 @@ print(json.dumps({
     "mailer_templates_magic_link_content": e["CODE_EMAIL"],
     "mailer_subjects_confirmation": "{{ .Token }} is your SWC Events sign-in code",
     "mailer_templates_confirmation_content": e["CODE_EMAIL"],
-    # Resend SMTP (Supabase's built-in sender is limited to a few emails per hour).
-    "smtp_host": "smtp.resend.com",
-    "smtp_port": "465",
-    "smtp_user": "resend",
-    "smtp_pass": e["RESEND_API_KEY"],
-    "smtp_admin_email": "no-reply@swc.events",
-    "smtp_sender_name": "SWC Events",
-    "rate_limit_email_sent": 300,
     # Social providers
     "external_google_enabled": True,
     "external_google_client_id": e["GOOGLE_CLIENT_ID"],
@@ -73,7 +72,20 @@ print(json.dumps({
     "external_discord_enabled": True,
     "external_discord_client_id": e["DISCORD_CLIENT_ID"],
     "external_discord_secret": e["DISCORD_CLIENT_SECRET"],
-}))
+}
+# Resend SMTP (Supabase's built-in sender is limited to a few emails per hour).
+# Skipped when no key is given, leaving the current sender in place.
+if e["RESEND_API_KEY"]:
+    config.update({
+        "smtp_host": "smtp.resend.com",
+        "smtp_port": "465",
+        "smtp_user": "resend",
+        "smtp_pass": e["RESEND_API_KEY"],
+        "smtp_admin_email": "no-reply@swc.events",
+        "smtp_sender_name": "SWC Events",
+        "rate_limit_email_sent": 300,
+    })
+print(json.dumps(config))
 PY
 )
 
