@@ -182,7 +182,7 @@ Also revoke the Supabase access token from step 6 if you haven't.
 
 | Symptom | Likely cause | Fix |
 | --- | --- | --- |
-| "Sign-in didn't finish" on /account after Google or Discord | Redirect URL not allowed | Re-run step 6; check the preview URL matches `swc-events-*-shawnhoffman.vercel.app` |
+| "Sign-in didn't finish" on /account after Google or Discord | Redirect URL not allowed | Re-run step 6; check the preview URL matches `swc-events-*-shawn-hoffmans-projects.vercel.app` |
 | Google says "Access blocked" or "app not verified" | App still in Testing | Step 4, **Audience > Publish app** |
 | Discord says "Invalid OAuth2 redirect_uri" | Redirect missing in Discord | Step 5 |
 | Code email never arrives | Domain not verified, or Resend key lacks sending access | Step 3; check **Logs** in Resend |

@@ -46,7 +46,7 @@ print(json.dumps({
     "site_url": "https://swc.events",
     "uri_allow_list": ",".join([
         "https://swc.events/**",
-        "https://swc-events-*-shawnhoffman.vercel.app/**",
+        "https://swc-events-*-shawn-hoffmans-projects.vercel.app/**",
         "http://localhost:3000/**",
         "http://localhost:3100/**",
     ]),
